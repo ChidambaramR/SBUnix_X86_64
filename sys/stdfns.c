@@ -58,9 +58,9 @@ void write_time(uint16_t su, uint16_t st, uint16_t mu, uint16_t mt, uint16_t hu,
 //       kprintf("Timer handled\n");
 }
 
-void *memset(void *s, int c, int n)
+void *memset(void *s, uint8_t c, int n)
 {
-    unsigned char* p=s;
+    unsigned char* p= (unsigned char*)s;
     while(n--)
         *p++ = (unsigned char)c;
     return s;

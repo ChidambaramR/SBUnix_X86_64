@@ -6,28 +6,19 @@
 #include <sys/irq.h>
 #include <sys/kb.h>
 #include <sys/timer.h>
+#include <sys/mm/regions.h>
+#include <sys/mm/mmgr.h>
 /*
 +defs.h - Included typedefs for datatypes
 */
 #include <defs.h>
 
-
-
 void start(uint32_t* modulep, void* physbase, void* physfree)
 {
-       cls();
-       printf("Screen has been cleared. In function \"%s\", its address = 0x%p \n\n",__FUNCTION__,(uint64_t)start);
-
-	struct smap_t {
-		uint64_t base, length;
-		uint32_t type;
-	}__attribute__((packed)) *smap;
-	while(modulep[0] != 0x9001) modulep += modulep[1]+2;
-	for(smap = (struct smap_t*)(modulep+2); smap < (struct smap_t*)((char*)modulep+modulep[1]+2*4); ++smap) {
-		if (smap->type == 1 /* memory */ && smap->length != 0) {
-			printf("Available Physical Memory [%x-%x]\n", smap->base, smap->base + smap->length);
-		}
-	}
+        cls();
+        printf("Screen has been cleared. In function \"%s\", its address = 0x%p \n\n",__FUNCTION__,(uint64_t)start);
+        mm_phy_init(modulep);
+	
 	// kernel starts here
 	while(1);
 }
