@@ -138,6 +138,35 @@ int mmgr_get_first_free(){
   return -1;
 }
 
+
+int mmgr_get_first_range_free(int size){
+  uint32_t i,j,count;
+  uint64_t bit;
+  for(i=0; i< (get_total_blocks() / 64); i++){
+      if(mmgr_memory_map[i] != 0xFFFFFFFFFFFFFFFF){
+          for(j=0; j<64; j++){
+              bit = 1<<j;
+              if(!(mmgr_memory_map[i] & bit)){
+                  uint32_t temp_bit = i*64; // Go to that corresponding frame
+                  uint32_t free = 0;
+                  temp_bit += j;
+                  for(count=0; count<size; count++){
+                      if( !(mmgr_is_block_free(temp_bit + count)) )
+                          free++;
+                      else{
+                          j=j+(count);
+                          break; // No use of being in this loop anymore
+                      }
+                      if(free == size)
+                          return ((i*64)+j);  // Found the required range. Return it
+                  }
+              }
+          }
+      }
+  }
+  return -1;
+}
+
 /*
 Allocates a page from physical memory and returns the address at the physical memory.
 Allocates only a single page
@@ -155,14 +184,43 @@ void* mmgr_alloc_block(){
   mmgr_set_block(page_frame);
   mmgr_used_blocks++;
 
-  printf("First free page_frame = %d and its address is %p",page_frame,(page_frame * PHY_PAGE_SIZE));
+  //printf("First free page_frame = %d and its address is %p",page_frame,(page_frame * PHY_PAGE_SIZE));
   return ((void *)(page_frame * PHY_PAGE_SIZE));
 }
+
+void* mmgr_alloc_size_blocks(int size){
+  uint64_t page_frame;
+  int i;
+  if(get_total_usable_blocks() <= size)
+    return NULL;
+  
+  page_frame = mmgr_get_first_range_free(size);
+  if(page_frame == -1)
+    return NULL;
+
+  for(i=0; i<size; i++){
+    mmgr_set_block(page_frame + i);     
+  }
+
+  mmgr_used_blocks += size;
+
+  return ((void *)(page_frame * PHY_PAGE_SIZE));
+}
+  
 
 void mmgr_free_block(void *p){
   int page_frame = (((uint64_t)p)/BLOCK_SIZE);
   mmgr_unset_block(page_frame);
   mmgr_used_blocks--;
+  
+}
+
+void mmgr_free_size_blocks(void *p, int size){
+  int page_frame = (((uint64_t)p)/BLOCK_SIZE);
+  int i;
+  for(i=0; i<size; i++)
+    mmgr_unset_block(page_frame + i);
+  mmgr_used_blocks -= size;
   
 }
 /*
@@ -204,7 +262,6 @@ void mmgr_phy_deinit_regions(uint64_t base, uint64_t length){
 
 void mm_phy_init(uint32_t* modulep){
         struct smap_t *smap;
-        uint64_t *test,*test1;
         uint16_t i;
         while(modulep[0] != 0x9001) modulep += modulep[1]+2;
         for(smap = (struct smap_t*)(modulep+2); smap < (struct smap_t*)((char*)modulep+modulep[1]+2*4); ++smap) {
@@ -232,14 +289,7 @@ void mm_phy_init(uint32_t* modulep){
         for(i=0; i<usable_mem_counter; i++){
             mmgr_phy_init_regions(sys_usable_memory[i].base,sys_usable_memory[i].length);
         } 
-        printf("\n\n2. Usable blocks = %d\n\n",get_total_usable_blocks());
-        print_usable_system_memory();
-        test = (uint64_t*)mmgr_alloc_block();
-        *test = 5;
-        printf("\n value at %p = %d\n",test,*test);
-        test1 = (uint64_t*)mmgr_alloc_block();
-        *test1 = 50;
-        printf("\n value at %p = %d\n",test1,*test1);
+      
 }
 
 
