@@ -115,6 +115,12 @@ inline void mmgr_unset_block (int bit) {
   mmgr_memory_map[bit / 64] &= ~ (1 << (bit % 64));
 }
 
+void mmgr_print_memory_status(){
+  printf("\nTotal usable memory = %d\n",get_total_usable_memory());
+  printf("Total number of blocks = %d\n",get_total_blocks());
+  printf("Total number of used blocks = %d\n",get_used_blocks());
+  printf("Total number of usable blocks = %d\n\n",get_total_usable_blocks()); 
+}
 
 /*
 Return 1st free block. Note that, each bit in the bit map array will represent a block.
