@@ -14,6 +14,16 @@ struct smap_t {
 }__attribute__((packed));
 
 void mm_phy_init(uint32_t *);
+
+void mmgr_free_size_blocks(void*, int);
+
+void mmgr_free_block(void *);
+
+void* mmgr_alloc_size_blocks(int);
+
+void* mmgr_alloc_block();
+
+void mmgr_print_memory_status();
 /*enum memory_errors{
     E_ALLOC_SUCCES = 0,
     E_ALLOC_OUT_OF_MEMORY = -1
