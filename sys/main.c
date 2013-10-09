@@ -8,6 +8,7 @@
 #include <sys/timer.h>
 #include <sys/mm/regions.h>
 #include <sys/mm/mmgr.h>
+#include <sys/mm/vmmgr_virtual.h>
 /*
 +defs.h - Included typedefs for datatypes
 */
@@ -32,6 +33,7 @@ void start(uint32_t* modulep, void* physbase, void* physfree)
         printf("address of test = %p, test2 = %p test3 = %p test4 = %p test5 = %p test6 = %p\n",test,test2,test3,test4,test5,test6);
         mmgr_print_memory_status();
         printf("\n\n Is paging %d\n",get_paging_status());
+        vmmgr_init();
 	
 	// kernel starts here
 	while(1);

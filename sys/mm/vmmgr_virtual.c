@@ -179,6 +179,7 @@ void vmmgr_init(){
         return;
     }
     memset(ptable,0,sizeof(pte));
+    memset(ptable1,0,sizeof(pte));
 
     /*
     We are creating two page directory tables because we are mapping two virtual
@@ -284,7 +285,7 @@ void vmmgr_init(){
     pml4e_entry_set_frame( pml4entry1, (uint64_t)pdptable);
   
     _cur_pml4_base_pointer = (uint64_t)(&(pml4table->entry));
-    vmmgr_switch_pml4_directory(pml4table);
+    //vmmgr_switch_pml4_directory(pml4table);
 
     /*
     Important routine.

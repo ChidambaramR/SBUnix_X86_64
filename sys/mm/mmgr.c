@@ -262,14 +262,12 @@ void mmgr_phy_init_regions(uint64_t base, uint64_t length){
         the first frame. It will confuse with NULL pointer. So we allocate only from the 
         1st block.
         */
-        mmgr_set_block(0); // Kernel pages
+//        mmgr_set_block(0); // Kernel pages
         /*
         We allocated an 8192 byte array to keep track of free pages. It needs approx 3
         physical pages. So 
         */
-        mmgr_set_block(1); 
-        mmgr_set_block(2);
-        mmgr_set_block(3);
+        
 }
 
 /*
@@ -317,6 +315,10 @@ void mm_phy_init(uint32_t* modulep){
         for(i=0; i<usable_mem_counter; i++){
             mmgr_phy_init_regions(sys_usable_memory[i].base,sys_usable_memory[i].length);
         } 
+
+        for(i=0; i<1024; i++)
+          mmgr_set_block(i); 
+        mmgr_used_blocks += 1024;
       
 }
 
