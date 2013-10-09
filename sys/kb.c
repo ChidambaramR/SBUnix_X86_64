@@ -131,7 +131,6 @@ void kybrd_enc_send_cmd (uint8_t cmd) {
 
 void keyboard_handler(regs *r){
   uint8_t scancode;
-  bool extended;
   KEYCODE key;
   
   // Read the scan code only if the keyboard controller output buffer is full.
@@ -140,10 +139,8 @@ void keyboard_handler(regs *r){
       scancode = keybrd_enc_read_buf();
       key = scan_code[scancode];
       //Check if CAPS or SHIFT or any special key is pressed
-      if(scancode == 0xE0 || scancode == 0xE1)
-          extended = TRUE;
+      if(scancode == 0xE0 || scancode == 0xE1){}
       else{
-          extended = FALSE;
           // See if this is break code. i.e Test bit 7 of the received scan code
           if(scancode & 0x80){
               // convert the break code into its make code equivalent. The make code

@@ -13,6 +13,8 @@
 */
 #include <defs.h>
 
+extern bool get_paging_status();
+
 void start(uint32_t* modulep, void* physbase, void* physfree)
 {
         uint64_t *test,*test2,*test3,*test4,*test5,*test6;
@@ -29,6 +31,7 @@ void start(uint32_t* modulep, void* physbase, void* physfree)
         test6 = (uint64_t*)mmgr_alloc_block(1);
         printf("address of test = %p, test2 = %p test3 = %p test4 = %p test5 = %p test6 = %p\n",test,test2,test3,test4,test5,test6);
         mmgr_print_memory_status();
+        printf("\n\n Is paging %d\n",get_paging_status());
 	
 	// kernel starts here
 	while(1);

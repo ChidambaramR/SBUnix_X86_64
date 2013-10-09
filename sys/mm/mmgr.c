@@ -180,12 +180,15 @@ Allocates only a single page
 void* mmgr_alloc_block(){
   uint64_t page_frame;
   if(get_total_usable_blocks() <= 0){
+    printf("Total usable blocks is less than or equal to 0\n");
     return NULL;
   }
 
   page_frame = mmgr_get_first_free();
-  if(page_frame == -1)
+  if(page_frame == -1){
+    printf("Not able to find a matching frame\n");
     return NULL;
+  }
 
   mmgr_set_block(page_frame);
   mmgr_used_blocks++;
@@ -197,12 +200,16 @@ void* mmgr_alloc_block(){
 void* mmgr_alloc_size_blocks(int size){
   uint64_t page_frame;
   int i;
-  if(get_total_usable_blocks() <= size)
+  if(get_total_usable_blocks() <= size){
+    printf("Total usable blocks is less than or equal to 0\n");
     return NULL;
+  }
   
   page_frame = mmgr_get_first_range_free(size);
-  if(page_frame == -1)
+  if(page_frame == -1){
+    printf("Not able to find a matching frame\n");
     return NULL;
+  }
 
   for(i=0; i<size; i++){
     mmgr_set_block(page_frame + i);     
@@ -216,6 +223,10 @@ void* mmgr_alloc_size_blocks(int size){
 
 void mmgr_free_block(void *p){
   int page_frame = (((uint64_t)p)/BLOCK_SIZE);
+  if(p == NULL){
+    printf("You can't free a NULL pointer!\n");
+    return;
+  }
   mmgr_unset_block(page_frame);
   mmgr_used_blocks--;
   
@@ -224,6 +235,10 @@ void mmgr_free_block(void *p){
 void mmgr_free_size_blocks(void *p, int size){
   int page_frame = (((uint64_t)p)/BLOCK_SIZE);
   int i;
+  if(p == NULL){
+    printf("You can't free a NULL pointer!\n");
+    return;
+  }
   for(i=0; i<size; i++)
     mmgr_unset_block(page_frame + i);
   mmgr_used_blocks -= size;
@@ -247,7 +262,14 @@ void mmgr_phy_init_regions(uint64_t base, uint64_t length){
         the first frame. It will confuse with NULL pointer. So we allocate only from the 
         1st block.
         */
-        mmgr_set_block(0);
+        mmgr_set_block(0); // Kernel pages
+        /*
+        We allocated an 8192 byte array to keep track of free pages. It needs approx 3
+        physical pages. So 
+        */
+        mmgr_set_block(1); 
+        mmgr_set_block(2);
+        mmgr_set_block(3);
 }
 
 /*
@@ -302,8 +324,4 @@ void mm_phy_init(uint32_t* modulep){
 inline uint16_t mmgr_get_block_count(){
   return 0;
 }
-
-
-
-
 
