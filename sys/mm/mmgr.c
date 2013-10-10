@@ -316,7 +316,7 @@ void mm_phy_init(uint32_t* modulep){
             mmgr_phy_init_regions(sys_usable_memory[i].base,sys_usable_memory[i].length);
         } 
 
-        for(i=0; i<1024; i++)
+        for(i=0; i<1025; i++)
           mmgr_set_block(i); 
         mmgr_used_blocks += 1024;
       

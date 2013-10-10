@@ -33,6 +33,16 @@ __asm__("movq %%cr4, %0;"
   return cr4;
 }
 
+uint64_t get_cr3_register(){
+  uint64_t cr3;
+__asm__("movq %%cr3, %0;"
+      :"=r"(cr3)
+        ://No input operands
+      :"%eax"
+     );
+  printf("cr3 = %d\n",cr3);
+  return cr3;
+}
 void pmmngr_load_PDBR (uint64_t* addr) {
 /*  uint64_t* val = addr; 
   asm volatile("movq %1, %%rax"

@@ -47,6 +47,8 @@ struct page_map_level_4{
 };
 typedef struct page_map_level_4 pml4;
 
+extern uint64_t get_cr3_register();
+
 // Maps physical to virtual address
 void vmmgr_map_page(void *, void *);
 

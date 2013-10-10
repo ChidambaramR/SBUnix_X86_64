@@ -1,8 +1,8 @@
 #ifndef _STDIO_H
 #define _STDIO_H
 
-#define START_MEMORY 0xB8000 // Staring address of VGA BUFFER ( VGA MEMORY )
-#define TIMER_MEMORY 0xB8F90 // Starting address of system clock
+#define START_MEMORY 0xFFFFFFFF80400000 // Staring address of VGA BUFFER ( VGA MEMORY )
+#define TIMER_MEMORY 0xFFFFFFFF80400F90 // Starting address of system clock
 #define KEYBOARD_WARMUP_MEMORY 0xB8F8A // Starting position as mentioned in the handout
 #define MAX_ROWS 25
 #define MAX_COLUMNS 80

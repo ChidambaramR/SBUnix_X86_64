@@ -56,8 +56,7 @@ inline void vmmgr_switch_pml4_directory(pml4* p){
         return;
     }
     _cur_pml4_directory = p;
-
-    vmmgr_load_pml4(_cur_pml4_base_pointer);
+    vmmgr_load_pml4( ((uint64_t)p ));
 }
 
 inline pml4* vmmgr_get_current_pml4_directory(){
@@ -235,7 +234,8 @@ void vmmgr_init(){
     for(i=0, frame=0x200000, virt=(0xFFFFFFFF80000000+physbase); i<PAGES_PER_TABLE; i++, frame=frame+PHY_PAGE_SIZE, virt+=VIRT_PAGE_SIZE){
         pt_entry page=0;
         pt_entry_add_attrib(&page, PTE_PRESENT);
-        pt_entry_set_frame(&page, (uint64_t)frame);
+        pt_entry_add_attrib(&page, PTE_WRITABLE);
+        pt_entry_set_frame(&page, (uint64_t)(frame));
         ptable1->entry[ PAGE_TABLE_OFFSET(virt) ] = page;
     }
 
@@ -251,12 +251,12 @@ void vmmgr_init(){
     pd_entry* pdentry1 = &pdtable->entry[ PAGE_DIRECTORY_OFFSET(0xFFFFFFFF80200000) ];
     pd_entry_add_attrib( pdentry1, PDE_PRESENT);
     pd_entry_add_attrib( pdentry1, PDE_WRITABLE);
-    pd_entry_set_frame( pdentry1, (uint64_t)ptable1);
+    pd_entry_set_frame( pdentry1, (uint64_t)((uint64_t)ptable1));
 
     pd_entry* pdentry = &pdtable->entry[ PAGE_DIRECTORY_OFFSET(0xFFFFFFFF80400000) ];
     pd_entry_add_attrib( pdentry, PDE_PRESENT);
     pd_entry_add_attrib( pdentry, PDE_WRITABLE);
-    pd_entry_set_frame( pdentry, (uint64_t)ptable);
+    pd_entry_set_frame( pdentry, (uint64_t)((uint64_t)ptable));
     
     /*
     Map the two page tables to the corresponding page directory pointer tables.Just one table
@@ -269,7 +269,7 @@ void vmmgr_init(){
     pdpe_entry* pdpentry = &(pdptable->entry[ PAGE_POINTER_OFFSET(0xFFFFFFFF80200000) ]);
     pdpe_entry_add_attrib( pdpentry, PDE_PRESENT);
     pdpe_entry_add_attrib( pdpentry, PDE_WRITABLE);
-    pdpe_entry_set_frame( pdpentry, (uint64_t)pdtable);
+    pdpe_entry_set_frame( pdpentry, (uint64_t)((uint64_t)pdtable));
 
     /*pdpe_entry* pdpentry1 = &pdptable1->entry[ PAGE_POINTER_OFFSET(0xFFFFFFFF80200000) ];
     pdpe_entry_add_attrib( pdentry, PDE_PRESENT);
@@ -282,10 +282,10 @@ void vmmgr_init(){
     pml4e_entry* pml4entry1 = &(pml4table->entry[ PAGE_PML4_OFFSET(0xFFFFFFFF80200000) ]);
     pml4e_entry_add_attrib( pml4entry1, PML4E_PRESENT );
     pml4e_entry_add_attrib( pml4entry1, PML4E_WRITABLE );
-    pml4e_entry_set_frame( pml4entry1, (uint64_t)pdptable);
+    pml4e_entry_set_frame( pml4entry1, (uint64_t)((uint64_t)pdptable));
   
     _cur_pml4_base_pointer = (uint64_t)(&(pml4table->entry));
-    //vmmgr_switch_pml4_directory(pml4table);
+    vmmgr_switch_pml4_directory(pml4table);
 
     /*
     Important routine.
