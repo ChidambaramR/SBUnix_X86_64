@@ -16,5 +16,5 @@ void write_char(int, char);
 void write_string(int, const char*);
 void write_time(uint16_t, uint16_t, uint16_t, uint16_t, uint16_t, uint16_t);
 void write_key(int, char);
-
+void PANIC(const char *, uint16_t, const char *);
 #endif

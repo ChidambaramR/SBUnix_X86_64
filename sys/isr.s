@@ -48,22 +48,36 @@
 .text
 .global _isr0
 .global _isr1
+.global _isr13
+.global _isr14
 .extern fault_handler 
 
 #  0: Divide By Zero Exception
 _isr0:
     cli
         pushq  $0x0   
-        # A normal ISR stub that pops a dummy error coDe to keep a
-                       # uniform stack frame
         pushq $0x0
         jmp isr_common_stub
 
 #  1: Debug Exception
 _isr1:
    cli
-        pushq 0x0
-        pushq 0x1
+        pushq $0x0
+        pushq $0x1
+        jmp isr_common_stub
+
+#  13: General Protection Fault
+_isr13:
+    cli
+        pushq $0x0
+        pushq $0xD
+        jmp isr_common_stub
+
+#  14: Page fault exception
+_isr14:
+   cli
+        pushq $0x0
+        pushq $0xE
         jmp isr_common_stub
 
 isr_common_stub:

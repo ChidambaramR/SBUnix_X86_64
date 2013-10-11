@@ -52,7 +52,7 @@ inline pml4e_entry* vmmgr_pml4_directory_lookup_entry(pml4* p, virtual_addr addr
 
 inline void vmmgr_switch_pml4_directory(pml4* p){
     if(!p){
-        printf("VMMGR: Page directory to be switched not found\n");
+        PANIC(__FUNCTION__,__LINE__,"VMMGR: Page directory to be switched not found\n");
         return;
     }
     _cur_pml4_directory = p;
@@ -107,7 +107,7 @@ inline void vmmgr_map_page(void* phys, void *virt){
         */
         pdpe* pdpe_dir = (pdpe*)mmgr_alloc_block();
         if(! pdpe_dir ){
-            printf("VMMGR: Out of memory while trying to allocate PDPE\n");
+            PANIC(__FUNCTION__,__LINE__,"VMMGR: Out of memory while trying to allocate PDPE\n");
             return;
         }
         memset(pdpe_dir, 0, sizeof(pdpe));
@@ -121,7 +121,7 @@ inline void vmmgr_map_page(void* phys, void *virt){
         */
         pde* pde_dir = (pde*)mmgr_alloc_block();
         if( !pde_dir ){
-            printf("VMMGR: Out of memory while trying to allocate PDE\n");
+            PANIC(__FUNCTION__,__LINE__,"VMMGR: Out of memory while trying to allocate PDE\n");
             return;
         }
         memset(pde_dir, 0, sizeof(pde));
@@ -136,7 +136,7 @@ inline void vmmgr_map_page(void* phys, void *virt){
         */
         pte* pte_dir = (pte*)mmgr_alloc_block();
         if( !pte_dir ){
-            printf("VMMGR: Out of memory while trying to allocate PTE\n");
+            PANIC(__FUNCTION__,__LINE__,"VMMGR: Out of memory while trying to allocate PTE\n");
             return;
         }
         memset(pte_dir, 0, sizeof(pte_dir));
@@ -174,7 +174,7 @@ void vmmgr_init(){
     pte* ptable = (pte*)mmgr_alloc_block(); 
     pte* ptable1 = (pte*)mmgr_alloc_block(); 
     if( !ptable || !ptable1){
-        printf("VMMGR: Out of memory which trying to allocate a default page\n");
+        PANIC(__FUNCTION__,__LINE__,"VMMGR: Out of memory which trying to allocate a default page\n");
         return;
     }
     memset(ptable,0,sizeof(pte));
@@ -187,7 +187,7 @@ void vmmgr_init(){
     */
     pde* pdtable = (pde*)mmgr_alloc_block();
     if( !pdtable ){
-        printf("VMMGR: Out of memory which trying to allocate a default page\n");
+        PANIC(__FUNCTION__,__LINE__,"VMMGR: Out of memory which trying to allocate a default page\n");
         return;
     }
     memset(pdtable,0,sizeof(pde));
@@ -199,14 +199,14 @@ void vmmgr_init(){
     */
     pdpe* pdptable = (pdpe*)mmgr_alloc_block();
     if( !pdptable ){
-        printf("VMMGR: Out of memory which trying to allocate a default page\n");
+        PANIC(__FUNCTION__,__LINE__,"VMMGR: Out of memory which trying to allocate a default page\n");
         return;
     }
     memset(pdptable,0,sizeof(pdpe));
 
     pml4* pml4table = (pml4*)mmgr_alloc_block();
     if(!pml4table){
-        printf("VMMGR: Out of memory which trying to allocate a default page\n");
+        PANIC(__FUNCTION__,__LINE__,"VMMGR: Out of memory which trying to allocate a default page\n");
         return;
     }
     memset(pml4table,0,sizeof(pml4));
