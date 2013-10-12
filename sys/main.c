@@ -15,10 +15,15 @@
 #include <defs.h>
 
 extern bool get_paging_status();
+extern void* sub_malloc(uint16_t);
+extern bool sub_free(void*);
+
+void* kphysfree = 0;
 
 void start(uint32_t* modulep, void* physbase, void* physfree)
 {
         uint64_t *test,*test2,*test3,*test4,*test5,*test6;
+        int *a,*b,*c;
         mm_phy_init(modulep);
         vmmgr_init();
         cls();
@@ -34,12 +39,24 @@ void start(uint32_t* modulep, void* physbase, void* physfree)
         printf("address of test = %p, test2 = %p test3 = %p test4 = %p test5 = %p test6 = %p\n",test,test2,test3,test4,test5,test6);
         mmgr_print_memory_status();
         printf("\n\n Is paging %d\n",get_paging_status());
-	
+        kphysfree = physfree;
+        printf("kphysfree = 0x%p and a = 0x%p\n",kphysfree,&a);
+	a = (int*)sub_malloc(37);
+        *a = 10;
+        b = (int*)sub_malloc(3);
+        *b = 5;
+        printf("a = %d and &a = 0x%p, b = %d and &b = 0x%p\n",*a,a,*b,b);
+        sub_free(a);
+        a = (int*)sub_malloc(5);
+        c = (int*)sub_malloc(6);
+        printf("a = %d and &a = 0x%p,c  = %d and &c = 0x%p\n",*a,a,*c,c);
+        
 	// kernel starts here
 	while(1);
 }
 
 #define INITIAL_STACK_SIZE 4096
+
 char stack[INITIAL_STACK_SIZE];
 uint32_t* loader_stack;
 extern char kernmem, physbase;

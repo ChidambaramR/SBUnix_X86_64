@@ -5,7 +5,8 @@
 #include <defs.h>
 extern void vmmgr_load_pml4(uint64_t);
 extern char kernmem, physbase;
-
+extern void* kphysfree;
+uint64_t bump_addr = 0;
 //Current Page directory table
 pde* _cur_pde_directory=0;
 
@@ -63,8 +64,9 @@ inline pml4* vmmgr_get_current_pml4_directory(){
     return _cur_pml4_directory;
 }
 
-inline bool vmmngr_alloc_page(){
-    return TRUE;
+inline void* vmmgr_alloc_page(){
+    bump_addr = (bump_addr + 0xFFFFFFFF80000000 + (uint64_t)kphysfree + 0x1000);
+    return (void *)bump_addr;
 }
 
 inline void vmmgr_free_page(){

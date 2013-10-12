@@ -56,7 +56,7 @@ void vmmgr_map_page(void *, void *);
 void vmmgr_init();
 
 // Allocates a page
-bool vmmgr_alloc_page();
+void* vmmgr_alloc_page();
 
 // Frees a page
 void vmmgr_free_page(); 
