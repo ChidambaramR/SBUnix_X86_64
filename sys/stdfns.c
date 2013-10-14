@@ -300,3 +300,7 @@ int strlen(const char *s){
 void PANIC(const char *s, uint16_t line, const char* str){
     printf("Kernel PANIC at %s:%d. REASON: %s",s,line,str);
 }
+
+void SYS_TRACE(const char *s, uint16_t line, const char* str){
+    printf("WARNING!! at %s:%d. REASON: %s",s,line,str);
+}

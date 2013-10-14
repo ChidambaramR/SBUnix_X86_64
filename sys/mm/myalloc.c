@@ -22,7 +22,7 @@ uint16_t free;  // Indictaes if this block is free or not
 };
 
 t_block base = NULL;  //Base pointer
-t_block last = NULL;  //Base pointer
+t_block last = NULL;  //Last pointer
 
 #define align(x) (((x-1)>>3)<<3)+8    // To align the structure
 //#define align(x) x

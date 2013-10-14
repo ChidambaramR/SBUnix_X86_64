@@ -3,6 +3,7 @@
 
 #define NULL 0
 #define TEXT_COLOR 0x1F
+#define MY_KERNEL_SIZE 40 // Size used by kernel in MB
 
 typedef unsigned long __uint64_t;
 typedef __uint64_t uint64_t;

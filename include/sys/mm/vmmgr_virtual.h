@@ -1,3 +1,6 @@
+#ifndef _VMMGR_VIRTUAL_H
+#define _VMMGR_VIRTUAL_H
+
 #include <sys/mm/vmmgr_pte.h>
 #include <sys/mm/vmmgr_pde.h>
 #include <sys/mm/vmmgr_pdpe.h>
@@ -50,7 +53,7 @@ typedef struct page_map_level_4 pml4;
 extern uint64_t get_cr3_register();
 
 // Maps physical to virtual address
-void vmmgr_map_page(void *, void *);
+void vmmgr_map_page(virtual_addr, virtual_addr);
 
 // Initialize virtual memory manager
 void vmmgr_init();
@@ -61,7 +64,9 @@ void* vmmgr_alloc_page();
 // Frees a page
 void vmmgr_free_page(); 
 
+void* sub_malloc(uint16_t);
 
+void sub_free(void*);
 /*
 Following functions gets the address of the directory table
 */
@@ -139,3 +144,5 @@ pdpe_entry* vmmgr_page_pointer_directory_lookup_entry(pdpe*, virtual_addr);
 
 // Looks up a pml4 directory
 pml4e_entry* vmmgr_pml4_directory_lookup_entry(pml4*, virtual_addr);
+
+#endif
