@@ -72,10 +72,15 @@ void split_block(t_block b,uint16_t size){
 }
 
 //Real malloc
-void* sub_malloc(uint16_t size){
+void* sub_malloc(uint16_t size, bool align){
         t_block b;
         uint16_t s;
-        s = align(size);  // Algin it to a byte boundary
+        if(align){
+          void* addr = (void*)vmmgr_page_alloc();
+          return addr;
+        }
+        else{
+        s = align(size);  // Al gin it to a byte boundary
         printf("size = %d\n",s);
         if(base){
                 last = base;
@@ -101,5 +106,6 @@ void* sub_malloc(uint16_t size){
         split_block(b,s);
         }
         return (void*)((uint64_t)b + ALLOC_BLOCK_SIZE);
+        }
 }
 

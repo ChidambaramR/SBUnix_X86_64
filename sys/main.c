@@ -15,8 +15,7 @@
 #include <defs.h>
 
 extern bool get_paging_status();
-extern void* sub_malloc(uint16_t);
-extern void sub_free(void*);
+extern void vmmgr_page_allocator_init();
 
 void* kphysfree = 0;
 
@@ -27,11 +26,12 @@ void start(uint32_t* modulep, void* physbase, void* physfree)
         kphysfree = physfree;
         mm_phy_init(modulep);
         vmmgr_init();
+        vmmgr_page_allocator_init();
         cls();
-        printf("Screen has been cleared. In function \"%s\", its address = 0x%p \n\n",__FUNCTION__,(uint64_t)start);
-        mmgr_print_memory_status();
+//        printf("Screen has been cleared. In function \"%s\", its address = 0x%p \n\n",__FUNCTION__,(uint64_t)start);
+//        mmgr_print_memory_status();
         test = (uint64_t *)mmgr_alloc_block();
-        test2 = (uint64_t*)mmgr_alloc_size_blocks(20);
+        test2 = (uint64_t*)mmgr_alloc_block();
         test3 = (uint64_t*)mmgr_alloc_block();
         mmgr_free_block(test);
         test4 = (uint64_t*)mmgr_alloc_size_blocks(2);
@@ -41,16 +41,16 @@ void start(uint32_t* modulep, void* physbase, void* physfree)
         mmgr_print_memory_status();
         printf("\n\n Is paging %d\n",get_paging_status());
         printf("kphysfree = 0x%p and a = 0x%p\n",kphysfree,&a);
-	a = (int*)sub_malloc(37);
+	a = (int*)sub_malloc(37,0);
         *a = 10;
-        b = (int*)sub_malloc(3);
+        b = (int*)sub_malloc(3,0);
         *b = 5;
         printf("a = %d and &a = 0x%p, b = %d and &b = 0x%p\n",*a,a,*b,b);
         sub_free(a);
-        a = (int*)sub_malloc(5);
-        c = (int*)sub_malloc(6);
+        a = (int*)sub_malloc(5,0);
+        c = (int*)sub_malloc(6,1);
+        *c = *a;
         printf("a = %d and &a = 0x%p,c  = %d and &c = 0x%p\n",*a,a,*c,c);
-        
 	// kernel starts here
 	while(1);
 }

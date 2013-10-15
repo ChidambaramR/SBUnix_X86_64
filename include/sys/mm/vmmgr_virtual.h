@@ -64,7 +64,7 @@ void* vmmgr_alloc_page();
 // Frees a page
 void vmmgr_free_page(); 
 
-void* sub_malloc(uint16_t);
+void* sub_malloc(uint16_t, bool);
 
 void sub_free(void*);
 /*
@@ -145,4 +145,5 @@ pdpe_entry* vmmgr_page_pointer_directory_lookup_entry(pdpe*, virtual_addr);
 // Looks up a pml4 directory
 pml4e_entry* vmmgr_pml4_directory_lookup_entry(pml4*, virtual_addr);
 
+void* vmmgr_page_alloc();
 #endif

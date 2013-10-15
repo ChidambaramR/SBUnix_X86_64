@@ -10,7 +10,7 @@ task_struct *current;
 int pid = 0;
 pml4* pgd_alloc(){
     pml4* pgd;
-    pgd = (pml4*)sub_malloc(sizeof(pml4));
+    pgd = (pml4*)sub_malloc(sizeof(pml4),1);
     return pgd;
 }
 
@@ -45,7 +45,7 @@ static mm_struct* mm_init(mm_struct *mm){
 
 mm_struct* mm_alloc(void){
     mm_struct *mm;
-    mm = (mm_struct*)sub_malloc(sizeof(mm_struct));
+    mm = (mm_struct*)sub_malloc(sizeof(mm_struct),0);
     if(!mm){
         SYS_TRACE(__FUNCTION__,__LINE__,"NoMemory while allocating mm_struct for user process");
         sub_free(mm);
@@ -62,7 +62,7 @@ int alloc_pid(){
 }
 
 task_struct* alloc_task_struct(){
-    task_struct* ts_t = (task_struct*)sub_malloc(sizeof(struct ts));
+    task_struct* ts_t = (task_struct*)sub_malloc(sizeof(struct ts), 0);
     return ts_t;
 }
 
@@ -71,7 +71,7 @@ void free_task_struct(task_struct* ts_t){
 }
 
 thread_info* alloc_thread_info(task_struct* ts_t){
-    thread_info* ti_t = (thread_info*)sub_malloc(sizeof(struct ti));
+    thread_info* ti_t = (thread_info*)sub_malloc(sizeof(struct ti), 0);
     return ti_t;
     
 }

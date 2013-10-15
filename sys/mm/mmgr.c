@@ -185,6 +185,7 @@ void* mmgr_alloc_block(){
   }
 
   page_frame = mmgr_get_first_free();
+  printf("rpf = %d ",page_frame);
   if(page_frame == -1){
     printf("Not able to find a matching frame\n");
     return NULL;
@@ -323,9 +324,9 @@ void mm_phy_init(uint32_t* modulep){
         all those blocks allocated as they will be used exclusively by the kernel. Allocations
         will start after 40MB mark. 
         */
-        for(i=0; i< (MY_KERNEL_SIZE*256); i++)
+        for(i=0; i< ((MY_KERNEL_SIZE*256)+1024); i++)
           mmgr_set_block(i); 
-        mmgr_used_blocks += 256*MY_KERNEL_SIZE;
+        mmgr_used_blocks += (256*MY_KERNEL_SIZE + 1024);
       
 }
 
