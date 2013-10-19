@@ -3,7 +3,7 @@
 
 #include <defs.h>
 
-void page_fault_handler(uint64_t);
+void page_fault_handler(uint64_t, void*);
 void general_protection_fault_handler(uint64_t);
 
 #endif

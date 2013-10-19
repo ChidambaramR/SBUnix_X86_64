@@ -1,3 +1,8 @@
+.extern currentThread
+.extern is_scheduler_on
+.extern runnable_kthread
+.extern next_runnable_kthread
+
 .align 8
 
 .macro PUSHAQ 
@@ -185,7 +190,36 @@ _irq15:
 irq_common_stub:
     PUSHAQ
     movq %rsp, %rdi    # Push us the stack
-    callq irq_handler       # A special call, preserves the 'eip' register
+    callq irq_handler
+    # Getting the interrupt number we pushed. Offset is determinged manually. 
+    movq 0x78(%rsp), %rax
+    # Handle context switching for a timer interrupt. 
+    cmp $0x32, %rax
+    jne .restore_reg
+    # If scheduler is not initialized then we should not context switch.
+    #   is_schedule_on is turned on by scheduler_init
+    cmp $0x1, (is_scheduler_on)
+    jne .restore_reg
+    lea (%rsp), %rax
+    movq (currentThread), %rdi
+    movq %rax, (%rdi)
+    # Make the current thread runnable. i.e add it to the run queue
+    callq runnable_kthread
+    # Get the next thread which is to tbe scheduled. WARNING! It can be the same thread
+    #   The address of the runnable thread is returned in the RAX register.
+    callq next_runnable_kthread
+    # !!!!!!!!!!!!!!!!!!!!!!!
+    # THE MAIN CONTEXT SWITCH
+    # !!!!!!!!!!!!!!!!!!!!!!!
+    movq %rax, (currentThread)
+    # Resotre the the value of RSP which was stored before context switch occured
+    movq (%rax), %rsp
+    POPAQ
+    # Cleaning the interrupt number and error code we pushed during _irq0 call.
+    add $0x10, %rsp
+    iretq
+    
+.restore_reg:
     POPAQ
     add $0x10, %rsp     # Cleans up the pushed error code and pushed ISR number
     iretq           # pops 5 things at once: CS, EIP, EFLAGS, SS, and ESP!

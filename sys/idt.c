@@ -22,9 +22,12 @@ void _x86_64_asm_lidt(struct idtr_t* idtr);
 void fault_handler(regs *r)
 {
       /* Is this a fault whose number is from 0 to 31? */
+      void* faulting_instruction;
+      //asm volatile("leaq (%%rip), %0;": "=r"(faulting_instruction));
+      asm volatile("movq %%rsp, %0" : "=r" (faulting_instruction));
       if (r->intNo < 32){
           switch(r->intNo){
-              case 0xE: page_fault_handler(r->errCode);
+              case 0xE: page_fault_handler(r->errCode,faulting_instruction);
                         break;
               case 0xD: general_protection_fault_handler(r->errCode);
                         break;

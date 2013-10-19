@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-void page_fault_handler(uint64_t err_code){
+void page_fault_handler(uint64_t err_code, void* err_ins){
    // A page fault has occurred.
    // The faulting address is stored in the CR2 register.
    uint64_t faulting_address;
@@ -16,7 +16,7 @@ void page_fault_handler(uint64_t err_code){
 //   int id = err_code & 0x10;          // Caused by an instruction fetch?
 
    // Output an error message.
-   cls();
+//   cls();
    printf("Page fault! ( ");
    if (present) {printf("Page Not Present ");}
    if (rw) {printf("read-only ");}
@@ -25,11 +25,12 @@ void page_fault_handler(uint64_t err_code){
    printf(") at 0x");
    printf("%p",faulting_address);
    printf("\n");
+   printf("Faulting ins %p\n",((uint64_t)(err_ins)));
    PANIC(__FUNCTION__,__LINE__,"Page fault! ");
    while(1);
 }
 
 void general_protection_fault_handler(uint64_t err_code){
-  cls();
+//  cls();
   PANIC(__FUNCTION__,__LINE__,"General Protection Fault! ");
 } 
