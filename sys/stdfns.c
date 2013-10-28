@@ -58,7 +58,7 @@ void write_time(uint16_t su, uint16_t st, uint16_t mu, uint16_t mt, uint16_t hu,
 //       kprintf("Timer handled\n");
 }
 
-void *memset(void *s, uint8_t c, int n)
+void *memset(void *s, uint8_t c, uint32_t n)
 {
     unsigned char* p= (unsigned char*)s;
     while(n--)
@@ -101,6 +101,11 @@ void write_char(int color, char c)
 }
 
 
+void strncpy(char* dest, const char* src, uint32_t size){
+    uint32_t i;  
+    for(i=0; i<size; i++)
+        dest[i] = src[i];
+}
 /*
 Writes to the video memory buffer. The text screen video memory for color monitors
 resides at 0xB8000. Text mode memory takes two bytes for each character on the
@@ -267,7 +272,7 @@ void update_cursor()
 
 }
 
-char *memcpy(char *dest, const char *src, int n)
+char *memcpy(char *dest, const char *src, uint32_t n)
 {
     char *dp = dest;
     const char *sp = src;
@@ -306,4 +311,25 @@ void PANIC(const char *s, uint16_t line, const char* str){
 
 void SYS_TRACE(const char *s, uint16_t line, const char* str){
     printf("WARNING!! at %s:%d. REASON: %s",s,line,str);
+}
+
+uint32_t my_atoi(char *str){
+    uint32_t res=0;
+    uint16_t i;
+    for(i=0; str[i] != '\0'; i++){
+      printf("%c ",str[i]);
+      res = res*10 + (str[i] - '0');
+    }
+    return res;
+}
+
+
+uint32_t my_atool(char *str){
+    uint32_t res=0;
+    uint16_t i;
+    for(i=0; str[i] != '\0'; i++){
+      printf("%c ",str[i]);
+      res = res*8 + (str[i] - '0');
+    }
+    return res;
 }

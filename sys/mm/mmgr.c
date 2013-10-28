@@ -286,6 +286,13 @@ void mmgr_phy_deinit_regions(uint64_t base, uint64_t length){
         }
         mmgr_set_block(0);
 }
+void mmgr_syncwith_kernel(){
+        uint16_t i;
+        for(i=512; i< ((MY_KERNEL_SIZE*256)); i++){
+          mmgr_set_block(i); 
+          mmgr_used_blocks += 1;
+        }
+}
 
 void mm_phy_init(uint32_t* modulep){
         struct smap_t *smap;
@@ -324,9 +331,10 @@ void mm_phy_init(uint32_t* modulep){
         all those blocks allocated as they will be used exclusively by the kernel. Allocations
         will start after 40MB mark. 
         */
-        for(i=0; i< ((MY_KERNEL_SIZE*256)+1024); i++)
+        for(i=0; i< 1024; i++){
           mmgr_set_block(i); 
-        mmgr_used_blocks += (256*MY_KERNEL_SIZE + 1024);
+          mmgr_used_blocks += 1;
+        }
       
 }
 

@@ -17,16 +17,16 @@ typedef struct pgprot {
   pgprotval_t pgprot;
 } pgprot_t;
 
-typedef struct vmas vm_area_struct;
 
 struct vmas {
   mm_struct *vm_mm;
   uint64_t vm_start, vm_end; // Start and end of the region
   uint16_t vm_flags;
-  vm_area_struct *vm_next;
+  struct vmas *vm_next;
   pgprot_t vm_page_prot; // protection attributes for this region
   //vm_operations_struct *vm_ops;
 };
+typedef struct vmas vm_area_struct;
 
 
 typedef struct registers_t{
@@ -144,21 +144,39 @@ struct ti {
     void* initialStack;
    // mm_segment_t  addr_limit;
 };
-
 typedef struct ti thread_info;
 
 struct ts{
     pid_t pid;
-    volatile uint16_t state;
-    thread_info *thread_info;
+    struct ts* nextTask, *prevTask;
+    struct ts* nextRunTask, *prevRunTask;
+    uint64_t cr3;
+    regs_t regs;
+    uint16_t state;
     uint16_t flags;
     uint16_t prio, static_prio;
-    struct list_head tasks;
-    struct mm_struct *mm, *active_mm;
     uint16_t exit_code;
+    thread_info *th_info;
+    struct mm_struct *mm, *active_mm;
         
 };
-
 typedef struct ts task_struct;
+
+struct All_TaskList{
+    task_struct *head, *tail;
+};
+typedef struct All_TaskList TaskList;
+
+struct Run_TaskList{
+    task_struct *head, *tail;
+};
+typedef struct Run_TaskList runQueue_List;
+
+void insert_TaskList(TaskList*, task_struct*);
+void append_TaskList(TaskList*, task_struct*);
+void remove_TaskList(TaskList*, task_struct*);
+void insert_runQueue_Task(runQueue_List*, task_struct*);
+void append_runQueue_Task(runQueue_List*, task_struct*);
+void remove_runQueue_Task(runQueue_List*, task_struct*);
 
 #endif

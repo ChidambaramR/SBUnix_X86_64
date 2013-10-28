@@ -5,7 +5,91 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-task_struct *current;
+task_struct *currentTask;
+
+//static TaskList allTaskList;
+
+//static runQueue_List task_runQueue;
+
+/*void create_pgd(int pid, int orig_pid){
+    pml4* pml4_dir = (pml4*)sub_malloc(0,1);
+    pml4* pml4_dir_phy = pml4_dir - 0xFFFFFFFF81400000;
+}*/
+
+void insert_TaskList(TaskList *list, task_struct* task){
+    task->prevTask = NULL;
+    if(list->head == NULL){
+        list->head = list->tail = task;
+        task->nextTask = NULL;
+    }
+    else{
+        task->nextTask = list->head;
+        list->head->prevTask = task;
+        list->head = task;
+    }
+}
+
+void append_TaskList(TaskList* list, task_struct* task){
+    task->nextTask = NULL;
+    if(list->tail == NULL){
+        list->head = list->tail = task;
+        task->prevTask = NULL;
+    }
+    else{
+          list->tail->nextTask = task;
+          task->prevTask = list->tail;
+          list->tail = task;
+    }
+}
+
+void remove_TaskList(TaskList* list, task_struct* task){
+    if(task->prevTask != NULL)
+        task->prevTask->nextTask = task->nextTask;
+    else
+        list->head = task->nextTask;
+    if(task->nextTask != NULL)
+        task->nextTask->prevTask = task->prevTask;
+    else
+        list->tail = task->prevTask;
+}
+
+void insert_runQueue_Task(runQueue_List *list, task_struct* task){
+    task->prevRunTask = 0;
+    if(list->head == NULL){
+        list->head = list->tail = task;
+        task->nextRunTask = NULL;
+    }
+    else{
+        task->nextRunTask = list->head;
+        list->head->prevRunTask = task;
+        list->head = task;
+    }
+}
+
+void append_runQueue_task(runQueue_List* list, task_struct* task){
+    task->nextRunTask = NULL;
+    if(list->tail == NULL){
+        list->head = list->tail = task;
+        task->prevRunTask = NULL;
+    }
+    else{
+          list->tail->nextRunTask = task;
+          task->prevRunTask = list->tail;
+          list->tail = task;
+    }
+}
+
+
+void remove_runQueue_Task(runQueue_List* list, task_struct* task){
+    if(task->prevRunTask != NULL)
+        task->prevRunTask->nextRunTask = task->nextRunTask;
+    else
+        list->head = task->nextRunTask;
+    if(task->nextRunTask != NULL)
+        task->nextRunTask->prevRunTask = task->prevRunTask;
+    else
+        list->tail = task->prevRunTask;
+}
 
 int pid = 0;
 pml4* pgd_alloc(){
@@ -86,14 +170,16 @@ static task_struct *dup_task_struct(task_struct *orig){
         free_task_struct(tsk);
         return NULL;
     }
+    memcpy((char*)tsk, (const char*)orig, sizeof(struct ts));
+    //tsk->cr3 = create_pgd(pid, orig->pid); 
     *tsk = *orig;
-    tsk->thread_info = ti;
+    tsk->th_info = ti;
     return tsk;
 }
 
 static task_struct* copy_process(uint16_t clone_flags,uint64_t stack_start,regs_t* r,uint32_t stack_size){
     task_struct *p = NULL;
-    p = dup_task_struct(current);
+    p = dup_task_struct(currentTask);
     return p; 
 } 
 

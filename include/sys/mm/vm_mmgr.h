@@ -23,7 +23,7 @@ typedef page_directory_table pde;
 Level 2
 */
 struct page_directory_pointer_table{
-  pml4e_entry m_entries[PAGES_PED_DIR];
+  pdpe_entry m_entries[PAGES_PED_DIR];
 };
 typedef page_directory_pointer_table pdpe;
 
@@ -31,7 +31,7 @@ typedef page_directory_pointer_table pdpe;
 Level 1 ( Highest )
 */
 struct page_map_level_4{
-  pml4 m_entries[PAGES_PER_DIR];
+  pml4e_entry m_entries[PAGES_PER_DIR];
 };
 typedef page_map_level_4 pml4;
 

@@ -76,7 +76,7 @@ void* sub_malloc(uint16_t size, bool align){
         t_block b;
         uint16_t s;
         if(align){
-          void* addr = (void*)vmmgr_page_alloc();
+          void* addr = (void*)vmmgr_alloc_page();
           return addr;
         }
         else{

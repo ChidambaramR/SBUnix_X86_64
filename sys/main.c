@@ -10,6 +10,7 @@
 #include <sys/mm/mmgr.h>
 #include <sys/mm/vmmgr_virtual.h>
 #include <sys/kthread.h>
+#include <elf.h>
 /*
 +defs.h - Included typedefs for datatypes
 */
@@ -19,7 +20,11 @@ extern bool get_paging_status();
 extern void vmmgr_page_allocator_init();
 bool is_scheduler_on = 0;
 void* kphysfree = 0;
+extern void switch_to_user();
 
+void hello_in_user_mode(){
+  printf("Hello world\n");
+}
 void start(uint16_t arg)
 {
         uint64_t *test,*test2,*test3,*test4,*test5,*test6;
@@ -47,10 +52,12 @@ void start(uint16_t arg)
         c = (int*)sub_malloc(6,1);
         *c = *a;
         printf("a = %d and &a = 0x%p,c  = %d and &c = 0x%p\n",*a,a,*c,c);
-//        a = (int*)0x123;
-//        *b = *a++;
-	// kernel starts here
-	Yield();
+	//readelf(&a1, &b1, &ca, &cb);
+//        printf("code buf = %s, data buf = %s, code length = %d, data_length = %d",a1,b1,ca,cb);
+        // kernel starts here 
+        //switch_to_user();
+        while(TRUE)        
+	  Yield();
        // while(1);
 }
 
