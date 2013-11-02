@@ -30,7 +30,7 @@ Immediately following the Elf header is the program header.
 After the program header ends, we get the actual contents of the program sections.
 From the start, elf_header + section offset we get the section headers
 */
-void readelf(char **codeBuf, char **dataBuf, uint16_t *user_code_length, uint16_t *user_data_length){
+uint16_t readelf(char **codeBuf, char **dataBuf, int *user_code_length, int *user_data_length){
         Elf64_Ehdr *bin_elf_start;
         Elf64_Shdr *sectHdr;
 //        Elf64_Phdr *pgmHdr;
@@ -45,8 +45,12 @@ void readelf(char **codeBuf, char **dataBuf, uint16_t *user_code_length, uint16_
         sectHdr = (Elf64_Shdr*)((bin_start + bin_elf_start->e_shoff + sizeof(Elf64_Ehdr) + sizeof(Elf64_Shdr)));
         *user_data_length = sectHdr->sh_size;
         code_buf = sub_malloc(*user_code_length,0);
+        if(!code_buf)
+          return 0;
         memset(code_buf, 0, sizeof(code_buf));
         data_buf = sub_malloc(*user_data_length,0);
+        if(!data_buf)
+          return 0;
         memset(data_buf, 0, sizeof(data_buf));
         //printf("section name %d\n", sectHdr->sh_size);
         user_code = (char*)(&(_binary_tarfs_start) + 3*sizeof(struct posix_header_ustar) + sizeof(Elf64_Ehdr) + 2*sizeof(Elf64_Phdr));
@@ -55,5 +59,6 @@ void readelf(char **codeBuf, char **dataBuf, uint16_t *user_code_length, uint16_
         memcpy(data_buf, data_code, *user_data_length);
         *codeBuf = code_buf;
         *dataBuf = data_buf;
+        return 1;
 }
 

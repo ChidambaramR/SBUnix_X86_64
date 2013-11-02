@@ -95,6 +95,13 @@ void set_pml4_entry_recurs(pml4e_entry* e, pml4* pml4_dir){
     pml4e_entry_set_frame(e, (uint64_t)(pml4_dir));
 }
 
+
+void set_page_entry(pt_entry* e, uint64_t phys){
+    pml4e_entry_add_attrib(e, PML4E_PRESENT);
+    pml4e_entry_add_attrib(e, PML4E_WRITABLE);
+    pml4e_entry_set_frame(e, phys);
+}
+
 void set_pml4_entry(pml4e_entry* e, pdpe* pdpe_dir){
     pml4e_entry_add_attrib(e, PML4E_PRESENT);
     pml4e_entry_add_attrib(e, PML4E_WRITABLE);
@@ -146,7 +153,8 @@ void set_phys_virt_recurse(uint64_t phys, virtual_addr virt){
     pte_offset = (pte_offset<<21);
     pte_offset = (((uint64_t)(pte_offset) >> 12) + (PAGE_DIRECTORY_OFFSET(virt)));
     pte_entry1 = (pt_entry*)(((uint64_t)(pte_offset) << 12) + (uint64_t)((8*(PAGE_TABLE_OFFSET(virt)))));
-    *pte_entry1 = (uint64_t)phys;
+    //*pte_entry1 = (uint64_t)phys;
+    set_page_entry(pte_entry1, phys);
     return;
 }
 
@@ -342,6 +350,7 @@ void vmmgr_init(){
     vmmgr_map_page(0xB8000, 0xFFFFFFFF80100000); 
     vmmgr_map_page((uint64_t)pml4table, 0xFFFFFF7FBFDFE000); 
     vmmgr_switch_pml4_directory(pml4table);
+    mmgr_syncwith_kernel();
     init_bump_addr();
     bump_start = bump_addr;
     //vmmgr_map_page_after_paging(0x9000, 0xFFFFFFFFFFA00000);

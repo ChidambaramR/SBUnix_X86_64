@@ -21,7 +21,7 @@ extern void vmmgr_page_allocator_init();
 bool is_scheduler_on = 0;
 void* kphysfree = 0;
 extern void switch_to_user();
-
+extern void do_exec();
 void hello_in_user_mode(){
   printf("Hello world\n");
 }
@@ -56,6 +56,7 @@ void start(uint16_t arg)
 //        printf("code buf = %s, data buf = %s, code length = %d, data_length = %d",a1,b1,ca,cb);
         // kernel starts here 
         //switch_to_user();
+        do_exec();
         while(TRUE)        
 	  Yield();
        // while(1);
