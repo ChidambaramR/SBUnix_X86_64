@@ -4,6 +4,7 @@
 #include <defs.h>
 #include <sys/mm/vmmgr_virtual.h>
 #include <sys/list.h>
+
 /*
 The kernel represents a process's address space with a data structure called the
 memory descriptor. This structure contains all the information related to the process
@@ -17,6 +18,10 @@ typedef struct pgprot {
   pgprotval_t pgprot;
 } pgprot_t;
 
+typedef enum{
+TASK_PRIO_NORMAL = 1,
+TASK_PRIO_HIGH = 2,
+} task_priority;
 
 struct vmas {
   mm_struct *vm_mm;
@@ -133,21 +138,27 @@ typedef struct _trapFrame {
 typedef struct ts task_struct;
 
 struct ti {
-    task_struct *task;          /* main task structure */
     //struct exec_domain      *exec_domain;   /* execution domain */
     uint16_t  flags;          /* low level flags */
     uint16_t  status;         /* thread synchronous flags */
     uint16_t  preempt_count;  /* 0 => preemptable, <0 => BUG */
-    uint16_t priority;
-    void* kernelStack;
-    void* stackLimit;
-    void* initialStack;
+    task_struct *task;          /* main task structure */
    // mm_segment_t  addr_limit;
 };
 typedef struct ti thread_info;
 
 struct ts{
+    uint64_t rsp;
+    void* code_page;
+    void* data_page;
+    void* stack_page;
+    uint16_t code_len;
+    uint16_t data_len;
+    uint16_t priority;
+    void* stackLimit;
+    bool alive;
     pid_t pid;
+    char *name;
     struct ts* nextTask, *prevTask;
     struct ts* nextRunTask, *prevRunTask;
     uint64_t cr3;
@@ -179,4 +190,5 @@ void insert_runQueue_Task(runQueue_List*, task_struct*);
 void append_runQueue_Task(runQueue_List*, task_struct*);
 void remove_runQueue_Task(runQueue_List*, task_struct*);
 
+int alloc_pid();
 #endif

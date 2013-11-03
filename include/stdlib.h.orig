@@ -1,6 +1,7 @@
 #ifndef _STDLIB_H
 #define _STDLIB_H
 
+<<<<<<< HEAD
 #include <defs.h>
 
 int main(int argc, char* argv[], char* envp[]);
@@ -14,6 +15,9 @@ char* memcpy(char*, const char*, uint32_t);
 void strncpy(char*, const char*, uint32_t);
 uint32_t my_atoi(char*);
 uint32_t my_atool(char*);
+=======
 int main(int argc, char* argv[], char* envp[]);
 void exit(int status);
+
+>>>>>>> 7f5588f3964fb4ff465a3db90a068ef527a4507a
 #endif

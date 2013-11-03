@@ -1,6 +1,7 @@
 #ifndef _STDIO_H
 #define _STDIO_H
 
+<<<<<<< HEAD
 #define START_MEMORY 0xFFFFFFFF80100000 // Staring address of VGA BUFFER ( VGA MEMORY )
 #define TIMER_MEMORY 0xFFFFFFFF80100F90 // Starting address of system clock
 #define KEYBOARD_WARMUP_MEMORY 0xB8F8A // Starting position as mentioned in the handout
@@ -18,6 +19,9 @@ void write_time(uint16_t, uint16_t, uint16_t, uint16_t, uint16_t, uint16_t);
 void write_key(int, char);
 void PANIC(const char *, uint16_t, const char *);
 void SYS_TRACE(const char *, uint16_t, const char *);
+=======
 int printf(const char *format, ...);
 int scanf(const char *format, ...);
+
+>>>>>>> 7f5588f3964fb4ff465a3db90a068ef527a4507a
 #endif

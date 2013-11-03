@@ -7,8 +7,12 @@ struct tss_t {
 	uint32_t reserved;
 	uint64_t rsp0;
 	uint32_t unused[11];
+<<<<<<< HEAD
+}__attribute__((packed)) tss;
+=======
 }__attribute__((packed));
 extern struct tss_t tss;
+>>>>>>> 7f5588f3964fb4ff465a3db90a068ef527a4507a
 
 /* adapted from Chris Stones, shovelos */
 

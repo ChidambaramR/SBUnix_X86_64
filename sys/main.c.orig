@@ -1,4 +1,5 @@
 #include <defs.h>
+<<<<<<< HEAD
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/gdt.h>
@@ -22,15 +23,9 @@ bool is_scheduler_on = 0;
 void* kphysfree = 0;
 extern void switch_to_user();
 extern void do_exec();
-
 void hello_in_user_mode(){
+  printf("Hello world\n");
 }
-
-void set_kernel_stack(uint64_t stack) //this will update the ESP0 stack used when an interrupt occurs
-{
-   tss.rsp0 = stack;
-}
-
 void start(uint16_t arg)
 {
         uint64_t *test,*test2,*test3,*test4,*test5,*test6;
@@ -69,17 +64,47 @@ void start(uint16_t arg)
 }
 
 #define INITIAL_STACK_SIZE 4096
+
+char stack[INITIAL_STACK_SIZE];
+uint32_t* loader_stack;
+extern char kernmem, physbase;
+=======
+#include <sys/gdt.h>
+#include <sys/tarfs.h>
+
+void start(uint32_t* modulep, void* physbase, void* physfree)
+{
+	struct smap_t {
+		uint64_t base, length;
+		uint32_t type;
+	}__attribute__((packed)) *smap;
+	while(modulep[0] != 0x9001) modulep += modulep[1]+2;
+	for(smap = (struct smap_t*)(modulep+2); smap < (struct smap_t*)((char*)modulep+modulep[1]+2*4); ++smap) {
+		if (smap->type == 1 /* memory */ && smap->length != 0) {
+			printf("Available Physical Memory [%x-%x]\n", smap->base, smap->base + smap->length);
+		}
+	}
+	printf("tarfs in [%p:%p]\n", &_binary_tarfs_start, &_binary_tarfs_end);
+	// kernel starts here
+	while(1);
+}
+
+#define INITIAL_STACK_SIZE 4096
 char stack[INITIAL_STACK_SIZE];
 uint32_t* loader_stack;
 extern char kernmem, physbase;
 struct tss_t tss;
+>>>>>>> 7f5588f3964fb4ff465a3db90a068ef527a4507a
 
 void boot(void)
 {
 	// note: function changes rsp, local stack variables can't be practically used
 	register char *temp1, *temp2;
+<<<<<<< HEAD
         uint32_t* modulep;
         void* physfree;
+=======
+>>>>>>> 7f5588f3964fb4ff465a3db90a068ef527a4507a
 	__asm__(
 		"movq %%rsp, %0;"
 		"movq %1, %%rsp;"
@@ -88,6 +113,7 @@ void boot(void)
 	);
 	reload_gdt();
 	setup_tss();
+<<<<<<< HEAD
         reload_idt();
         irq_install();
         timer_install();
@@ -107,7 +133,16 @@ void boot(void)
 		(void*)(uint64_t)loader_stack[4]
 	);*/
 	for(
+		temp1 = "!!!!! start() returned !!!!!", temp2 = (char*)START_MEMORY;
+=======
+	start(
+		(uint32_t*)((char*)(uint64_t)loader_stack[3] + (uint64_t)&kernmem - (uint64_t)&physbase),
+		&physbase,
+		(void*)(uint64_t)loader_stack[4]
+	);
+	for(
 		temp1 = "!!!!! start() returned !!!!!", temp2 = (char*)0xb8000;
+>>>>>>> 7f5588f3964fb4ff465a3db90a068ef527a4507a
 		*temp1;
 		temp1 += 1, temp2 += 2
 	) *temp2 = *temp1;
