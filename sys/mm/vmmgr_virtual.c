@@ -89,34 +89,44 @@ inline void* vmmgr_alloc_page(){
 inline void vmmgr_free_page(){
 }
 
-void set_pml4_entry_recurs(pml4e_entry* e, pml4* pml4_dir){
+void set_pml4_entry_recurs(pml4e_entry* e, pml4* pml4_dir, bool is_user){
     pml4e_entry_add_attrib(e, PML4E_PRESENT);
     pml4e_entry_add_attrib(e, PML4E_WRITABLE);
+    if(is_user)
+      pml4e_entry_add_attrib(e, PML4E_USER);
     pml4e_entry_set_frame(e, (uint64_t)(pml4_dir));
 }
 
 
-void set_page_entry(pt_entry* e, uint64_t phys){
-    pml4e_entry_add_attrib(e, PML4E_PRESENT);
-    pml4e_entry_add_attrib(e, PML4E_WRITABLE);
+void set_page_entry(pt_entry* e, uint64_t phys, bool is_user){
+    pml4e_entry_add_attrib(e, PTE_PRESENT);
+    pml4e_entry_add_attrib(e, PTE_WRITABLE);
+    if(is_user)
+      pml4e_entry_add_attrib(e, PTE_USER);
     pml4e_entry_set_frame(e, phys);
 }
 
-void set_pml4_entry(pml4e_entry* e, pdpe* pdpe_dir){
+void set_pml4_entry(pml4e_entry* e, pdpe* pdpe_dir, bool is_user){
     pml4e_entry_add_attrib(e, PML4E_PRESENT);
     pml4e_entry_add_attrib(e, PML4E_WRITABLE);
+    if(is_user)
+      pml4e_entry_add_attrib(e, PML4E_USER);
     pml4e_entry_set_frame(e, (uint64_t)(pdpe_dir));
 }
 
-void set_pdpe_entry(pdpe_entry* e1, pde* pde_dir){
+void set_pdpe_entry(pdpe_entry* e1, pde* pde_dir, bool is_user){
     pdpe_entry_add_attrib(e1, PDPE_PRESENT);
     pdpe_entry_add_attrib(e1, PDPE_WRITABLE);
+    if(is_user)
+      pdpe_entry_add_attrib(e1, PDPE_USER);
     pdpe_entry_set_frame(e1, (uint64_t)(pde_dir));
 }
 
-void set_pde_entry(pd_entry* e2, pte* pte_dir){
+void set_pde_entry(pd_entry* e2, pte* pte_dir, bool is_user){
     pd_entry_add_attrib(e2, PDE_PRESENT);
     pd_entry_add_attrib(e2, PDE_WRITABLE);
+    if(is_user)
+      pd_entry_add_attrib(e2, PDE_USER);
     pd_entry_set_frame(e2, (uint64_t)(pte_dir));
 }
 
@@ -142,7 +152,7 @@ pd_entry* get_pde_offset_recurse(virtual_addr virt){
     return pde_entry1;
 }
 
-void set_phys_virt_recurse(uint64_t phys, virtual_addr virt){
+void set_phys_virt_recurse(uint64_t phys, virtual_addr virt, bool is_user){
     pte *pte_dir1;
     uint64_t pte_offset;
     pt_entry* pte_entry1;
@@ -154,11 +164,11 @@ void set_phys_virt_recurse(uint64_t phys, virtual_addr virt){
     pte_offset = (((uint64_t)(pte_offset) >> 12) + (PAGE_DIRECTORY_OFFSET(virt)));
     pte_entry1 = (pt_entry*)(((uint64_t)(pte_offset) << 12) + (uint64_t)((8*(PAGE_TABLE_OFFSET(virt)))));
     //*pte_entry1 = (uint64_t)phys;
-    set_page_entry(pte_entry1, phys);
+    set_page_entry(pte_entry1, phys, is_user);
     return;
 }
 
-void vmmgr_map_page_after_paging(uint64_t phys, uint64_t virt){
+void vmmgr_map_page_after_paging(uint64_t phys, uint64_t virt, bool is_user){
     pdpe *pdpe_dir;
     pd_entry* pde_entry1;
     pdpe_entry* pdpe_entry1;
@@ -173,7 +183,7 @@ void vmmgr_map_page_after_paging(uint64_t phys, uint64_t virt){
             PANIC(__FUNCTION__,__LINE__,"VMMGR: Out of memory while trying to allocate PDPE\n");
             return;
         }
-        set_pml4_entry(e,pdpe_dir_phy);
+        set_pml4_entry(e,pdpe_dir_phy, is_user);
     }
     
     pdpe_entry1 = get_pdpe_offset_recurse(virt);
@@ -186,7 +196,7 @@ void vmmgr_map_page_after_paging(uint64_t phys, uint64_t virt){
             PANIC(__FUNCTION__,__LINE__,"VMMGR: Out of memory while trying to allocate PDE\n");
             return;
         }
-        set_pdpe_entry(pdpe_entry1,pde_dir_phy);
+        set_pdpe_entry(pdpe_entry1,pde_dir_phy, is_user);
     }
 
     pde_entry1 = get_pde_offset_recurse(virt);
@@ -199,10 +209,10 @@ void vmmgr_map_page_after_paging(uint64_t phys, uint64_t virt){
             PANIC(__FUNCTION__,__LINE__,"VMMGR: Out of memory while trying to allocate PTE\n");
             return;
         }
-        set_pde_entry(pde_entry1,pte_dir_phy);
+        set_pde_entry(pde_entry1,pte_dir_phy, is_user);
     }
     
-    set_phys_virt_recurse(phys, virt);
+    set_phys_virt_recurse(phys, virt, is_user);
     
 }
 
@@ -283,7 +293,7 @@ void vmmgr_map_page(uint64_t phys, uint64_t virt){
             PANIC(__FUNCTION__,__LINE__,"VMMGR: Out of memory while trying to allocate PDPE\n");
             return;
         }
-        set_pml4_entry(e,pdpe_dir);
+        set_pml4_entry(e,pdpe_dir,0);
     }
     
     pdpe_dir1 = (pdpe*)PAGE_PHYSICAL_ADDRESS(e);
@@ -296,7 +306,7 @@ void vmmgr_map_page(uint64_t phys, uint64_t virt){
             PANIC(__FUNCTION__,__LINE__,"VMMGR: Out of memory while trying to allocate PDE\n");
             return;
         }
-        set_pdpe_entry(pdpe_entry1,pde_dir);
+        set_pdpe_entry(pdpe_entry1,pde_dir,0);
     }
 
     pde_dir1 = (pde*)PAGE_PHYSICAL_ADDRESS(pdpe_entry1);
@@ -310,7 +320,7 @@ void vmmgr_map_page(uint64_t phys, uint64_t virt){
             return;
         }
         pd_entry*   e2 = vmmgr_page_directory_lookup_entry(pde_dir1, (uint64_t)virt);
-        set_pde_entry(e2,pte_dir);
+        set_pde_entry(e2,pte_dir,0);
     }
 
     pte_dir1 = (pte*)PAGE_PHYSICAL_ADDRESS(pde_entry1);
@@ -336,7 +346,7 @@ void vmmgr_init(){
     }
     memset(pml4table,0,sizeof(pml4));
     pml4e_entry* e= &(pml4table->entry[0x1FE]);
-    set_pml4_entry_recurs(e, pml4table); 
+    set_pml4_entry_recurs(e, pml4table, 0); 
     
     _cur_pml4_base_pointer = pml4table;
 

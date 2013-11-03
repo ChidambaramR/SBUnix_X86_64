@@ -45,6 +45,8 @@
 
 .text
 .global switch_to_user
+.extern currentTask
+.extern tss
 
 switch_to_user:
 cli
@@ -53,16 +55,23 @@ movq %rax, %ds
 movq %rax, %es
 movq %rax, %fs
 movq %rax, %gs
-movq %rsp, %rax
+leaq (tss), %rax
+leaq 0x4(%rax), %rax
+movq %rsp, (%rax)
+movq (currentTask), %rax
 pushq $0x23
-pushq %rax
+pushq (%rax)
 # pushq $0x900000
 pushfq
 popq %rax
 orq $0x200, %rax
 pushq %rax
 pushq $0x1B # User CS = 0x18 | 0x3 ( DPL ) = 0x1B
-leaq (hello_in_user_mode), %rax
+movq (currentTask), %rax
+leaq 0x8(%rax), %rax
+movq (%rax), %rax
+# leaq 0x8(currentTask), %rax
+pushq %rax
 # pushq $0x800000
 iretq 
 

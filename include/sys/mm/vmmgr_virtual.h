@@ -147,7 +147,7 @@ pml4e_entry* vmmgr_pml4_directory_lookup_entry(pml4*, virtual_addr);
 
 void* vmmgr_page_alloc();
 
-void vmmgr_map_page_after_paging(uint64_t, uint64_t);
+void vmmgr_map_page_after_paging(uint64_t, uint64_t, bool);
 
 void mmgr_syncwith_kernel();
 #endif

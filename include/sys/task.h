@@ -149,6 +149,7 @@ typedef struct ti thread_info;
 
 struct ts{
     uint64_t rsp;
+    void* entry_point;
     void* code_page;
     void* data_page;
     void* stack_page;

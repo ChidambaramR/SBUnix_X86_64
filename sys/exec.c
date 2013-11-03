@@ -10,33 +10,36 @@
 #define UserData  0x0000000000600000
 #define UserStack 0x0000000000bff000
 
+extern void switch_to_user();
 extern task_struct* currentTask;
 /*init_user_memory(){
     pte* new_page_table = get_new_page_table((pml4*)(currentTask->cr3 & 0xFFFFF000), user_code);
     
 }*/
 
-
-void Init_Task(task_struct* task, uint16_t prio, const char* name, uint64_t code, uint64_t codeLen, uint64_t data, uint64_t dataLen, uint64_t stack){
-    task->code_page = (void*)code;
-    task->code_len = codeLen;
-    task->data_page = (void*)data;
-    task->data_len = dataLen;
-    task->stack_page = (void*)stack;
-    task->rsp = ((uint64_t)task->stack_page) + VIRT_PAGE_SIZE;
-    task->priority = prio;
-    //task->userContext = 0;
-    task->alive = TRUE;
-    task->name = (char *)name;
-    task->pid = alloc_pid();
-}
-
-
 static __inline__ void Push(task_struct* task, uint64_t value)
 {
     task->rsp -= 0x8;
     *((uint64_t *) task->rsp) = value;
 }
+
+void Init_Task(task_struct* task, uint16_t prio, const char* name, uint64_t code, uint64_t codeLen, uint64_t data, uint64_t dataLen, uint64_t stack, uint64_t entry_point){
+    task->code_page = (void*)code;
+    task->code_len = codeLen;
+    task->data_page = (void*)data;
+    task->data_len = dataLen;
+    task->stack_page = (void*)stack;
+    task->rsp = (uint64_t)(((uint64_t)task->stack_page) + VIRT_PAGE_SIZE );
+    Push(task, 0);
+    task->priority = prio;
+    //task->userContext = 0;
+    task->alive = TRUE;
+    task->name = (char *)name;
+    task->pid = alloc_pid();
+    task->entry_point = (void*)entry_point;
+}
+
+
 
 static __inline__ void Push_General_Registers(task_struct* task){
     /*
@@ -82,17 +85,18 @@ uint32_t do_exec(/*char *name, char *environment*/){
   
    // uint32_t size;
     int codeLen, dataLen;
+    uint64_t entry_point;
     char *codeBuf, *dataBuf;
    // struct posix_header_ustar executable;
    // char *prog_name = (char*)sub_malloc(strlen(name),1);
    // strcpy(prog_name, name);
-    if( readelf(&codeBuf, &dataBuf, &codeLen, &dataLen) ){
+    if( readelf(&codeBuf, &dataBuf, &codeLen, &dataLen, &entry_point) ){
         // Initialize code page
-        currentCode_page = UserCode;
+        currentCode_page = (uint64_t)entry_point;
         currentCode_len = codeLen;
         while(codeLen >= 0){
           new_pte = (uint64_t)mmgr_alloc_block();
-          vmmgr_map_page_after_paging(new_pte, currentCode_page);
+          vmmgr_map_page_after_paging(new_pte, currentCode_page, 1);
           memcpy((char*)currentCode_page, (const char*)codeBuf, (uint32_t)codeLen);
           codeLen = codeLen - VIRT_PAGE_SIZE;
           currentCode_page += VIRT_PAGE_SIZE;
@@ -104,7 +108,7 @@ uint32_t do_exec(/*char *name, char *environment*/){
         currentData_len = dataLen;
         while(dataLen >= 0){
           new_pte = (uint64_t)mmgr_alloc_block();
-          vmmgr_map_page_after_paging(new_pte, currentData_page);
+          vmmgr_map_page_after_paging(new_pte, currentData_page, 1);
           memcpy((char*)currentData_page, (const char*)dataBuf, (uint32_t)dataLen);
           dataLen = dataLen - VIRT_PAGE_SIZE;
           currentData_page += VIRT_PAGE_SIZE;
@@ -114,11 +118,15 @@ uint32_t do_exec(/*char *name, char *environment*/){
         // Initialize stack page
         currentStack_page = UserStack;
         new_pte = (uint64_t)mmgr_alloc_block();
-        vmmgr_map_page_after_paging(new_pte, currentStack_page);
+        vmmgr_map_page_after_paging(new_pte, currentStack_page, 1);
+        memset((void*)currentStack_page, 0, sizeof(VIRT_PAGE_SIZE));
 
         // Create the actual task structure
-        task = sub_malloc(sizeof(task_struct), 0);
-        Init_Task(task, TASK_PRIO_NORMAL, "first", currentCode_page, currentCode_len, currentData_page, currentData_len, currentStack_page);
+        task = (task_struct*)sub_malloc(sizeof(task_struct), 0);
+        memset(task, 0, sizeof(task_struct));
+        Init_Task(task, TASK_PRIO_NORMAL, "first", currentCode_page, currentCode_len, currentData_page, currentData_len, currentStack_page, entry_point);
+        currentTask = task;
+        switch_to_user();
         /*currentPage = UserCode;
         currentPage_size = usercode_len;
         init_user_memory();
