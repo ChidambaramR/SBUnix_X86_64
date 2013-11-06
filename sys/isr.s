@@ -50,6 +50,7 @@
 .global _isr1
 .global _isr13
 .global _isr14
+.global _isr80
 .extern fault_handler 
 
 #  0: Divide By Zero Exception
@@ -79,6 +80,14 @@ _isr14:
         pushq $0x0
         pushq $0xE
         jmp isr_common_stub
+
+#  80: Software Interrupt
+_isr80:
+  cli
+        pushq $0x0
+        pushq $0x80
+        jmp isr_common_stub
+
 
 isr_common_stub:
     PUSHAQ

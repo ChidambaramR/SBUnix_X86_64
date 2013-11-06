@@ -305,6 +305,7 @@ void PANIC(const char *s, uint16_t line, const char* str){
     printf("Kernel PANIC at %s:%d. REASON: %s",s,line,str);
     printf("\n...Backtrace of PANIC..\n");
     printf("\t.....0x%p\n",__builtin_return_address(0));
+    while(1);
 //    printf("\t.....0x%p\n",__builtin_return_address(1));
 //    printf("\t.....0x%p\n",__builtin_return_address(2));
 }

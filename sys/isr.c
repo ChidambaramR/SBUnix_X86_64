@@ -33,4 +33,8 @@ void page_fault_handler(uint64_t err_code, void* err_ins){
 void general_protection_fault_handler(uint64_t err_code){
 //  cls();
   PANIC(__FUNCTION__,__LINE__,"General Protection Fault! ");
-} 
+}
+
+void write(const char* str){
+  printf("%s",str);
+}

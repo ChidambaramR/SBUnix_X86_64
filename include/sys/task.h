@@ -79,6 +79,7 @@ struct mms {
   uint64_t def_flags; // status to use when memory regions are created
   struct list_head mmlist; // list of all mm_structs
   vm_area_struct *mmap; // Pointer to first region desc
+  vm_area_struct *mmap_cache; // Pointer to last region desc
 };
 
 typedef struct mms mm_struct;

@@ -58,6 +58,8 @@ void start(uint16_t arg)
         c = (int*)sub_malloc(6,1);
         *c = *a;
         printf("a = %d and &a = 0x%p,c  = %d and &c = 0x%p\n",*a,a,*c,c);
+        //asm volatile("movq $0xE, %rax; syscall");
+//        asm volatile("int $0x80");
 	//readelf(&a1, &b1, &ca, &cb);
 //        printf("code buf = %s, data buf = %s, code length = %d, data_length = %d",a1,b1,ca,cb);
         // kernel starts here 
@@ -86,8 +88,8 @@ void boot(void)
 		:"=g"(loader_stack)
 		:"r"(&stack[INITIAL_STACK_SIZE])
 	);
-	reload_gdt();
 	setup_tss();
+	reload_gdt();
         reload_idt();
         irq_install();
         timer_install();

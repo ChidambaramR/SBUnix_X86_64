@@ -5,5 +5,5 @@
 
 void page_fault_handler(uint64_t, void*);
 void general_protection_fault_handler(uint64_t);
-
+void write(const char*);
 #endif

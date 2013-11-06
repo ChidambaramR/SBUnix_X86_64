@@ -54,9 +54,9 @@ uint16_t readelf(char **codeBuf, char **dataBuf, int *user_code_length, int *use
           return 0;
         memset(data_buf, 0, sizeof(data_buf));
         //printf("section name %d\n", sectHdr->sh_size);
-        user_code = (char*)(&(_binary_tarfs_start) + 3*sizeof(struct posix_header_ustar) + sizeof(Elf64_Ehdr) + 2*sizeof(Elf64_Phdr));
+        user_code = (char*)(&(_binary_tarfs_start) + 3*sizeof(struct posix_header_ustar) + sizeof(Elf64_Ehdr) + 2*sizeof(Elf64_Phdr) + bin_elf_start->e_phoff);
         memcpy(code_buf, user_code, *user_code_length);
-        data_code = (char*)(&(_binary_tarfs_start) + 3*sizeof(struct posix_header_ustar) + sizeof(Elf64_Ehdr) + 2*sizeof(Elf64_Phdr) + *user_code_length);
+        data_code = (char*)(&(_binary_tarfs_start) + 3*sizeof(struct posix_header_ustar) + sizeof(Elf64_Ehdr) + 2*sizeof(Elf64_Phdr) + bin_elf_start->e_phoff + *user_code_length);
         memcpy(data_buf, data_code, *user_data_length);
         *codeBuf = code_buf;
         *dataBuf = data_buf;

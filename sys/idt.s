@@ -8,3 +8,9 @@
 _x86_64_asm_lidt:
   lidt (%rdi)
   retq
+
+
+.global _x86_64_asm_ltr
+_x86_64_asm_ltr:
+  ltr (%rdi)
+  retq
