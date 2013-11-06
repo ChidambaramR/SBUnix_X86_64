@@ -102,12 +102,12 @@ void pgd_free(pml4* pgd){
     sub_free(pgd);
 }
 
-static inline void mm_free_pgd(mm_struct* mm)
+static inline void mm_free_pgd(task_struct* mm)
 {
         pgd_free(mm->pgd);
 }
 
-static inline mem_error_t mm_alloc_pgd(mm_struct *mm){
+/* static inline mem_error_t mm_alloc_pgd(mm_struct *mm){
     mm->pgd = pgd_alloc(mm);
     if(!mm->pgd){
         return E_MEM_NOMEM;
@@ -140,7 +140,7 @@ mm_struct* mm_alloc(void){
     }
     return mm;
 }
-
+*/
 int alloc_pid(){
     return pid++;
 }

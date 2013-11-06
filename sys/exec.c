@@ -5,13 +5,16 @@
 #include <sys/mm/mmgr.h>
 #include <sys/task.h>
 #include <elf.h>
+#include <sys/mmap.h>
 
-#define UserCode 0x00000000000400000
+#define UserCode  0x0000000000400000
 #define UserData  0x0000000000600000
 #define UserStack 0x0000000000bff000
+#define VmaStart  0x0000000000400000
 
 extern void switch_to_user();
 extern task_struct* currentTask;
+extern uint64_t get_cr3_register();
 /*init_user_memory(){
     pte* new_page_table = get_new_page_table((pml4*)(currentTask->cr3 & 0xFFFFF000), user_code);
     
@@ -92,12 +95,17 @@ uint32_t do_exec(/*char *name, char *environment*/){
    // strcpy(prog_name, name);
     if( readelf(&codeBuf, &dataBuf, &codeLen, &dataLen, &entry_point) ){
         // Initialize code page
-        currentCode_page = (uint64_t)entry_point;
+        task = (task_struct*)sub_malloc(sizeof(task_struct), 0);
+        memset(task, 0, sizeof(task_struct));
+        currentTask = task;
+        currentTask->pgd = (pml4*)get_cr3_register();
+        currentCode_page = UserCode;
         currentCode_len = codeLen;
         while(codeLen >= 0){
-          new_pte = (uint64_t)mmgr_alloc_block();
-          vmmgr_map_page_after_paging(new_pte, currentCode_page, 1);
-          memcpy((char*)currentCode_page, (const char*)codeBuf, (uint32_t)codeLen);
+          mmap((void*)currentCode_page, currentCode_len, 0, 0, 0, 0);
+          //new_pte = (uint64_t)mmgr_alloc_block();
+          //vmmgr_map_page_after_paging(new_pte, currentCode_page, 1);
+          memcpy((char*)(currentCode_page + (entry_point - UserCode)), (const char*)codeBuf, (uint32_t)codeLen);
           codeLen = codeLen - VIRT_PAGE_SIZE;
           currentCode_page += VIRT_PAGE_SIZE;
         }
@@ -107,8 +115,9 @@ uint32_t do_exec(/*char *name, char *environment*/){
         currentData_page = UserData;
         currentData_len = dataLen;
         while(dataLen >= 0){
-          new_pte = (uint64_t)mmgr_alloc_block();
-          vmmgr_map_page_after_paging(new_pte, currentData_page, 1);
+          mmap((void*)currentData_page, currentData_len, 0, 0, 0, 0);
+          //new_pte = (uint64_t)mmgr_alloc_block();
+          //vmmgr_map_page_after_paging(new_pte, currentData_page, 1);
           memcpy((char*)currentData_page, (const char*)dataBuf, (uint32_t)dataLen);
           dataLen = dataLen - VIRT_PAGE_SIZE;
           currentData_page += VIRT_PAGE_SIZE;
@@ -122,10 +131,7 @@ uint32_t do_exec(/*char *name, char *environment*/){
         memset((void*)currentStack_page, 0, sizeof(VIRT_PAGE_SIZE));
 
         // Create the actual task structure
-        task = (task_struct*)sub_malloc(sizeof(task_struct), 0);
-        memset(task, 0, sizeof(task_struct));
         Init_Task(task, TASK_PRIO_NORMAL, "first", currentCode_page, currentCode_len, currentData_page, currentData_len, currentStack_page, entry_point);
-        currentTask = task;
         switch_to_user();
         /*currentPage = UserCode;
         currentPage_size = usercode_len;
