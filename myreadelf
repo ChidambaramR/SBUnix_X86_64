@@ -1,0 +1,327 @@
+ELF Header:
+  Magic:   7f 45 4c 46 02 01 01 00 00 00 00 00 00 00 00 00 
+  Class:                             ELF64
+  Data:                              2's complement, little endian
+  Version:                           1 (current)
+  OS/ABI:                            UNIX - System V
+  ABI Version:                       0
+  Type:                              EXEC (Executable file)
+  Machine:                           Advanced Micro Devices X86-64
+  Version:                           0x1
+  Entry point address:               0xffffffff80200975
+  Start of program headers:          64 (bytes into file)
+  Start of section headers:          199264 (bytes into file)
+  Flags:                             0x0
+  Size of this header:               64 (bytes)
+  Size of program headers:           56 (bytes)
+  Number of program headers:         3
+  Size of section headers:           64 (bytes)
+  Number of section headers:         24
+  Section header string table index: 21
+
+Section Headers:
+  [Nr] Name              Type             Address           Offset
+       Size              EntSize          Flags  Link  Info  Align
+  [ 0]                   NULL             0000000000000000  00000000
+       0000000000000000  0000000000000000           0     0     0
+  [ 1] .text             PROGBITS         ffffffff802000f0  000000f0
+       000000000000236b  0000000000000000  AX       0     0     16
+  [ 2] .rodata           PROGBITS         ffffffff80202460  00002460
+       000000000000038c  0000000000000000   A       0     0     32
+  [ 3] .eh_frame         PROGBITS         ffffffff802027f0  000027f0
+       0000000000000e88  0000000000000000   A       0     0     8
+  [ 4] .rodata.str1.8    PROGBITS         ffffffff80203678  00003678
+       0000000000000318  0000000000000001 AMS       0     0     8
+  [ 5] .rodata.str1.1    PROGBITS         ffffffff80203990  00003990
+       000000000000012c  0000000000000001 AMS       0     0     1
+  [ 6] .got              PROGBITS         ffffffff80204000  00004000
+       00000000000001c8  0000000000000008  WA       0     0     8
+  [ 7] .bss              NOBITS           ffffffff80205000  000041c8
+       00000000000048e8  0000000000000000  WA       0     0     32
+  [ 8] .data             PROGBITS         ffffffff80209900  00009900
+       0000000000016918  0000000000000000  WA       0     0     32
+  [ 9] .data.rel         PROGBITS         ffffffff80220218  00020218
+       0000000000000014  0000000000000000  WA       0     0     1
+  [10] .data.rel.local   PROGBITS         ffffffff80220230  00020230
+       0000000000000020  0000000000000000  WA       0     0     16
+  [11] .debug_frame      PROGBITS         0000000000000000  00020250
+       00000000000010f8  0000000000000000           0     0     8
+  [12] .debug_info       PROGBITS         0000000000000000  00021348
+       0000000000005777  0000000000000000           0     0     1
+  [13] .debug_abbrev     PROGBITS         0000000000000000  00026abf
+       00000000000019bb  0000000000000000           0     0     1
+  [14] .debug_aranges    PROGBITS         0000000000000000  0002847a
+       0000000000000300  0000000000000000           0     0     1
+  [15] .debug_macro      PROGBITS         0000000000000000  0002877a
+       0000000000000a38  0000000000000000           0     0     1
+  [16] .debug_line       PROGBITS         0000000000000000  000291b2
+       0000000000000d54  0000000000000000           0     0     1
+  [17] .debug_str        PROGBITS         0000000000000000  00029f06
+       0000000000003417  0000000000000001  MS       0     0     1
+  [18] .comment          PROGBITS         0000000000000000  0002d31d
+       0000000000000120  0000000000000000           0     0     1
+  [19] .debug_loc        PROGBITS         0000000000000000  0002d43d
+       000000000000343a  0000000000000000           0     0     1
+  [20] .debug_ranges     PROGBITS         0000000000000000  00030877
+       00000000000000f0  0000000000000000           0     0     1
+  [21] .shstrtab         STRTAB           0000000000000000  00030967
+       00000000000000f7  0000000000000000           0     0     1
+  [22] .symtab           SYMTAB           0000000000000000  00031060
+       00000000000014d0  0000000000000018          23    57     8
+  [23] .strtab           STRTAB           0000000000000000  00032530
+       0000000000000b91  0000000000000000           0     0     1
+Key to Flags:
+  W (write), A (alloc), X (execute), M (merge), S (strings)
+  I (info), L (link order), G (group), x (unknown)
+  O (extra OS processing required) o (OS specific), p (processor specific)
+
+There are no section groups in this file.
+
+Program Headers:
+  Type           Offset             VirtAddr           PhysAddr
+                 FileSiz            MemSiz              Flags  Align
+  LOAD           0x0000000000000000 0xffffffff80200000 0xffffffff80200000
+                 0x00000000000041c8 0x00000000000098e8  RWE    200000
+  LOAD           0x0000000000009900 0xffffffff80209900 0xffffffff80209900
+                 0x0000000000016950 0x0000000000016950  RW     200000
+  GNU_STACK      0x0000000000000000 0x0000000000000000 0x0000000000000000
+                 0x0000000000000000 0x0000000000000000  RWE    8
+
+ Section to Segment mapping:
+  Segment Sections...
+   00     .text .rodata .eh_frame .rodata.str1.8 .rodata.str1.1 .got .bss 
+   01     .data .data.rel .data.rel.local 
+   02     
+
+There is no dynamic section in this file.
+
+There are no relocations in this file.
+
+There are no unwind sections in this file.
+
+Symbol table '.symtab' contains 222 entries:
+   Num:    Value          Size Type    Bind   Vis      Ndx Name
+     0: 0000000000000000     0 NOTYPE  LOCAL  DEFAULT  UND 
+     1: ffffffff802000f0     0 SECTION LOCAL  DEFAULT    1 
+     2: ffffffff80202460     0 SECTION LOCAL  DEFAULT    2 
+     3: ffffffff802027f0     0 SECTION LOCAL  DEFAULT    3 
+     4: ffffffff80203678     0 SECTION LOCAL  DEFAULT    4 
+     5: ffffffff80203990     0 SECTION LOCAL  DEFAULT    5 
+     6: ffffffff80204000     0 SECTION LOCAL  DEFAULT    6 
+     7: ffffffff80205000     0 SECTION LOCAL  DEFAULT    7 
+     8: ffffffff80209900     0 SECTION LOCAL  DEFAULT    8 
+     9: ffffffff80220218     0 SECTION LOCAL  DEFAULT    9 
+    10: ffffffff80220230     0 SECTION LOCAL  DEFAULT   10 
+    11: 0000000000000000     0 SECTION LOCAL  DEFAULT   11 
+    12: 0000000000000000     0 SECTION LOCAL  DEFAULT   12 
+    13: 0000000000000000     0 SECTION LOCAL  DEFAULT   13 
+    14: 0000000000000000     0 SECTION LOCAL  DEFAULT   14 
+    15: 0000000000000000     0 SECTION LOCAL  DEFAULT   15 
+    16: 0000000000000000     0 SECTION LOCAL  DEFAULT   16 
+    17: 0000000000000000     0 SECTION LOCAL  DEFAULT   17 
+    18: 0000000000000000     0 SECTION LOCAL  DEFAULT   18 
+    19: 0000000000000000     0 SECTION LOCAL  DEFAULT   19 
+    20: 0000000000000000     0 SECTION LOCAL  DEFAULT   20 
+    21: 0000000000000000     0 FILE    LOCAL  DEFAULT  ABS gdt.c
+    22: ffffffff80220218    10 OBJECT  LOCAL  DEFAULT    9 gdtr
+    23: 0000000000000000     0 FILE    LOCAL  DEFAULT  ABS idt.c
+    24: ffffffff80220222    10 OBJECT  LOCAL  DEFAULT    9 idtr
+    25: 0000000000000000     0 FILE    LOCAL  DEFAULT  ABS irq.c
+    26: 0000000000000000     0 FILE    LOCAL  DEFAULT  ABS isr.c
+    27: ffffffff80202490    19 OBJECT  LOCAL  DEFAULT    2 __FUNCTION__.1068
+    28: ffffffff80202460    33 OBJECT  LOCAL  DEFAULT    2 __FUNCTION__.1073
+    29: 0000000000000000     0 FILE    LOCAL  DEFAULT  ABS kb.c
+    30: ffffffff80202600   332 OBJECT  LOCAL  DEFAULT    2 scan_code
+    31: 0000000000000000     0 FILE    LOCAL  DEFAULT  ABS main.c
+    32: ffffffff8020274c     6 OBJECT  LOCAL  DEFAULT    2 __FUNCTION__.1476
+    33: 0000000000000000     0 FILE    LOCAL  DEFAULT  ABS stdfns.c
+    34: ffffffff80205080    65 OBJECT  LOCAL  DEFAULT    7 buf.1076
+    35: 0000000000000000     0 FILE    LOCAL  DEFAULT  ABS timer.c
+    36: ffffffff802011b2     0 NOTYPE  LOCAL  DEFAULT    1 .done
+    37: ffffffff80201238     0 NOTYPE  LOCAL  DEFAULT    1 irq_common_stub
+    38: ffffffff80201294     0 NOTYPE  LOCAL  DEFAULT    1 isr_common_stub
+    39: 0000000000000000     0 FILE    LOCAL  DEFAULT  ABS mmgr.c
+    40: ffffffff80207680     8 OBJECT  LOCAL  DEFAULT    7 mmgr_max_blocks
+    41: ffffffff80207688     8 OBJECT  LOCAL  DEFAULT    7 mmgr_used_blocks
+    42: ffffffff80207690     8 OBJECT  LOCAL  DEFAULT    7 mmgr_usable_memory_size
+    43: ffffffff80205100  9600 OBJECT  LOCAL  DEFAULT    7 mmgr_memory_map
+    44: 0000000000000000     0 FILE    LOCAL  DEFAULT  ABS paging.c
+    45: 0000000000000000     0 FILE    LOCAL  DEFAULT  ABS slob.c
+    46: ffffffff80220230     8 OBJECT  LOCAL  DEFAULT   10 slobfree
+    47: ffffffff80220240    16 OBJECT  LOCAL  DEFAULT   10 arena
+    48: 0000000000000000     0 FILE    LOCAL  DEFAULT  ABS vmmgr_pde.c
+    49: 0000000000000000     0 FILE    LOCAL  DEFAULT  ABS vmmgr_pdpe.c
+    50: 0000000000000000     0 FILE    LOCAL  DEFAULT  ABS vmmgr_pml4.c
+    51: 0000000000000000     0 FILE    LOCAL  DEFAULT  ABS vmmgr_pte.c
+    52: 0000000000000000     0 FILE    LOCAL  DEFAULT  ABS vmmgr_virtual.c
+    53: ffffffff802027d0    28 OBJECT  LOCAL  DEFAULT    2 __FUNCTION__.1275
+    54: ffffffff802027bb    15 OBJECT  LOCAL  DEFAULT    2 __FUNCTION__.1295
+    55: ffffffff802027b0    11 OBJECT  LOCAL  DEFAULT    2 __FUNCTION__.1307
+    56: ffffffff802041b0     0 OBJECT  LOCAL  HIDDEN    6 _GLOBAL_OFFSET_TABLE_
+    57: ffffffff802011d6     0 NOTYPE  GLOBAL DEFAULT    1 _irq2
+    58: ffffffff8020186c   138 FUNC    GLOBAL DEFAULT    1 mmgr_free_size_blocks
+    59: ffffffff80201efe    27 FUNC    GLOBAL DEFAULT    1 vmmgr_page_pointer_direct
+    60: ffffffff8020010f   101 FUNC    GLOBAL DEFAULT    1 setup_tss
+    61: ffffffff80201f76     6 FUNC    GLOBAL DEFAULT    1 vmmngr_alloc_page
+    62: ffffffff80200d6b   508 FUNC    GLOBAL DEFAULT    1 printf
+    63: ffffffff80200847    26 FUNC    GLOBAL DEFAULT    1 keyboard_install
+    64: ffffffff80209740   200 OBJECT  GLOBAL DEFAULT    7 sys_total_memory
+    65: ffffffff802011c4     0 NOTYPE  GLOBAL DEFAULT    1 _x86_64_asm_lidt
+    66: ffffffff80201dbf    20 FUNC    GLOBAL DEFAULT    1 pd_entry_set_frame
+    67: ffffffff80201ded     8 FUNC    GLOBAL DEFAULT    1 pd_entry_is_4mb
+    68: ffffffff802011a0     0 NOTYPE  GLOBAL DEFAULT    1 _x86_64_asm_lgdt
+    69: ffffffff8020063c   239 FUNC    GLOBAL DEFAULT    1 keycode_to_ascii
+    70: ffffffff80201be0   169 FUNC    GLOBAL DEFAULT    1 slob_free
+    71: ffffffff80201dfc     7 FUNC    GLOBAL DEFAULT    1 pdpe_entry_del_attrib
+    72: ffffffff80201eb9     6 FUNC    GLOBAL DEFAULT    1 pt_entry_is_user
+    73: ffffffff80201e40     7 FUNC    GLOBAL DEFAULT    1 pml4e_entry_del_attrib
+    74: ffffffff80208700     4 OBJECT  GLOBAL DEFAULT    7 _alt
+    75: ffffffff80220218     0 NOTYPE  GLOBAL DEFAULT    8 _binary_tarfs_end
+    76: ffffffff802050d4     2 OBJECT  GLOBAL DEFAULT    7 total_ticks_secs
+    77: ffffffff80201e75     8 FUNC    GLOBAL DEFAULT    1 pml4e_entry_is_4mb
+    78: ffffffff80209820   200 OBJECT  GLOBAL DEFAULT    7 sys_usable_memory
+    79: ffffffff802050ca     2 OBJECT  GLOBAL DEFAULT    7 minutes_units
+    80: ffffffff80200174    94 FUNC    GLOBAL DEFAULT    1 fault_handler
+    81: ffffffff80201df8     4 FUNC    GLOBAL DEFAULT    1 pdpe_entry_add_attrib
+    82: ffffffff80201e1d     6 FUNC    GLOBAL DEFAULT    1 pdpe_entry_is_writable
+    83: ffffffff80201e03    20 FUNC    GLOBAL DEFAULT    1 pdpe_entry_set_frame
+    84: ffffffff802050c8     2 OBJECT  GLOBAL DEFAULT    7 minutes_tens
+    85: ffffffff80201e9f     6 FUNC    GLOBAL DEFAULT    1 pt_entry_is_present
+    86: ffffffff80200fec   371 FUNC    GLOBAL DEFAULT    1 timer_handler
+    87: ffffffff8020115f    27 FUNC    GLOBAL DEFAULT    1 timer_setup
+    88: ffffffff80200b60    36 FUNC    GLOBAL DEFAULT    1 memcpy
+    89: ffffffff80201f19    27 FUNC    GLOBAL DEFAULT    1 vmmgr_pml4_directory_look
+    90: ffffffff80200608     3 FUNC    GLOBAL DEFAULT    1 kybrd_ctrl_read_status
+    91: ffffffff8020136c   145 FUNC    GLOBAL DEFAULT    1 print_usable_system_memor
+    92: ffffffff80201e23     8 FUNC    GLOBAL DEFAULT    1 pdpe_entry_pfn
+    93: ffffffff80201f34    55 FUNC    GLOBAL DEFAULT    1 vmmgr_switch_pml4_directo
+    94: ffffffff80201589   289 FUNC    GLOBAL DEFAULT    1 mmgr_get_first_range_free
+    95: ffffffff802011f9     0 NOTYPE  GLOBAL DEFAULT    1 _irq7
+    96: ffffffff80201278     0 NOTYPE  GLOBAL DEFAULT    1 _isr0
+    97: ffffffff8020180a    98 FUNC    GLOBAL DEFAULT    1 mmgr_free_block
+    98: ffffffff80209900   256 OBJECT  GLOBAL DEFAULT    8 gdt
+    99: ffffffff80200fc4    37 FUNC    GLOBAL DEFAULT    1 PANIC
+   100: ffffffff802002af    19 FUNC    GLOBAL DEFAULT    1 irq_uninstall_handler
+   101: ffffffff80209a00     8 OBJECT  GLOBAL DEFAULT    8 keyboard_memory
+   102: 0000000000016800     0 NOTYPE  GLOBAL DEFAULT  ABS _binary_tarfs_size
+   103: ffffffff802011c8     0 NOTYPE  GLOBAL DEFAULT    1 _irq0
+   104: ffffffff802011eb     0 NOTYPE  GLOBAL DEFAULT    1 _irq5
+   105: ffffffff80201e67     8 FUNC    GLOBAL DEFAULT    1 pml4e_entry_pfn
+   106: ffffffff8020122a     0 NOTYPE  GLOBAL DEFAULT    1 _irq14
+   107: ffffffff80201200     0 NOTYPE  GLOBAL DEFAULT    1 _irq8
+   108: ffffffff80200b84   234 FUNC    GLOBAL DEFAULT    1 update_cursor
+   109: ffffffff80200975   173 FUNC    GLOBAL DEFAULT    1 boot
+   110: ffffffff80201b9c    13 FUNC    GLOBAL DEFAULT    1 get_paging_status
+   111: ffffffff80201e17     6 FUNC    GLOBAL DEFAULT    1 pdpe_entry_is_present
+   112: ffffffff80201e84     7 FUNC    GLOBAL DEFAULT    1 pt_entry_del_attrib
+   113: ffffffff80201516   115 FUNC    GLOBAL DEFAULT    1 mmgr_get_first_free
+   114: 0000000000200000     0 NOTYPE  GLOBAL DEFAULT  ABS physbase
+   115: ffffffff80209a18     0 NOTYPE  GLOBAL DEFAULT    8 _binary_tarfs_start
+   116: ffffffff80208720  4096 OBJECT  GLOBAL DEFAULT    7 stack
+   117: ffffffff80201ea5     6 FUNC    GLOBAL DEFAULT    1 pt_entry_is_writable
+   118: ffffffff802000f0    31 FUNC    GLOBAL DEFAULT    1 reload_gdt
+   119: ffffffff802076b0     8 OBJECT  GLOBAL DEFAULT    7 _cur_pde_directory
+   120: ffffffff8020072b   284 FUNC    GLOBAL DEFAULT    1 keyboard_handler
+   121: ffffffff802018f6   107 FUNC    GLOBAL DEFAULT    1 mmgr_phy_init_regions
+   122: ffffffff80201e80     4 FUNC    GLOBAL DEFAULT    1 pt_entry_add_attrib
+   123: ffffffff80201e8b    20 FUNC    GLOBAL DEFAULT    1 pt_entry_set_frame
+   124: ffffffff802076c0    56 OBJECT  GLOBAL DEFAULT    7 tss
+   125: ffffffff80200622     3 FUNC    GLOBAL DEFAULT    1 keybrd_enc_read_buf
+   126: ffffffff80209720     8 OBJECT  GLOBAL DEFAULT    7 loader_stack
+   127: ffffffff8020127f     0 NOTYPE  GLOBAL DEFAULT    1 _isr1
+   128: ffffffff80205000   128 OBJECT  GLOBAL DEFAULT    7 irq_routines
+   129: ffffffff80209a10     8 OBJECT  GLOBAL DEFAULT    8 video_memory
+   130: ffffffff80201eb3     6 FUNC    GLOBAL DEFAULT    1 pt_entry_is_accessed
+   131: ffffffff80207698     8 OBJECT  GLOBAL DEFAULT    7 _cur_pml4_base_pointer
+   132: ffffffff80201de7     6 FUNC    GLOBAL DEFAULT    1 pd_entry_is_user
+   133: ffffffff80201e5b     6 FUNC    GLOBAL DEFAULT    1 pml4e_entry_is_present
+   134: ffffffff80200a5c   211 FUNC    GLOBAL DEFAULT    1 write_time
+   135: ffffffff802012e0     8 FUNC    GLOBAL DEFAULT    1 get_total_usable_memory
+   136: ffffffff80201dd9     6 FUNC    GLOBAL DEFAULT    1 pd_entry_is_writable
+   137: ffffffff80208704     4 OBJECT  GLOBAL DEFAULT    7 _shift
+   138: ffffffff80208708     4 OBJECT  GLOBAL DEFAULT    7 _caps
+   139: ffffffff802001d2    55 FUNC    GLOBAL DEFAULT    1 idt_set_gate
+   140: ffffffff80202454     0 NOTYPE  GLOBAL DEFAULT    1 vmmgr_load_pml4
+   141: ffffffff80201ee3    27 FUNC    GLOBAL DEFAULT    1 vmmgr_page_directory_look
+   142: ffffffff80201286     0 NOTYPE  GLOBAL DEFAULT    1 _isr13
+   143: ffffffff802019ce   453 FUNC    GLOBAL DEFAULT    1 mm_phy_init
+   144: ffffffff802076a8     8 OBJECT  GLOBAL DEFAULT    7 _cur_pdpe_directory
+   145: ffffffff80201e6f     6 FUNC    GLOBAL DEFAULT    1 pml4e_entry_is_user
+   146: ffffffff80201ba9     7 FUNC    GLOBAL DEFAULT    1 get_cr0_register
+   147: ffffffff802011f2     0 NOTYPE  GLOBAL DEFAULT    1 _irq6
+   148: ffffffff80201c89   299 FUNC    GLOBAL DEFAULT    1 slob_alloc
+   149: ffffffff80201215     0 NOTYPE  GLOBAL DEFAULT    1 _irq11
+   150: ffffffff802005da    43 FUNC    GLOBAL DEFAULT    1 general_protection_fault_
+   151: ffffffff802011e4     0 NOTYPE  GLOBAL DEFAULT    1 _irq4
+   152: ffffffff80201f7c     2 FUNC    GLOBAL DEFAULT    1 vmmgr_free_page
+   153: ffffffff80201e3c     4 FUNC    GLOBAL DEFAULT    1 pml4e_entry_add_attrib
+   154: ffffffff80201bd4     2 FUNC    GLOBAL DEFAULT    1 pmmngr_load_PDBR
+   155: ffffffff80201461    52 FUNC    GLOBAL DEFAULT    1 mmgr_unset_block
+   156: ffffffff802002fa   451 FUNC    GLOBAL DEFAULT    1 irq_install
+   157: ffffffff80201bb0     7 FUNC    GLOBAL DEFAULT    1 get_cr4_register
+   158: ffffffff80200209   151 FUNC    GLOBAL DEFAULT    1 reload_idt
+   159: ffffffff80202191   705 FUNC    GLOBAL DEFAULT    1 vmmgr_init
+   160: ffffffff80201db8     7 FUNC    GLOBAL DEFAULT    1 pd_entry_del_attrib
+   161: ffffffff802050cc     2 OBJECT  GLOBAL DEFAULT    7 hours_tens
+   162: ffffffff80201223     0 NOTYPE  GLOBAL DEFAULT    1 _irq13
+   163: ffffffff80201961   109 FUNC    GLOBAL DEFAULT    1 mmgr_phy_deinit_regions
+   164: ffffffff802004f4   230 FUNC    GLOBAL DEFAULT    1 page_fault_handler
+   165: ffffffff802050ce     2 OBJECT  GLOBAL DEFAULT    7 hours_units
+   166: ffffffff80200000     0 NOTYPE  GLOBAL DEFAULT  ABS kernmem
+   167: ffffffff80200b2f    31 FUNC    GLOBAL DEFAULT    1 memset
+   168: ffffffff802002a0    15 FUNC    GLOBAL DEFAULT    1 irq_install_handler
+   169: ffffffff80201f7e   531 FUNC    GLOBAL DEFAULT    1 vmmgr_map_page
+   170: ffffffff802050d2     2 OBJECT  GLOBAL DEFAULT    7 mins
+   171: ffffffff80201ddf     8 FUNC    GLOBAL DEFAULT    1 pd_entry_pfn
+   172: ffffffff802012d0     8 FUNC    GLOBAL DEFAULT    1 get_total_blocks
+   173: ffffffff80200b4e    18 FUNC    GLOBAL DEFAULT    1 write_key
+   174: ffffffff802076a0     8 OBJECT  GLOBAL DEFAULT    7 _cur_pml4_directory
+   175: ffffffff80207700  4096 OBJECT  GLOBAL DEFAULT    7 idt
+   176: ffffffff80201eab     8 FUNC    GLOBAL DEFAULT    1 pt_entry_pfn
+   177: ffffffff802050e8     8 OBJECT  GLOBAL DEFAULT    7 total_mem_counter
+   178: ffffffff80201ebf     6 FUNC    GLOBAL DEFAULT    1 pt_entry_is_dirty
+   179: ffffffff8020117a    36 FUNC    GLOBAL DEFAULT    1 timer_install
+   180: ffffffff8020128d     0 NOTYPE  GLOBAL DEFAULT    1 _isr14
+   181: ffffffff80201b93     6 FUNC    GLOBAL DEFAULT    1 mmgr_get_block_count
+   182: ffffffff80201207     0 NOTYPE  GLOBAL DEFAULT    1 _irq9
+   183: ffffffff802004bd    53 FUNC    GLOBAL DEFAULT    1 irq_handler
+   184: ffffffff80209a08     8 OBJECT  GLOBAL DEFAULT    8 timer_memory
+   185: ffffffff80201e61     6 FUNC    GLOBAL DEFAULT    1 pml4e_entry_is_writable
+   186: ffffffff802012d8     8 FUNC    GLOBAL DEFAULT    1 get_used_blocks
+   187: ffffffff80200625    23 FUNC    GLOBAL DEFAULT    1 kybrd_enc_send_cmd
+   188: ffffffff8020120e     0 NOTYPE  GLOBAL DEFAULT    1 _irq10
+   189: ffffffff80201e31     8 FUNC    GLOBAL DEFAULT    1 pdpe_entry_is_4mb
+   190: ffffffff802050c4     2 OBJECT  GLOBAL DEFAULT    7 seconds_tens
+   191: ffffffff80201495   129 FUNC    GLOBAL DEFAULT    1 mmgr_print_memory_status
+   192: ffffffff802050d6     2 OBJECT  GLOBAL DEFAULT    7 total_ticks
+   193: ffffffff802050c6     2 OBJECT  GLOBAL DEFAULT    7 seconds_units
+   194: ffffffff802012e8    32 FUNC    GLOBAL DEFAULT    1 get_total_usable_blocks
+   195: ffffffff8020870c     4 OBJECT  GLOBAL DEFAULT    7 _ctrl
+   196: ffffffff80201e47    20 FUNC    GLOBAL DEFAULT    1 pml4e_entry_set_frame
+   197: ffffffff80201231     0 NOTYPE  GLOBAL DEFAULT    1 _irq15
+   198: ffffffff802011cf     0 NOTYPE  GLOBAL DEFAULT    1 _irq1
+   199: ffffffff80200864   273 FUNC    GLOBAL DEFAULT    1 start
+   200: ffffffff8020060b    23 FUNC    GLOBAL DEFAULT    1 kybrd_ctrl_send_cmd
+   201: ffffffff80201431    48 FUNC    GLOBAL DEFAULT    1 mmgr_is_block_free
+   202: ffffffff80201db4     4 FUNC    GLOBAL DEFAULT    1 pd_entry_add_attrib
+   203: ffffffff80201dd3     6 FUNC    GLOBAL DEFAULT    1 pd_entry_is_present
+   204: ffffffff802016aa   158 FUNC    GLOBAL DEFAULT    1 mmgr_alloc_block
+   205: ffffffff80201e2b     6 FUNC    GLOBAL DEFAULT    1 pdpe_entry_is_user
+   206: ffffffff802002c2    56 FUNC    GLOBAL DEFAULT    1 irq_remap
+   207: ffffffff80200ce4   135 FUNC    GLOBAL DEFAULT    1 write_string
+   208: ffffffff80200f67    65 FUNC    GLOBAL DEFAULT    1 cls
+   209: ffffffff80201ec8    27 FUNC    GLOBAL DEFAULT    1 vmmgr_ptable_lookup_entry
+   210: ffffffff8020121c     0 NOTYPE  GLOBAL DEFAULT    1 _irq12
+   211: ffffffff80200fa8    28 FUNC    GLOBAL DEFAULT    1 strlen
+   212: ffffffff80201308   100 FUNC    GLOBAL DEFAULT    1 print_total_system_memory
+   213: ffffffff802011dd     0 NOTYPE  GLOBAL DEFAULT    1 _irq3
+   214: ffffffff802013fd    52 FUNC    GLOBAL DEFAULT    1 mmgr_set_block
+   215: ffffffff80200c6e   118 FUNC    GLOBAL DEFAULT    1 write_char
+   216: ffffffff802050d0     2 OBJECT  GLOBAL DEFAULT    7 hours
+   217: ffffffff80200a24    56 FUNC    GLOBAL DEFAULT    1 convert
+   218: ffffffff80201bb7    29 FUNC    GLOBAL DEFAULT    1 get_cr3_register
+   219: ffffffff80201f6b    11 FUNC    GLOBAL DEFAULT    1 vmmgr_get_current_pml4_di
+   220: ffffffff802050e0     8 OBJECT  GLOBAL DEFAULT    7 usable_mem_counter
+   221: ffffffff80201748   194 FUNC    GLOBAL DEFAULT    1 mmgr_alloc_size_blocks
+
+No version information found in this file.
