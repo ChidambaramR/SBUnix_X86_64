@@ -55,5 +55,11 @@ Elf64_Xword p_memsz; /* Size of segment in memory */
 Elf64_Xword p_align; /* Alignment of segment */
 } Elf64_Phdr;
 
-uint16_t readelf(char **, char **, int *, int *, uint64_t*);
+struct exec{
+uint32_t seg_length;
+uint64_t seg_page_start;
+uint64_t seg_actual_start;
+void* seg_mem;
+};
+uint16_t readelf(struct exec*, uint16_t*, uint64_t*);
 #endif
