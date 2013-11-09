@@ -78,28 +78,48 @@ void create_new_task(){
 
 uint32_t do_exec(/*char *name, char *environment*/){
    // uint64_t *data;
-    uint64_t currentCode_page;
+    /*uint64_t currentCode_page;
     uint64_t currentCode_len;
     uint64_t currentData_page;
     uint64_t currentData_len;
+    uint64_t new_pte;*/
+    struct exec executable[20];
     uint64_t currentStack_page;
+    uint16_t pgm_entries;
     uint64_t new_pte;
     task_struct* task;
   
    // uint32_t size;
-    int codeLen, dataLen;
+   // int codeLen=10, dataLen;
+    uint16_t i;
     uint64_t entry_point;
-    char *codeBuf, *dataBuf;
+   // char *codeBuf, *dataBuf;
    // struct posix_header_ustar executable;
    // char *prog_name = (char*)sub_malloc(strlen(name),1);
    // strcpy(prog_name, name);
-    if( readelf(&codeBuf, &dataBuf, &codeLen, &dataLen, &entry_point) ){
+    if( readelf(executable, &pgm_entries, &entry_point) ){
         // Initialize code page
         task = (task_struct*)sub_malloc(sizeof(task_struct), 0);
         memset(task, 0, sizeof(task_struct));
         currentTask = task;
         currentTask->pgd = (pml4*)get_cr3_register();
-        currentCode_page = UserCode;
+        for(i=0; i < pgm_entries; i++){
+            printf(" seg length %d, page %x, bug %p\n",executable[i].seg_length, executable[i].seg_page_start, executable[i].seg_mem);
+            mmap((void*)executable[i].seg_page_start, executable[i].seg_length, 0, 0, 0, 0);
+            // Need to ask Prof about this
+            if(i == 0)
+                memcpy((char*)entry_point, executable[i].seg_mem, executable[i].seg_length);   
+            else 
+                memcpy((char*)executable[i].seg_actual_start, executable[i].seg_mem, executable[i].seg_length);    
+    
+        }
+
+        // Initialize stack page
+        currentStack_page = UserStack;
+        new_pte = (uint64_t)mmgr_alloc_block();
+        vmmgr_map_page_after_paging(new_pte, currentStack_page, 1);
+        memset((void*)currentStack_page, 0, sizeof(VIRT_PAGE_SIZE));
+        /* currentCode_page = UserCode;
         currentCode_len = codeLen;
         while(codeLen >= 0){
           mmap((void*)currentCode_page, currentCode_len, 0, 0, 0, 0);
@@ -124,15 +144,11 @@ uint32_t do_exec(/*char *name, char *environment*/){
         }
         currentData_page -= VIRT_PAGE_SIZE;
 
-        // Initialize stack page
-        currentStack_page = UserStack;
-        new_pte = (uint64_t)mmgr_alloc_block();
-        vmmgr_map_page_after_paging(new_pte, currentStack_page, 1);
-        memset((void*)currentStack_page, 0, sizeof(VIRT_PAGE_SIZE));
-
+        */
         // Create the actual task structure
-        Init_Task(task, TASK_PRIO_NORMAL, "first", currentCode_page, currentCode_len, currentData_page, currentData_len, currentStack_page, entry_point);
+        Init_Task(task, TASK_PRIO_NORMAL, "first", 0, 0, 0, 0, currentStack_page, entry_point);
         switch_to_user();
+        
         /*currentPage = UserCode;
         currentPage_size = usercode_len;
         init_user_memory();

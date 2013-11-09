@@ -11,7 +11,7 @@ uint16_t write(const char* buf){
 
 int printf(const char *fmt, ...) {
        const char *p;
-       char buf[] = "Chidambaram";
+       char buf[100];
        uint16_t ind,cnt=0;
     //   void *v;
 //       uint64_t addr;
@@ -19,7 +19,8 @@ int printf(const char *fmt, ...) {
        //unsigned u; // unsigned int argument
        char *s; // string argument
        va_list arg_p; // pointer to the variable argument list
-       write((const char*)buf);
+//       buf = "Chidhu";
+//       write((const char*)buf);
        va_start(arg_p, fmt); /* Initializes the pointer to retrieve the additional
                                parameters. Should call va_end before end. fmt is
                                also passed because, we need to know where the last
@@ -63,7 +64,7 @@ int printf(const char *fmt, ...) {
                }
        }
        va_end(arg_p);
-       write(buf);
+       write((const char*)buf);
 
 	return 0;
 }
