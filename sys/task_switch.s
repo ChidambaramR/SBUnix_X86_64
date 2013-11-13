@@ -45,7 +45,7 @@
 
 .text
 .global switch_to_user
-.extern currentTask
+.extern currentThread
 .extern tss
 
 switch_to_user:
@@ -58,7 +58,7 @@ movq %rax, %gs
 leaq (tss), %rax
 leaq 0x4(%rax), %rax
 movq %rsp, (%rax)
-movq (currentTask), %rax
+movq (currentThread), %rax
 pushq $0x23
 pushq (%rax)
 # pushq $0x900000
@@ -67,7 +67,7 @@ popq %rax
 orq $0x200, %rax
 pushq %rax
 pushq $0x1B # User CS = 0x18 | 0x3 ( DPL ) = 0x1B
-movq (currentTask), %rax
+movq (currentThread), %rax
 leaq 0x8(%rax), %rax
 movq (%rax), %rax
 # leaq 0x8(currentTask), %rax

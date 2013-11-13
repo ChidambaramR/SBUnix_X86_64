@@ -4,23 +4,24 @@
 #include <sys/task.h>
 #include <stdlib.h>
 #include <sys/mm/mmgr.h>
+#include <sys/kthread.h>
 #include <sys/mm/vmmgr_virtual.h>
 
-extern task_struct *currentTask;
+extern kthread *currentThread;
 
 void insert_vma(vm_area_struct *vma){
-  vm_area_struct *last = currentTask->mmap_cache;
-  vm_area_struct *first = currentTask->mmap;
+  vm_area_struct *last = currentThread->mmap_cache;
+  vm_area_struct *first = currentThread->mmap;
   if(!first)
-      currentTask->mmap = vma;    
+      currentThread->mmap = vma;    
   vma->vm_next = NULL;
   //current->mmap_cache = vma;
   if(last == NULL){
-      currentTask->mmap_cache = vma;
+      currentThread->mmap_cache = vma;
   }
   else{
       last->vm_next = vma;
-      currentTask->mmap_cache = vma;
+      currentThread->mmap_cache = vma;
   }
 }
 

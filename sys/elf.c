@@ -32,12 +32,13 @@ From the start, elf_header + section offset we get the section headers
 */
 uint16_t readelf(struct exec *executable, uint16_t *pgm_entries, uint64_t *entry_point){
         Elf64_Ehdr *bin_elf_start;
-        //Elf64_Shdr *sectHdr;
+        Elf64_Shdr *sectHdr;
         Elf64_Phdr *pgmHdr;
         uint16_t i;
         //uint64_t ans[100];
         uint64_t load_size, load_start, load_addr;
         uint64_t length = 0;
+        uint64_t text_start;
         //char *user_code, *data_code, *code_buf, *data_buf;
         uint64_t actual_mem_start;
         void* bin_start;
@@ -48,15 +49,18 @@ uint16_t readelf(struct exec *executable, uint16_t *pgm_entries, uint64_t *entry
         bin_start = (void*)(&(_binary_tarfs_start) + 3*sizeof(struct posix_header_ustar));
         //printElfHdr(bin_start, bin_elf_start);
         //printPgmHdr(bin_start, bin_elf_start, 0);
-        //sectHdr = (Elf64_Shdr*)((bin_start + bin_elf_start->e_shoff + sizeof(Elf64_Ehdr)));
-        //*user_code_length = sectHdr->sh_size;
+        sectHdr = (Elf64_Shdr*)((bin_start + bin_elf_start->e_shoff + sizeof(Elf64_Ehdr)));
+        text_start = sectHdr->sh_addr;
         //sectHdr = (Elf64_Shdr*)((bin_start + bin_elf_start->e_shoff + sizeof(Elf64_Ehdr) + sizeof(Elf64_Shdr)));
         actual_mem_start = (uint64_t)(&(_binary_tarfs_start) + 3*sizeof(struct posix_header_ustar) + sizeof(Elf64_Ehdr) + (*pgm_entries)*sizeof(Elf64_Phdr) + bin_elf_start->e_phoff);
         for(i=0; i < (*pgm_entries); i++){
           pgmHdr = (Elf64_Phdr*)((bin_start + sizeof(Elf64_Ehdr) +  i*sizeof(Elf64_Phdr)));
           load_size = pgmHdr->p_memsz;
           load_start = pgmHdr->p_vaddr - pgmHdr->p_offset;
-          load_addr = pgmHdr->p_vaddr;
+          if(i==0)
+            load_addr = text_start;
+          else
+            load_addr = pgmHdr->p_vaddr;
           load_buf = (void*)(actual_mem_start + length);
           length += load_size;
           executable[i].seg_length = load_size;

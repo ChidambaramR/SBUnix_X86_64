@@ -52,6 +52,8 @@
 .global _isr14
 .global _isr80
 .extern fault_handler 
+.extern sys_exit
+.extern Schedule
 
 #  0: Divide By Zero Exception
 _isr0:
@@ -84,6 +86,12 @@ _isr14:
 #  80: Software Interrupt
 _isr80:
   cli
+        cmpq $0x1, %rax
+        jne .normal2
+        callq sys_exit
+        callq Schedule
+        # Code should never return here
+        .normal2:
         pushq $0x0
         pushq $0x80
         jmp isr_common_stub
@@ -93,6 +101,10 @@ isr_common_stub:
     PUSHAQ
     movq %rsp, %rdi    # Push us the stack
     callq fault_handler       # A special call, preserves the 'eip' register
+    cmpq $0x80, 0x78(%rsp)
+    jne .normal
+    movq %rax, 0x70(%rsp)
+    .normal:
     POPAQ
     add $0x10,%rsp     # Cleans up the pushed error code and pushed ISR number
     iretq           # pops 5 things at once: CS, EIP, EFLAGS, SS, and ESP!

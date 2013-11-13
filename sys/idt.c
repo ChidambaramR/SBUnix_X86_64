@@ -1,5 +1,6 @@
 #include <sys/idt.h>
 #include <sys/isr.h>
+#include <sys/kthread.h>
 
 #define MAX_IDT 256
 
@@ -11,6 +12,7 @@ extern void _isr80();
 extern void *memset(void*,int,int);
 extern void write_string(int, const char *);
 extern void _x86_64_asm_ltr(void*);
+extern kthread* *ptable;
 idtE idt[MAX_IDT];
 
 static struct idtr_t idtr = {
@@ -20,12 +22,14 @@ static struct idtr_t idtr = {
 
 void _x86_64_asm_lidt(struct idtr_t* idtr);
 
-void fault_handler(regs *r)
+int fault_handler(regs *r)
 {
       /* Is this a fault whose number is from 0 to 31? */
       void* faulting_instruction;
       uint16_t callNo;
       const char* str;
+      int val=1;
+//      kthread* k_thread;
       //asm volatile("leaq (%%rip), %0;": "=r"(faulting_instruction));
       asm volatile("movq %%rsp, %0" : "=r" (faulting_instruction));
       if (r->intNo <= 0x80){
@@ -36,16 +40,23 @@ void fault_handler(regs *r)
                         break;
               case 0x80:callNo = r->rax;
                         switch(callNo){
+                          case 1: 
+                                  sys_exit();
+                                  break;
                           case 2: str = (const char*)r->rdi;
                                   write(str);
                                   break;
+                          case 20: val = sys_getpid();
+                                  break;
                         } 
                         break;
-              default:  write_string(0x1F," Unknown Exception. System Halted!\n"); 
+              default:  write_string(0x1F," Unknown Exception. System Halted!\n");
+                        while(1);
           }
-         write_string(0x1F," Exception. System Halted!\n");
+//         write_string(0x1F," Exception. System Halted!\n");
 //         for (;;);
       }
+      return val;
 }
 
 void idt_set_gate(unsigned char number, uint64_t base, uint16_t selector, unsigned char flags) {

@@ -1,7 +1,9 @@
 #include <defs.h>
 #include <stdlib.h>
 #include <stdio.h>
-
+#include <sys/kthread.h>
+extern kthread* currentThread;
+extern kthread* ptable[100];
 void page_fault_handler(uint64_t err_code, void* err_ins){
    // A page fault has occurred.
    // The faulting address is stored in the CR2 register.
@@ -37,4 +39,21 @@ void general_protection_fault_handler(uint64_t err_code){
 
 void write(const char* str){
   printf("%s",str);
+}
+
+int sys_getpid(){
+  return currentThread->pid;
+}
+
+void sys_exit(){
+  int pid;
+  kthread* k_thread;
+  /*
+  Important: While coming to this function, the kernel actually executes in the context
+  of the process. Thus we can easily get the PID of the process which currently issued the system call. 
+  */
+  pid = currentThread->pid;
+  k_thread = ptable[pid];
+  thread_cleanup(k_thread);
+  return;
 }

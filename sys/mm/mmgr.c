@@ -185,7 +185,7 @@ void* mmgr_alloc_block(){
   }
 
   page_frame = mmgr_get_first_free();
-  printf("rpf = %d ",page_frame);
+  //printf("rpf = %d ",page_frame);
   if(page_frame == -1){
     printf("Not able to find a matching frame\n");
     return NULL;

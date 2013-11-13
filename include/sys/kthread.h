@@ -1,3 +1,8 @@
+#ifndef _KTHREAD_H_
+#define _KTHREAD_H_
+
+#include <sys/task.h>
+
 /*
  * Thread priorities
  */
@@ -31,6 +36,7 @@ typedef struct Thread_queue Thr_Queue;
  */
 struct Kernel_Thread {
     uint64_t rsp;                         /* offset 0 */
+    bool kernel_thread;
     volatile uint64_t numTicks;           /* offset 4 */
     int priority;
     struct Kernel_Thread *prev_in_ThreadQ, *next_in_ThreadQ;
@@ -48,7 +54,8 @@ struct Kernel_Thread {
 
     /* The kernel thread id; also used as process id */
     int pid;
-
+    vm_area_struct *mmap;
+    vm_area_struct *mmap_cache;
     /* Link fields for list of all threads in the system. */
     struct Kernel_Thread *prev_in_ThreadList, *next_in_ThreadList;
     /* Array of MAX_TLOCAL_KEYS pointers to thread-local data. */
@@ -78,4 +85,14 @@ void Yield(void);
 void Exit_thread(uint16_t exitCode); // __attribute__ ((noreturn));
 int Join(struct Kernel_Thread* kthread);
 kthread* Lookup_Thread(int pid);
-
+void disable_interrupts();
+void enable_interrupts();
+void append_run_queue(Thr_Queue*, kthread*);
+void append_global_list_queue(global_thread_list*, kthread*);
+void Push_General_Registers(kthread*);
+void Push(kthread*, uint64_t);
+void init_thread_queue(Thr_Queue*);
+int alloc_pid();
+void add_to_ptable(kthread*);
+void thread_cleanup(kthread*);
+#endif

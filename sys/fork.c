@@ -5,7 +5,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-task_struct *currentTask;
+//task_struct *currentTask;
 
 //static TaskList allTaskList;
 
@@ -16,6 +16,7 @@ task_struct *currentTask;
     pml4* pml4_dir_phy = pml4_dir - 0xFFFFFFFF81400000;
 }*/
 
+/*
 void insert_TaskList(TaskList *list, task_struct* task){
     task->prevTask = NULL;
     if(list->head == NULL){
@@ -106,7 +107,7 @@ static inline void mm_free_pgd(task_struct* mm)
 {
         pgd_free(mm->pgd);
 }
-
+*/
 /* static inline mem_error_t mm_alloc_pgd(mm_struct *mm){
     mm->pgd = pgd_alloc(mm);
     if(!mm->pgd){
@@ -141,6 +142,7 @@ mm_struct* mm_alloc(void){
     return mm;
 }
 */
+/*
 int alloc_pid(){
     return pid++;
 }
@@ -192,11 +194,14 @@ int do_fork(uint16_t clone_flags, uint64_t stack_start, regs_t* regs, uint32_t s
     p++;
     return E_PID_SUCCESS;
 }
+*/
 /* 
 put_task_struct() to free the pages containing the
 process.s kernel stack and thread_info structure and deallocate the slab cache containing
 the task_struct.
 */
+/*
 void put_task_struct(task_struct *tsk){
 //    if()
 }
+*/

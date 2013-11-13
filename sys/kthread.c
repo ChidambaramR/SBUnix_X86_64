@@ -6,41 +6,53 @@
 
 uint64_t KERN_CS=0x8;
 uint64_t KERN_DS=0x10;
+uint64_t USER_DS=0x23;
+uint64_t USER_CS=0x1B;
 extern void Switch_To_Thread(kthread*);
 extern uint64_t get_flag_register();
 extern char* stack; 
 extern void start(uint16_t);
 extern bool is_scheduler_on;
+    
+int nextFreePid = 0;
+kthread* ptable[100];
+
+void add_to_ptable(kthread* k_thread){
+    ptable[k_thread->pid] = k_thread;
+}
+
 /*
  * List of all threads in the system.
  */
-static global_thread_list allThreadList;
+global_thread_list allThreadList;
 
 /*
  * Queue of runnable threads.
  */
-static Thr_Queue runQueue;
+Thr_Queue runQueue;
 
 /*
  * Current thread.
  */
 kthread* currentThread;
 
-static __inline__ void disable_interrupts(void)
-{
+void disable_interrupts(void){
     __asm__ __volatile__ ("cli");
 }
 
-static __inline__ void enable_interrupts(void)
-{
+void enable_interrupts(void){
     __asm__ __volatile__ ("sti");
 }
 
+int alloc_pid(){
+    nextFreePid++;
+    return nextFreePid;
+}
 /*
 Add it to the end of the run queue. The scheduler function choosed which thread
 can be run only from this run queue.
 */
-static __inline__ void append_run_queue(Thr_Queue *listPtr, kthread *nodePtr) {                                           
+void append_run_queue(Thr_Queue *listPtr, kthread *nodePtr) {                                           
     nodePtr->next_in_ThreadQ = 0;                                 
     if (listPtr->tail == 0) {                                                                   
         listPtr->head = listPtr->tail = nodePtr;                                                
@@ -53,7 +65,7 @@ static __inline__ void append_run_queue(Thr_Queue *listPtr, kthread *nodePtr) {
     }                                 
 } 
 
-static __inline__ void insert_run_queue(Thr_Queue *listPtr, kthread *nodePtr) {  
+void insert_run_queue(Thr_Queue *listPtr, kthread *nodePtr) {  
     nodePtr->prev_in_ThreadQ = 0;
     if (listPtr->head == 0) {
         listPtr->head = listPtr->tail = nodePtr;
@@ -65,7 +77,7 @@ static __inline__ void insert_run_queue(Thr_Queue *listPtr, kthread *nodePtr) {
     }                                                                                           
 } 
 
-static __inline__ void append_global_list_queue(global_thread_list *listPtr, kthread *nodePtr) {                                           
+void append_global_list_queue(global_thread_list *listPtr, kthread *nodePtr) {                                           
     nodePtr->next_in_ThreadList = 0;                                 
     if (listPtr->tail == 0) {                                                                   
         listPtr->head = listPtr->tail = nodePtr;                                                
@@ -78,7 +90,7 @@ static __inline__ void append_global_list_queue(global_thread_list *listPtr, kth
     }                                 
 } 
 
-static __inline__ void insert_global_list_queue(global_thread_list *listPtr, kthread *nodePtr) {  
+void insert_global_list_queue(global_thread_list *listPtr, kthread *nodePtr) {  
     nodePtr->prev_in_ThreadList = 0;
     if (listPtr->head == 0) {
         listPtr->head = listPtr->tail = nodePtr;
@@ -88,6 +100,23 @@ static __inline__ void insert_global_list_queue(global_thread_list *listPtr, kth
         nodePtr->next_in_ThreadList = listPtr->head;            
         listPtr->head = nodePtr;          
     }                                                                                           
+}
+
+
+/*
+We are removing a runnable thread because, it has been scheduled and thus it should not
+be in the run queue. 
+*/
+void remove_alllist_kthread(global_thread_list* all_queue, kthread* runnable){
+    if(runnable->prev_in_ThreadList != 0)
+        runnable->prev_in_ThreadList->next_in_ThreadList = runnable->next_in_ThreadList;
+    else
+        all_queue->head = runnable->next_in_ThreadList;
+
+    if(runnable->next_in_ThreadList != 0)
+        runnable->next_in_ThreadList->prev_in_ThreadList = runnable->prev_in_ThreadList;
+    else
+        all_queue->tail = runnable->prev_in_ThreadList;
 }
 
 /*
@@ -108,6 +137,13 @@ void remove_runnable_kthread(Thr_Queue* run_queue, kthread* runnable){
     
 }
 
+void thread_cleanup(kthread* k_thread){
+    Thr_Queue* run_queue = &runQueue;
+    remove_runnable_kthread(run_queue, k_thread);
+    remove_alllist_kthread(&allThreadList, k_thread);
+//    sub_free(k_thread->stackpage);
+}
+
 /*
 Parses the runQueue linked list and gets the one with maximum priority. If two or mote
 thread's prioritues are same, then it choosing in the FCFS basis.
@@ -116,15 +152,16 @@ kthread* next_runnable_kthread(){
     Thr_Queue* run_queue = &runQueue;
     kthread* crawl = run_queue->head;
     kthread* runnable=0;
-    uint16_t prio,max=0;
-    while(crawl){
+//    uint16_t prio,max=0;
+    /*while(crawl){
         prio = crawl->priority;
         if(prio > max){
             max = prio;
             runnable = crawl;
         }
         crawl = crawl->next_in_ThreadQ;
-    }
+    }*/
+    runnable = crawl;
     if(!runnable)
       PANIC(__FUNCTION__,__LINE__,"NULL!!");
     remove_runnable_kthread(run_queue,runnable);
@@ -156,13 +193,13 @@ void Schedule(void)
 }
 
 
-static __inline__ void Push(kthread* k_thread, uint64_t value)
+void Push(kthread* k_thread, uint64_t value)
 {
     k_thread->rsp -= 0x8;
     *((uint64_t *) k_thread->rsp) = value;
 }
 
-static __inline__ void Push_General_Registers(kthread* k_thread){
+void Push_General_Registers(kthread* k_thread){
     /*
      * Push initial values for saved general-purpose registers.
      * (The actual values are not important.)
@@ -260,7 +297,6 @@ void init_thread_queue(Thr_Queue *node){
 }
 
 static void Init_Thread(kthread* k_thread,const char* name, void* stackPage, uint16_t prio, bool detached){
-    static int nextFreePid = 0;
     kthread* owner = detached ? (kthread*)0: currentThread;
     k_thread->stackPage = stackPage;
     k_thread->rsp = ((uint64_t) k_thread->stackPage) + VIRT_PAGE_SIZE;
@@ -269,12 +305,11 @@ static void Init_Thread(kthread* k_thread,const char* name, void* stackPage, uin
     //k_thread->userContext = 0;
     k_thread->owner = owner;
     k_thread->refCount = detached ? 1 : 2;
-
+    k_thread->kernel_thread = 1;
     k_thread->alive = TRUE;
     k_thread->name = name;
     init_thread_queue(&(k_thread->joinQueue));
-    k_thread->pid = nextFreePid;
-    nextFreePid++;
+    k_thread->pid = alloc_pid();
 }
 
 /*
@@ -424,6 +459,7 @@ void scheduler_init(){
 
 kthread* start_kthread(thread_func startFunc, const char* name, uint16_t arg, uint16_t priority, bool detached){
     kthread* k_thread = create_kthread(name, priority, detached);
+    add_to_ptable(k_thread);
     if(!k_thread)
         return NULL;
     setup_kthread(k_thread, startFunc, arg);

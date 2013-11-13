@@ -217,6 +217,10 @@ irq_common_stub:
     POPAQ
     # Cleaning the interrupt number and error code we pushed during _irq0 call.
     add $0x10, %rsp
+    # cmpq $0x1, 0x8(currentThread)
+    # jne .user_mode
+    # movq $0x8, 0x8(%rsp)
+
     iretq
     
 .restore_reg:

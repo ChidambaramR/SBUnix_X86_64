@@ -1,6 +1,9 @@
 .extern currentThread
 .extern KERN_CS
 .extern KERN_DS
+.extern USER_CS
+.extern USER_CS
+.extern tss
 
 .align 8
 
@@ -65,7 +68,13 @@
 #   in the order which was mentioned.
 
 Switch_To_Thread:
+  cmp $0x1, 0x4(%rdi)
+  jne .user_ds
   pushq KERN_DS
+  jmp .resume
+.user_ds:
+  pushq USER_DS
+.resume:
   pushq %rsp
   pushq %rax
   # This gets the return address pushed by the CPU on receipt of an interrupt.
@@ -83,11 +92,21 @@ Switch_To_Thread:
   movq %rsp, %rax
   add $0x8, %rsp
   pushfq
+  cmp $0x1, 0x8(%rdi)
+  jne .user_cs
   pushq KERN_CS
+  jmp .resume1
+.user_cs:
+  pushq USER_CS
+.resume1:
   sub $0x8, %rsp
   pushq $0x0
   pushq $0x0
   PUSHAQ
+  leaq (tss), %rax
+  leaq 0x4(%rax), %rax
+  movq %rsp, (%rax)
+
   # This is the stack capture before a context switch.
     # KERN_DS
     # RSP

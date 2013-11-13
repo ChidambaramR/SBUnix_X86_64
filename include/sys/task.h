@@ -1,9 +1,12 @@
+
 #ifndef _TASK_H
 #define _TASK_H
-
 #include <defs.h>
 #include <sys/mm/vmmgr_virtual.h>
+/*
 #include <sys/list.h>
+
+*/
 
 /*
 The kernel represents a process's address space with a data structure called the
@@ -11,6 +14,7 @@ memory descriptor. This structure contains all the information related to the pr
 address space.
 */
 
+/*
 typedef uint64_t pgprotval_t;
 
 typedef struct pgprot {
@@ -21,7 +25,7 @@ typedef enum{
 TASK_PRIO_NORMAL = 1,
 TASK_PRIO_HIGH = 2,
 } task_priority;
-
+*/
 struct vmas {
   char* name;
   void *vm_start, *vm_end; // Start and end of the region
@@ -32,7 +36,7 @@ struct vmas {
 };
 typedef struct vmas vm_area_struct;
 
-
+/*
 typedef struct registers_t{
     //uint64_t ds;
   uint64_t r15, r14, r13, r12, r11, r10, r9, r8, rsi, rdi, rbp, rdx, rcx, rbx, rax;
@@ -62,31 +66,29 @@ typedef struct _trapFrame {
    uint64_t r13;
    uint64_t r14;
    uint64_t r15;
-   /*
+  */ /*
       note: we can add more registers to this.
       For a complete trap frame, you should add:
         -Debug registers
         -Segment registers
         -Error condition [if any]
         -v86 mode segment registers [if used]
-   */
+   *//*
 }trapFrame;
 
 typedef struct ts task_struct;
 
 struct ti {
-    //struct exec_domain      *exec_domain;   /* execution domain */
-    uint16_t  flags;          /* low level flags */
-    uint16_t  status;         /* thread synchronous flags */
-    uint16_t  preempt_count;  /* 0 => preemptable, <0 => BUG */
-    task_struct *task;          /* main task structure */
+    //struct exec_domain      *exec_domain;   // execution domain 
+    uint16_t  flags;          // low level flags 
+    uint16_t  status;         / thread synchronous flags 
+    uint16_t  preempt_count;  // 0 => preemptable, <0 => BUG 
+    task_struct *task;          // main task structure 
 };
 typedef struct ti thread_info;
 
 struct ts{
-    /*
-    Dont modify the 1st two elements. Its offset is hardcoded in task_switch.s file
-    */
+     // Dont modify the 1st two elements. Its offset is hardcoded in task_switch.s file
     uint64_t rsp;
     void* entry_point;
     void* code_page;
@@ -136,4 +138,8 @@ void append_runQueue_Task(runQueue_List*, task_struct*);
 void remove_runQueue_Task(runQueue_List*, task_struct*);
 
 int alloc_pid();
+
+*/
 #endif
+
+
