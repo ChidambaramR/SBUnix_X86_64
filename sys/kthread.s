@@ -68,11 +68,16 @@
 #   in the order which was mentioned.
 
 Switch_To_Thread:
-  cmp $0x1, 0x4(%rdi)
-  jne .user_ds
+  pushq %rax
+  leaq (currentThread), %rax
+  movq (%rax), %rax
+  cmpq $0x0, 0x8(%rax)
+  je .user_ds
+  popq %rax
   pushq KERN_DS
   jmp .resume
 .user_ds:
+  popq %rax
   pushq USER_DS
 .resume:
   pushq %rsp
@@ -92,20 +97,31 @@ Switch_To_Thread:
   movq %rsp, %rax
   add $0x8, %rsp
   pushfq
-  cmp $0x1, 0x8(%rdi)
-  jne .user_cs
+  pushq %rax
+  leaq (currentThread), %rax
+  movq (%rax), %rax
+  cmpq $0x0, 0x8(%rax)
+  je .user_cs
+  popq %rax
   pushq KERN_CS
   jmp .resume1
 .user_cs:
+  popq %rax
   pushq USER_CS
 .resume1:
   sub $0x8, %rsp
   pushq $0x0
   pushq $0x0
   PUSHAQ
+  cmpq $0x0, 0x8(%rdi)
+  jne .store_tss_norm
+  pushq %rbx
   leaq (tss), %rax
   leaq 0x4(%rax), %rax
-  movq %rsp, (%rax)
+  movq 0x10(%rdi), %rbx
+  movq %rbx, (%rax)
+  popq %rbx
+ .store_tss_norm:
 
   # This is the stack capture before a context switch.
     # KERN_DS

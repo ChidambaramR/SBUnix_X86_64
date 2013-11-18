@@ -73,6 +73,18 @@
 #  IRQ 0: IDT 32 
 _irq0:
     cli
+        # the following code is for pure debugging purpose
+        # I had to stop at gdb only when a user thread is interrupted
+        # so doing the additional push and pop of the rax
+        pushq %rax
+        cmp $0x1, (is_scheduler_on)
+        jne .norm_interrupt1
+        movq (currentThread), %rax
+        cmp $0x1, 0x8(%rax)
+        je .norm_interrupt1
+        test %rax, %rax # this is a dummy instruction
+        .norm_interrupt1:
+        popq %rax
         pushq  $0x0 # error code   
         pushq  $0x32 # idt no
         jmp irq_common_stub
@@ -197,12 +209,33 @@ irq_common_stub:
     cmp $0x32, %rax
     jne .restore_reg
     # If scheduler is not initialized then we should not context switch.
-    #   is_schedule_on is turned on by scheduler_init
+    # is_schedule_on is turned on by scheduler_init
     cmp $0x1, (is_scheduler_on)
     jne .restore_reg
+  
+    # Decision should be taken based on user or kernel thread. So comparing
+    movq (currentThread), %rax
+    cmpq $0x0, 0x8(%rax)
+    je .user_move_rsp # The current thread is a user thread
+
+    # This action is, if the current thread is a kernel thread
+    # Its enough if we just move the stack pointer into the "rsp" field of kthread
     lea (%rsp), %rax
     movq (currentThread), %rdi
     movq %rax, (%rdi)
+    jmp .move_rsp_normal
+
+    # The current thread is a iser thread. We need to work with the kernel stack
+    # We cant write in the user stack because on an interrupt, the RSP in the TSS gets loaded
+    # So I create a kernel stack for each user and do push pop on the kernel's stack only.
+    # The user's stack is untouched
+    .user_move_rsp:
+    lea (%rsp), %rax
+    movq (currentThread), %rdi
+    movq %rax, 0x10(%rdi)
+
+    # usual operation
+    .move_rsp_normal:
     # Make the current thread runnable. i.e add it to the run queue
     callq runnable_kthread
     # Get the next thread which is to tbe scheduled. WARNING! It can be the same thread
@@ -213,7 +246,23 @@ irq_common_stub:
     # !!!!!!!!!!!!!!!!!!!!!!!
     movq %rax, (currentThread)
     # Resotre the the value of RSP which was stored before context switch occured
+    # Again, we need comparison here
+    movq (currentThread), %rbx
+    cmp $0x0, 0x8(%rax)
+    je .user_change_rsp # The chosen thread is a user thread
+
+    # if it comes here, then the chosen thread is a kernel thread. So stack pointer is
+    #   obtained from the "rsp" field. i.e the 1st member in the kthread
     movq (%rax), %rsp
+    jmp .normal_change_rsp
+
+    # The chosen thread is a user thread
+    .user_change_rsp:
+    # We restore the stack pointer from the "krsp" field of the kthread
+    movq 0x10(%rax), %rsp
+
+    # normal operation. So, here ends the context switch. Phew!!!
+    .normal_change_rsp:
     POPAQ
     # Cleaning the interrupt number and error code we pushed during _irq0 call.
     add $0x10, %rsp

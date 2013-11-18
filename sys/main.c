@@ -65,7 +65,7 @@ void start(uint16_t arg)
         // kernel starts here 
         //switch_to_user();
         do_exec();
-        while(TRUE)        
+        while(TRUE)     
 	  Yield();
        // while(1);
 }

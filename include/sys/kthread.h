@@ -36,7 +36,9 @@ typedef struct Thread_queue Thr_Queue;
  */
 struct Kernel_Thread {
     uint64_t rsp;                         /* offset 0 */
-    bool kernel_thread;
+    uint64_t kernel_thread;
+    uint64_t krsp;
+    void* kstack;
     volatile uint64_t numTicks;           /* offset 4 */
     int priority;
     struct Kernel_Thread *prev_in_ThreadQ, *next_in_ThreadQ;
