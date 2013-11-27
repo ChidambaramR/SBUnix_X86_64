@@ -52,11 +52,11 @@ uint16_t readelf(struct exec *executable, uint16_t *pgm_entries, uint64_t *entry
         sectHdr = (Elf64_Shdr*)((bin_start + bin_elf_start->e_shoff + sizeof(Elf64_Ehdr)));
         text_start = sectHdr->sh_addr;
         //sectHdr = (Elf64_Shdr*)((bin_start + bin_elf_start->e_shoff + sizeof(Elf64_Ehdr) + sizeof(Elf64_Shdr)));
-        actual_mem_start = (uint64_t)(&(_binary_tarfs_start) + 3*sizeof(struct posix_header_ustar) + sizeof(Elf64_Ehdr) + (*pgm_entries)*sizeof(Elf64_Phdr) + bin_elf_start->e_phoff);
+        actual_mem_start = (uint64_t)(&(_binary_tarfs_start) + 3*sizeof(struct posix_header_ustar) + sizeof(Elf64_Ehdr) + ((*pgm_entries))*sizeof(Elf64_Phdr) + bin_elf_start->e_phoff);
         for(i=0; i < (*pgm_entries); i++){
           pgmHdr = (Elf64_Phdr*)((bin_start + sizeof(Elf64_Ehdr) +  i*sizeof(Elf64_Phdr)));
           load_size = pgmHdr->p_memsz;
-          load_start = pgmHdr->p_vaddr - pgmHdr->p_offset;
+          load_start = pgmHdr->p_vaddr; // - pgmHdr->p_offset;
           if(i==0)
             load_addr = text_start;
           else

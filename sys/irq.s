@@ -2,6 +2,7 @@
 .extern is_scheduler_on
 .extern runnable_kthread
 .extern next_runnable_kthread
+.extern tss
 
 .align 8
 
@@ -220,6 +221,8 @@ irq_common_stub:
 
     # This action is, if the current thread is a kernel thread
     # Its enough if we just move the stack pointer into the "rsp" field of kthread
+    #movq (currentThread), %rax
+    #movq %rsp, (%rax)
     lea (%rsp), %rax
     movq (currentThread), %rdi
     movq %rax, (%rdi)
@@ -230,6 +233,8 @@ irq_common_stub:
     # So I create a kernel stack for each user and do push pop on the kernel's stack only.
     # The user's stack is untouched
     .user_move_rsp:
+    #movq (currentThread), %rax
+    #movq %rsp, 0x10(%rax)
     lea (%rsp), %rax
     movq (currentThread), %rdi
     movq %rax, 0x10(%rdi)
@@ -237,17 +242,33 @@ irq_common_stub:
     # usual operation
     .move_rsp_normal:
     # Make the current thread runnable. i.e add it to the run queue
+    movq (currentThread), %rdi
     callq runnable_kthread
     # Get the next thread which is to tbe scheduled. WARNING! It can be the same thread
     #   The address of the runnable thread is returned in the RAX register.
     callq next_runnable_kthread
+    cmpq $0x0, 0x8(%rax)
+    jne .store_tss_norm1
+    leaq (tss), %rbx
+    leaq 0x4(%rbx), %rbx
+    movq 0x28(%rax), %rcx
+    movq %rcx, (%rbx)
+    
     # !!!!!!!!!!!!!!!!!!!!!!!
     # THE MAIN CONTEXT SWITCH
     # !!!!!!!!!!!!!!!!!!!!!!!
+    .store_tss_norm1:
     movq %rax, (currentThread)
     # Resotre the the value of RSP which was stored before context switch occured
     # Again, we need comparison here
     movq (currentThread), %rbx
+    movq %cr3, %rcx
+    cmpq %rcx, 0x18(%rbx)
+    je .norm_cr3
+    movq 0x18(%rbx), %rcx
+    movq %rcx, %cr3
+
+    .norm_cr3:
     cmp $0x0, 0x8(%rax)
     je .user_change_rsp # The chosen thread is a user thread
 
@@ -269,7 +290,6 @@ irq_common_stub:
     # cmpq $0x1, 0x8(currentThread)
     # jne .user_mode
     # movq $0x8, 0x8(%rsp)
-
     iretq
     
 .restore_reg:

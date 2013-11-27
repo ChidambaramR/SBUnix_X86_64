@@ -5,7 +5,7 @@
 
 char* str;
 uint16_t write(const char* buf){
-  __asm__("movq $0x2, %rax;\n\tint $0x80;\n\tretq"); 
+  __asm__("movq $0x2, %rax;\n\tint $0x80;"); 
   return 0;
 }
 

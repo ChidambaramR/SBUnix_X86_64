@@ -91,7 +91,7 @@ void *slob_alloc(int size, int align){
         if(cur == slobfree){
             if(size == 4096)
                 return 0;
-            cur = (slob_t*)vmmgr_alloc_page();
+            cur = (slob_t*)vmmgr_alloc_page(0);
             slob_free(cur,4096);
             if(!cur)
                 return 0;

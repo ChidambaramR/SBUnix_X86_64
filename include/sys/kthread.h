@@ -38,6 +38,8 @@ struct Kernel_Thread {
     uint64_t rsp;                         /* offset 0 */
     uint64_t kernel_thread;
     uint64_t krsp;
+    uint64_t pcr3;
+    uint64_t cr3;
     void* kstack;
     volatile uint64_t numTicks;           /* offset 4 */
     int priority;
@@ -97,4 +99,5 @@ void init_thread_queue(Thr_Queue*);
 int alloc_pid();
 void add_to_ptable(kthread*);
 void thread_cleanup(kthread*);
+void alllist_kthread(kthread*);
 #endif

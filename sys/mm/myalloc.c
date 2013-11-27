@@ -42,7 +42,7 @@ t_block find_block(t_block *last, uint16_t size){
 //Extending the heap
 t_block extend_heap(t_block last, uint16_t size){
         t_block b;
-        b=vmmgr_alloc_page();
+        b=vmmgr_alloc_page(0);
         if(!b)
             PANIC(__FUNCTION__,__LINE__,"No memory!");
         b->size = 0x1000;
@@ -76,7 +76,7 @@ void* sub_malloc(uint16_t size, bool align){
         t_block b;
         uint16_t s;
         if(align){
-          void* addr = (void*)vmmgr_alloc_page();
+          void* addr = (void*)vmmgr_alloc_page(size);
           return addr;
         }
         else{

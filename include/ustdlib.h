@@ -3,5 +3,6 @@
 #include<defs.h>
 
 char* convert_u(uint64_t, uint16_t);
-
+void fork();
+int getpid();
 #endif

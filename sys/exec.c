@@ -20,13 +20,34 @@ extern Thr_Queue runQueue;
 extern void switch_to_user();
 extern uint64_t get_cr3_register();
 extern kthread* currentThread;
-
-
-
+extern uint64_t kernel_pgd;
+extern int debug;
+extern void PushU(kthread*, uint64_t);
 /*init_user_memory(){
     pte* new_page_table = get_new_page_table((pml4*)(currentTask->cr3 & 0xFFFFF000), user_code);
     
 }*/
+
+
+void PushU_General_Registers(kthread* k_thread){
+
+    PushU(k_thread, 0);  /* rax */
+    PushU(k_thread, 0);  /* rbx */
+    PushU(k_thread, 0);  /* rcx */
+    PushU(k_thread, 0);  /* rdx */
+    PushU(k_thread, 0);  /* rsi */
+    PushU(k_thread, 0);  /* rdi */
+    PushU(k_thread, 0);  /* rbp */
+    PushU(k_thread, 0);  /* r15 */
+    PushU(k_thread, 0);  /* r14 */
+    PushU(k_thread, 0);  /* r13 */
+    PushU(k_thread, 0);  /* r12 */
+    PushU(k_thread, 0);  /* r11 */
+    PushU(k_thread, 0);  /* r10 */
+    PushU(k_thread, 0);  /* r09 */
+    PushU(k_thread, 0);  /* r08 */
+}
+
 
 void setup_kthread_user(kthread* k_thread, void* startFunc, uint16_t arg){
 
@@ -45,33 +66,33 @@ void setup_kthread_user(kthread* k_thread, void* startFunc, uint16_t arg){
     0xffffffff80200a14 is the RIP, 8 is the CS, 0 is the RFLAGS, 0xffffffff81404fe0 is the
     RSP and 0x10 is the DS. If you see, it is in the order as popped by IRETQ.
     */
-    Push(k_thread, (uint64_t)USER_DS);
+    PushU(k_thread, (uint64_t)USER_DS);
 
-    Push(k_thread, (uint64_t)(k_thread->rsp));
+    PushU(k_thread, (uint64_t)(k_thread->rsp));
 
-    // Push rflags
-    Push(k_thread, (uint64_t)0x200);
+    // PushU rflags
+    PushU(k_thread, (uint64_t)0x200);
 
-    // Push kernel CS. Needed for iretq call
-    Push(k_thread, (uint64_t)USER_CS);
+    // PushU kernel CS. Needed for iretq call
+    PushU(k_thread, (uint64_t)USER_CS);
 
-    //Push the address of launching function
-    Push(k_thread, (uint64_t) startFunc);
+    //PushU the address of launching function
+    PushU(k_thread, (uint64_t) startFunc);
 
     /*
-    Push fake error code and interrupt number. Why? Because, in the irq handling function
+    PushU fake error code and interrupt number. Why? Because, in the irq handling function
     we have pushed two 8 byte values. One is the error code and other is the interrupt number.
     Actually this is not needed. Since IRQ's are already built, this is sort of a HACk to make
     it working. A corresponding add $0x10, %rsp statement will be found while popping the registers.
     */
-    Push(k_thread, (uint64_t)0);
-    Push(k_thread, (uint64_t)0);
+    PushU(k_thread, (uint64_t)0);
+    PushU(k_thread, (uint64_t)0);
 
     /*
-    Push initial values for general-purpose registers. This is just like anyother register
+    PushU initial values for general-purpose registers. This is just like anyother register
     saving mechanism.
     */
-    Push_General_Registers(k_thread);
+    PushU_General_Registers(k_thread);
 
 }
 
@@ -84,9 +105,10 @@ static void Init_Thread_user(kthread* k_thread,const char* name, void* stackPage
     if there is no kernel stack for each user thread, then on an interrupt we will write
     into other kernel thread's stack. 
     */
-    k_thread->kstack = (void*)sub_malloc(0,1);
-    k_thread->rsp = ((uint64_t) k_thread->stackPage) + VIRT_PAGE_SIZE;
-    k_thread->krsp = ((uint64_t) k_thread->kstack) + VIRT_PAGE_SIZE;
+    //k_thread->kstack = (void*)sub_malloc(0,1);
+    k_thread->rsp = ((uint64_t) k_thread->stackPage) + VIRT_PAGE_SIZE - 0x8;
+    k_thread->krsp = ((uint64_t) k_thread->kstack) + 2*VIRT_PAGE_SIZE - 0x8;
+    k_thread->kstack = (void*)(((uint64_t)k_thread->kstack) + 2*VIRT_PAGE_SIZE - 0x8);
     k_thread->numTicks = 0;
     k_thread->priority = prio;
     //k_thread->userContext = 0;
@@ -95,6 +117,8 @@ static void Init_Thread_user(kthread* k_thread,const char* name, void* stackPage
     k_thread->kernel_thread = 0;
     k_thread->alive = TRUE;
     k_thread->name = name;
+    k_thread->pcr3 = get_cr3_register();
+    k_thread->cr3 = (uint64_t)kernel_pgd;
     init_thread_queue(&(k_thread->joinQueue));
     k_thread->pid = alloc_pid();
 }
@@ -102,16 +126,16 @@ static void Init_Thread_user(kthread* k_thread,const char* name, void* stackPage
 kthread* create_kthread_user(const char* name, int prio, bool detached){
     kthread* k_thread;
     void* stackPage = 0;
-    k_thread = (kthread*)sub_malloc(0,1);
+    k_thread = (kthread*)sub_malloc(sizeof(kthread),0);
     if( !k_thread )
         return NULL;
     stackPage = (void*)UserStack; 
-    k_thread->kstack = (void*)sub_malloc(0,1);
+    k_thread->kstack = (void*)sub_malloc(1,1);
     if( !k_thread->kstack ){
         sub_free(k_thread->kstack);
         return NULL;
     }
-
+    debug = 1;
     /*
      * Initialize the stack pointer of the new thread
      * and accounting info
@@ -127,12 +151,9 @@ kthread* create_kthread_user(const char* name, int prio, bool detached){
 
 
 
-kthread* create_new_task(void* startFunc, const char* name, uint16_t arg, uint16_t priority, bool detached){
-    kthread* k_thread = create_kthread_user(name, priority, detached);
-    if(!k_thread)
-        return NULL;
+void create_new_task(kthread* k_thread, void* startFunc, const char* name, uint16_t arg, uint16_t priority, bool detached){
     setup_kthread_user(k_thread, startFunc, arg);
-    return k_thread;
+    return;
 }
 
 uint32_t do_exec(/*char *name, char *environment*/){
@@ -153,6 +174,9 @@ uint32_t do_exec(/*char *name, char *environment*/){
    // int codeLen=10, dataLen;
     uint16_t i;
     uint64_t entry_point;
+    k_thread = create_kthread_user("first", 10, 1);
+    if(!k_thread)
+        return NULL;
    // char *codeBuf, *dataBuf;
    // struct posix_header_ustar executable;
    // char *prog_name = (char*)sub_malloc(strlen(name),1);
@@ -161,7 +185,7 @@ uint32_t do_exec(/*char *name, char *environment*/){
         // Initialize code page
         for(i=0; i < pgm_entries; i++){
             printf(" seg length %d, page %x, bug %p\n",executable[i].seg_length, executable[i].seg_page_start, executable[i].seg_mem);
-            mmap((void*)executable[i].seg_page_start, executable[i].seg_length, 0, 0, 0, 0);
+            mmap((void*)executable[i].seg_page_start, executable[i].seg_length, 0, 0, 0, 0, k_thread);
             // Need to ask Prof about this
 //            if(i == 0)
 //                memcpy((char*)entry_point, executable[i].seg_mem, executable[i].seg_length);   
@@ -177,7 +201,7 @@ uint32_t do_exec(/*char *name, char *environment*/){
         memset((void*)currentStack_page, 0, sizeof(VIRT_PAGE_SIZE));
 
         // Create the actual task structure
-        k_thread = create_new_task((void*)entry_point, "first", 0, 10, 1);
+        create_new_task(k_thread, (void*)entry_point, "first", 0, 10, 1);
         add_to_ptable(k_thread);
         disable_interrupts();
         runnable_kthread(k_thread);

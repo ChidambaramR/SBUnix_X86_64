@@ -16,7 +16,7 @@ typedef uint64_t virtual_addr;
 #define PAGE_DIRECTORY_OFFSET(x) (x>>21 &0x1FF)
 #define PAGE_POINTER_OFFSET(x) (x>>30 & 0x1FF)
 #define PAGE_PML4_OFFSET(x) (x>>39 & 0x1FF)
-#define PAGE_PHYSICAL_ADDRESS(x) (*x & ~0xFFF) // Last three hex are always zero
+#define PAGE_PHYSICAL_ADDRESS(x) (*x & ~0xFFF0000000000FFF) // Last three hex are always zero
                                                // due to alignment
 /*
 Level 4 ( lowest )
@@ -59,7 +59,7 @@ void vmmgr_map_page(virtual_addr, virtual_addr);
 void vmmgr_init();
 
 // Allocates a page
-void* vmmgr_alloc_page();
+void* vmmgr_alloc_page(uint16_t);
 
 // Frees a page
 void vmmgr_free_page(); 
@@ -150,4 +150,12 @@ void* vmmgr_page_alloc();
 void vmmgr_map_page_after_paging(uint64_t, uint64_t, bool);
 
 void mmgr_syncwith_kernel();
+
+void clone_pgdir(uint64_t, uint64_t);
+
+ void copy_page_table(uint64_t, uint64_t, bool);
+
+pd_entry* get_pde_offset_recurse(virtual_addr);
+
+pt_entry* get_pte_recurse(virtual_addr);
 #endif

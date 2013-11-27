@@ -33,11 +33,11 @@ void set_kernel_stack(uint64_t stack) //this will update the ESP0 stack used whe
 
 void start(uint16_t arg)
 {
-        uint64_t *test,*test2,*test3,*test4,*test5,*test6;
-        int *a,*b,*c;
+    //    uint64_t *test,*test2,*test3,*test4,*test5,*test6;
+     //   int *a,*b,*c;
 //        printf("Screen has been cleared. In function \"%s\", its address = 0x%p \n\n",__FUNCTION__,(uint64_t)start);
 //        mmgr_print_memory_status();
-        test = (uint64_t *)mmgr_alloc_block();
+/*        test = (uint64_t *)mmgr_alloc_block();
         test2 = (uint64_t*)mmgr_alloc_block();
         test3 = (uint64_t*)mmgr_alloc_block();
         mmgr_free_block(test);
@@ -55,10 +55,10 @@ void start(uint16_t arg)
         printf("a = %d and &a = 0x%p, b = %d and &b = 0x%p\n",*a,a,*b,b);
         sub_free(a);
         a = (int*)sub_malloc(5,0);
-        c = (int*)sub_malloc(6,1);
+        c = (int*)sub_malloc(0,1);
         *c = *a;
         printf("a = %d and &a = 0x%p,c  = %d and &c = 0x%p\n",*a,a,*c,c);
-        //asm volatile("movq $0xE, %rax; syscall");
+  */      //asm volatile("movq $0xE, %rax; syscall");
 //        asm volatile("int $0x80");
 	//readelf(&a1, &b1, &ca, &cb);
 //        printf("code buf = %s, data buf = %s, code length = %d, data_length = %d",a1,b1,ca,cb);

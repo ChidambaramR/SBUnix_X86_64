@@ -1,7 +1,7 @@
 #include <sys/idt.h>
 #include <sys/isr.h>
 #include <sys/kthread.h>
-
+#include <stdio.h>
 #define MAX_IDT 256
 
 extern void _isr0();
@@ -29,6 +29,8 @@ int fault_handler(regs *r)
       uint16_t callNo;
       const char* str;
       int val=1;
+      regs temp_r;
+      regs *ptemp_r = &temp_r;
 //      kthread* k_thread;
       //asm volatile("leaq (%%rip), %0;": "=r"(faulting_instruction));
       asm volatile("movq %%rsp, %0" : "=r" (faulting_instruction));
@@ -45,6 +47,31 @@ int fault_handler(regs *r)
                                   break;
                           case 2: str = (const char*)r->rdi;
                                   write(str);
+                                  break;
+                          case 3: temp_r.rax = r->rax; 
+                                  temp_r.rbx = r->rbx; 
+                                  temp_r.rcx = r->rcx; 
+                                  temp_r.rdx = r->rdx; 
+                                  temp_r.rsi = r->rsi; 
+                                  temp_r.rdi = r->rdi; 
+                                  temp_r.rbp = r->rbp; 
+                                  temp_r.r8 = r->r8; 
+                                  temp_r.r9 = r->r9; 
+                                  temp_r.r10 = r->r10; 
+                                  temp_r.r11 = r->r11; 
+                                  temp_r.r12 = r->r12; 
+                                  temp_r.r13 = r->r13; 
+                                  temp_r.r14 = r->r14; 
+                                  temp_r.r15 = r->r15; 
+                                  temp_r.rip = r->rip; 
+                                  temp_r.cs = r->cs; 
+                                  temp_r.rflags = r->rflags; 
+                                  temp_r.rsp = r->rsp; 
+                                  temp_r.ss = r->ss; 
+                                  temp_r.intNo = r->intNo; 
+                                  temp_r.errCode = r->errCode; 
+                                  fork(ptemp_r);
+                                  //printf("rax = %d\n",temp_r.rax);//fork(temp_r);
                                   break;
                           case 20: val = sys_getpid();
                                   break;

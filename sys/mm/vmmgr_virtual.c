@@ -14,6 +14,9 @@ extern char kernmem, physbase;
 extern void* kphysfree;
 uint64_t bump_addr = 0;
 uint64_t bump_start = 0;
+uint64_t kernel_pgd = 0;
+uint64_t virt_base = 0xFFFFFFFF80000000;
+uint16_t prev_no_pages = 0;
 //Current Page directory table
 pde* _cur_pde_directory=0;
 
@@ -81,8 +84,9 @@ void init_bump_addr(){
     //bump_start = bump_addr;
     bump_addr = (uint64_t)((uint64_t)0xFFFFFFFF80000000 + (uint64_t)kphysfree);
 }
-inline void* vmmgr_alloc_page(){
-    bump_addr = (bump_addr + 0x1000);
+inline void* vmmgr_alloc_page(uint16_t page){
+    bump_addr = (bump_addr + VIRT_PAGE_SIZE + VIRT_PAGE_SIZE*prev_no_pages);
+    prev_no_pages = page;
     return (void *)bump_addr;
 }
 
@@ -167,6 +171,100 @@ void set_phys_virt_recurse(uint64_t phys, virtual_addr virt, bool is_user){
     set_page_entry(pte_entry1, phys, is_user);
     return;
 }
+
+pt_entry* get_pte_recurse(virtual_addr virt){
+    pte *pte_dir1;
+    uint64_t pte_offset;
+    pt_entry* pte_entry1;
+    pte_dir1 = (pte*)RECURSIVE_PAGE_TABLE_ENTRY;
+    pte_offset = (((uint64_t)(pte_dir1) >> 30) + (PAGE_PML4_OFFSET(virt)));
+    pte_offset = (pte_offset<<30);
+    pte_offset = (((uint64_t)(pte_offset) >> 21) + (PAGE_POINTER_OFFSET(virt)));
+    pte_offset = (pte_offset<<21);
+    pte_offset = (((uint64_t)(pte_offset) >> 12) + (PAGE_DIRECTORY_OFFSET(virt)));
+    pte_entry1 = (pt_entry*)(((uint64_t)(pte_offset) << 12) + (uint64_t)((8*(PAGE_TABLE_OFFSET(virt)))));
+    return pte_entry1;
+
+}
+void clone_pgdir(uint64_t parent_pml4, uint64_t child_pml4){
+    uint16_t i;
+    pml4e_entry* ppml4 = (pml4e_entry*)parent_pml4;
+    pml4e_entry* cpml4 = (pml4e_entry*)child_pml4;
+    for(i=0; i<512; i++){
+      cpml4[i] = ppml4[i];    
+    }
+    cpml4[510] = (uint64_t)cpml4 - 0xFFFFFFFF80000000;
+    cpml4[510] = cpml4[510] | PTE_USER | PTE_PRESENT | PTE_WRITABLE;
+    printf("cpml4 510 = %x cpml4 = %p\n",cpml4[510],cpml4);
+}
+
+void copy_page_table(uint64_t parent_pml4, uint64_t child_pml4, bool is_user){
+    uint16_t i,j,k,l;
+    pde* pde_dir;
+    pte* pte_dir;
+    pdpe* pdpe_dir;
+    pd_entry *pd, *pde_dir_beg;
+    pt_entry* pg, *pte_dir_beg;
+    pml4e_entry* ppml4 = (pml4e_entry*)parent_pml4;
+    pdpe_entry *ppdpe, *pdpe_dir_beg;
+    pml4e_entry* cpml4 = (pml4e_entry*)child_pml4;
+    for(i=0; ppml4[i] != NULL; i++){
+        pdpe_dir = (pdpe*)sub_malloc(0,1); // create upper middle level directory
+        pdpe_dir_beg = (pdpe_entry*)pdpe_dir;
+        memset(pdpe_dir, 0, sizeof(pdpe));
+        pdpe* pdpe_dir_phy = (pdpe*)((uint64_t)pdpe_dir - (uint64_t)0xFFFFFFFF80000000);
+        if(! pdpe_dir ){
+            PANIC(__FUNCTION__,__LINE__,"VMMGR: Out of memory while trying to allocate PDPE\n");
+            return;
+        }
+        set_pml4_entry(&cpml4[i],pdpe_dir_phy, is_user);
+        
+        // Second level
+        ppdpe = (pdpe_entry*)PAGE_PHYSICAL_ADDRESS(&ppml4[i]);
+        ppdpe = (pdpe_entry*)((uint64_t)ppdpe + virt_base);
+        for(j=0; ppdpe[j] != NULL; j++){
+            pde_dir = (pde*)sub_malloc(0,1); // Create lower middle level directory
+            pde_dir_beg = (pd_entry*)pde_dir;
+            memset(pde_dir, 0, sizeof(pde));
+            pde* pde_dir_phy = (pde*)((uint64_t)pde_dir - (uint64_t)0xFFFFFFFF80000000);
+            if( !pde_dir ){
+                PANIC(__FUNCTION__,__LINE__,"VMMGR: Out of memory while trying to allocate PDE\n");
+                return;
+            }
+            set_pdpe_entry((pdpe_entry*)&pdpe_dir_beg[j],pde_dir_phy, is_user);
+
+            // Third level
+            pd = (pd_entry*)PAGE_PHYSICAL_ADDRESS(&ppdpe[j]);
+            pd = (pd_entry*)((uint64_t)pd + virt_base);
+            for(k=0; k < 512; k++){
+                if(pd[k]){
+                    pte_dir = (pte*)sub_malloc(0,1); // Create lower level page table
+                    pte_dir_beg = (pt_entry*)pte_dir;
+                    memset(pte_dir, 0, sizeof(pte_dir));
+                    pte* pte_dir_phy = (pte*)((uint64_t)pte_dir - (uint64_t)0xFFFFFFFF80000000);
+                    if( !pte_dir ){
+                        PANIC(__FUNCTION__,__LINE__,"VMMGR: Out of memory while trying to allocate PTE\n");
+                        return;
+                    }
+                    set_pde_entry((pd_entry*)&pde_dir_beg[k],pte_dir_phy, is_user);
+                    memcpy((char*)pte_dir, (const char*)(virt_base + (uint64_t)PAGE_PHYSICAL_ADDRESS(&pd[k])), sizeof(pte));
+                    pg = (pt_entry*)PAGE_PHYSICAL_ADDRESS(&pd[k]);
+                    printf("page phys addre = %x\n",pg);
+                    pg = (pd_entry*)((uint64_t)pg + virt_base);
+                    for(l=0; l<512; l++){
+                        pt_entry_del_attrib(&pte_dir_beg[l], PTE_WRITABLE); 
+                        pt_entry_del_attrib(&pg[l], PTE_WRITABLE); 
+                        pt_entry_add_attrib(&pg[l], PTE_COW); 
+                        pt_entry_add_attrib(&pte_dir_beg[l], PTE_COW); 
+                    }
+                    // To add COW bits
+                }
+            }    
+        }
+    }
+    printf("wow done");
+}
+
 
 void vmmgr_map_page_after_paging(uint64_t phys, uint64_t virt, bool is_user){
     pdpe *pdpe_dir;
@@ -358,7 +456,8 @@ void vmmgr_init(){
        vmmgr_map_page(frame, virt); 
     }
     vmmgr_map_page(0xB8000, 0xFFFFFFFF80100000); 
-    vmmgr_map_page((uint64_t)pml4table, 0xFFFFFF7FBFDFE000); 
+    vmmgr_map_page((uint64_t)pml4table, 0xFFFFFF7FBFDFE000);
+    kernel_pgd = 0xFFFFFF7FBFDFE000; 
     vmmgr_switch_pml4_directory(pml4table);
     mmgr_syncwith_kernel();
     init_bump_addr();

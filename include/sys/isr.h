@@ -9,4 +9,5 @@ void general_protection_fault_handler(uint64_t);
 void write(const char*);
 int sys_getpid();
 void sys_exit();
+int fork(regs*);
 #endif

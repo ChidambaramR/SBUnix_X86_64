@@ -7,25 +7,24 @@
 #include <sys/kthread.h>
 #include <sys/mm/vmmgr_virtual.h>
 
-extern kthread *currentThread;
 
-void insert_vma(vm_area_struct *vma){
-  vm_area_struct *last = currentThread->mmap_cache;
-  vm_area_struct *first = currentThread->mmap;
+void insert_vma(vm_area_struct *vma, kthread* k_thread){
+  vm_area_struct *last = k_thread->mmap_cache;
+  vm_area_struct *first = k_thread->mmap;
   if(!first)
-      currentThread->mmap = vma;    
+      k_thread->mmap = vma;    
   vma->vm_next = NULL;
   //current->mmap_cache = vma;
   if(last == NULL){
-      currentThread->mmap_cache = vma;
+      k_thread->mmap_cache = vma;
   }
   else{
       last->vm_next = vma;
-      currentThread->mmap_cache = vma;
+      k_thread->mmap_cache = vma;
   }
 }
 
-void mmap(void *addr, uint32_t length, int prot, int flags, int fd, uint64_t offset){
+void mmap(void *addr, uint32_t length, int prot, int flags, int fd, uint64_t offset, kthread* k_thread){
           uint64_t new_pte;
           vm_area_struct *vma = (vm_area_struct*)sub_malloc(sizeof(vm_area_struct),0);
           memset(vma, 0, sizeof(vm_area_struct));
@@ -34,6 +33,6 @@ void mmap(void *addr, uint32_t length, int prot, int flags, int fd, uint64_t off
           vma->name = "Code section";
           vma->vm_start = addr;
           vma->vm_end = (void*)((uint64_t)vma->vm_start + (uint64_t)0x1000);
-          insert_vma(vma);
+          insert_vma(vma, k_thread);
 
 }

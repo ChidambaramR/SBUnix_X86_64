@@ -1,3 +1,9 @@
+.extern currentThread
+.extern tss
+.extern is_scheduler_on
+.extern runnable_kthread
+.extern next_runnable_kthread
+
 .align 8
 
 .macro PUSHAQ 
@@ -79,6 +85,7 @@ _isr13:
 #  14: Page fault exception
 _isr14:
    cli
+        addq $0x8, %rsp
         pushq $0x0
         pushq $0xE
         jmp isr_common_stub
@@ -101,9 +108,88 @@ isr_common_stub:
     PUSHAQ
     movq %rsp, %rdi    # Push us the stack
     callq fault_handler       # A special call, preserves the 'eip' register
+    
     cmpq $0x80, 0x78(%rsp)
     jne .normal
     movq %rax, 0x70(%rsp)
+
+    cmp $0x1, (is_scheduler_on)
+    jne .normal
+
+
+    movq (currentThread), %rax
+    cmpq $0x0, 0x8(%rax)
+    je .user_move_rsp_isr # The current thread is a user thread
+
+    # This action is, if the current thread is a kernel thread
+    # Its enough if we just move the stack pointer into the "rsp" field of kthread
+    #movq (currentThread), %rax
+    #movq %rsp, (%rax)
+    lea (%rsp), %rax
+    movq (currentThread), %rdi
+    movq %rax, (%rdi)
+    jmp .move_rsp_normal_isr
+
+    # The current thread is a iser thread. We need to work with the kernel stack
+    # We cant write in the user stack because on an interrupt, the RSP in the TSS gets loaded
+    # So I create a kernel stack for each user and do push pop on the kernel's stack only.
+    # The user's stack is untouched
+    .user_move_rsp_isr:
+    #movq (currentThread), %rax
+    #movq %rsp, 0x10(%rax)
+    lea (%rsp), %rax
+    movq (currentThread), %rdi
+    movq %rax, 0x10(%rdi)
+
+    # usual operation
+    .move_rsp_normal_isr:
+    # Make the current thread runnable. i.e add it to the run queue
+    movq (currentThread), %rdi
+    callq runnable_kthread
+    # Get the next thread which is to tbe scheduled. WARNING! It can be the same thread
+    #   The address of the runnable thread is returned in the RAX register.
+    callq next_runnable_kthread
+    cmpq $0x0, 0x8(%rax)
+    jne .store_tss_norm1_isr
+    leaq (tss), %rbx
+    leaq 0x4(%rbx), %rbx
+    movq 0x28(%rax), %rcx
+    movq %rcx, (%rbx)
+    
+    # !!!!!!!!!!!!!!!!!!!!!!!
+    # THE MAIN CONTEXT SWITCH
+    # !!!!!!!!!!!!!!!!!!!!!!!
+    .store_tss_norm1_isr:
+    movq %rax, (currentThread)
+    # Resotre the the value of RSP which was stored before context switch occured
+    # Again, we need comparison here
+    movq (currentThread), %rbx
+    movq %cr3, %rcx
+    cmpq %rcx, 0x18(%rbx)
+    je .norm_cr3_isr
+    movq 0x18(%rbx), %rcx
+    movq %rcx, %cr3
+
+    .norm_cr3_isr:
+    cmp $0x0, 0x8(%rax)
+    je .user_change_rsp # The chosen thread is a user thread
+
+    # if it comes here, then the chosen thread is a kernel thread. So stack pointer is
+    #   obtained from the "rsp" field. i.e the 1st member in the kthread
+    movq (%rax), %rsp
+    jmp .normal_change_rsp_isr
+
+    # The chosen thread is a user thread
+    .user_change_rsp:
+    # We restore the stack pointer from the "krsp" field of the kthread
+    movq 0x10(%rax), %rsp
+
+    # normal operation. So, here ends the context switch. Phew!!!
+    .normal_change_rsp_isr:
+    POPAQ
+    add $0x10, %rsp
+    iretq
+
     .normal:
     POPAQ
     add $0x10,%rsp     # Cleans up the pushed error code and pushed ISR number

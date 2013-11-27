@@ -118,7 +118,7 @@ Switch_To_Thread:
   pushq %rbx
   leaq (tss), %rax
   leaq 0x4(%rax), %rax
-  movq 0x10(%rdi), %rbx
+  movq 0x28(%rdi), %rbx
   movq %rbx, (%rax)
   popq %rbx
  .store_tss_norm:
@@ -139,15 +139,40 @@ Switch_To_Thread:
   # !!!!!!!!!!!!!!!!!!!!!!!!!
   # THE CONTEXT SWITCH!!!!!!!
   # !!!!!!!!!!!!!!!!!!!!!!!!
-  movq %rdi , (currentThread)  
+  movq %rdi , (currentThread)
+  movq (currentThread), %rbx
+  movq %cr3, %rcx
+  cmpq %rcx, 0x18(%rbx)
+  je .norm_cr31
+  movq 0x18(%rbx), %rcx
+  movq %rcx, %cr3
+
+  .norm_cr31:
   # Restoring the new thread's RSP (i.e where it left off )
+  movq (currentThread), %rbx
+  cmp $0x1, 0x8(%rbx)
+  je .kern_change_rsp_sched
+  movq 0x10(%rdi), %rsp
+  jmp .norm_move_rsp_sched
+
+  .kern_change_rsp_sched:
   movq (%rdi), %rsp
+
+  .norm_move_rsp_sched:
   POPAQ
   # Cleaning up the fake 0x0's we pushed ( both at setup_thread and before context switch.
   add $0x10, %rsp
   # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   # Going back to where we left off
   # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    pushq %rax
+    movq 0x20(%rsp), %rax
+    cmpq $0x40013b, (%rax)
+    jne .ord1
+    test %rbx, %rbx
+    .ord1:
+    popq %rax
+
   iretq
 
 get_flag_register:

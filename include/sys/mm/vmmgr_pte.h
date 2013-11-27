@@ -23,6 +23,7 @@ enum PAGE_PTE_FLAGS{
     PTE_GLOBAL = 0x100,               /*Value 1 indicates it is a global page. TLB for a global page
                                         is not invalidated when CR3 is modified.*/
     PTE_AVL = 0x700,                  //Bits 9,10 and 11
+    PTE_COW = 0x4000000000000000,
     PTE_FRAME = 0x00000FFFFFFFF000    // Target physical address which is directly stored.
 };
 

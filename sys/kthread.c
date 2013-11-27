@@ -13,7 +13,8 @@ extern uint64_t get_flag_register();
 extern char* stack; 
 extern void start(uint16_t);
 extern bool is_scheduler_on;
-    
+extern uint64_t kernel_pgd;
+
 int nextFreePid = 0;
 kthread* ptable[100];
 
@@ -36,6 +37,8 @@ Thr_Queue runQueue;
  */
 kthread* currentThread;
 
+int debug;
+
 void disable_interrupts(void){
     __asm__ __volatile__ ("cli");
 }
@@ -52,7 +55,12 @@ int alloc_pid(){
 Add it to the end of the run queue. The scheduler function choosed which thread
 can be run only from this run queue.
 */
-void append_run_queue(Thr_Queue *listPtr, kthread *nodePtr) {                                           
+void append_run_queue(Thr_Queue *listPtr, kthread *nodePtr) {       
+    /*if((uint64_t)nodePtr & 0xFFF){
+        debug = 1;
+        printf("nodePtr = %x", nodePtr);
+        PANIC(__FUNCTION__,__LINE__,"oooooo");
+    }*/                                    
     nodePtr->next_in_ThreadQ = 0;                                 
     if (listPtr->tail == 0) {                                                                   
         listPtr->head = listPtr->tail = nodePtr;                                                
@@ -188,6 +196,10 @@ void Schedule(void)
      */
     if(!runnable)
         PANIC(__FUNCTION__,__LINE__,"Nothing to schedule");
+  /*  if( (uint64_t)runnable & 0xFFF){
+        printf("runnable = %x",runnable);
+        PANIC(__FUNCTION__,__LINE__,"Gotcha");
+    }*/
     Switch_To_Thread(runnable);
     enable_interrupts();
 }
@@ -280,7 +292,7 @@ void Hello(uint16_t arg){
       if(i%1000 == 0)
       printf("Hello zzz");
     }
-      Yield();
+          Yield();
 }
 
 void World(uint16_t arg){
@@ -288,9 +300,9 @@ void World(uint16_t arg){
     while(TRUE){
       i++;
       if(i%1000 == 0)
-        printf("World ");
+      printf("World ");
     }
-       Yield();
+          Yield();
 }
 
 void init_thread_queue(Thr_Queue *node){
@@ -309,6 +321,8 @@ static void Init_Thread(kthread* k_thread,const char* name, void* stackPage, uin
     k_thread->kernel_thread = 1;
     k_thread->alive = TRUE;
     k_thread->name = name;
+    k_thread->pcr3 = get_cr3_register();
+    k_thread->cr3 = (uint64_t)kernel_pgd;
     init_thread_queue(&(k_thread->joinQueue));
     k_thread->pid = alloc_pid();
 }
@@ -403,6 +417,10 @@ void runnable_kthread(kthread* k_thread){
     append_run_queue(&runQueue, k_thread);
 }
 
+void alllist_kthread(kthread* k_thread){
+    append_global_list_queue(&allThreadList, k_thread);
+}
+
 
 static kthread* create_kthread(const char* name, int prio, bool detached){
     kthread* k_thread;
@@ -437,8 +455,8 @@ void scheduler_init(){
     append_global_list_queue(&allThreadList, main_thread);
     start_kthread(Idle, "Idle", 0, PRIORITY_IDLE, TRUE);
     start_kthread(start, "Start", 0, PRIORITY_NORMAL, TRUE);
-    start_kthread(World, "World", 0, PRIORITY_LOW, TRUE);
-    start_kthread(Hello, "Hello", 0, PRIORITY_LOW, TRUE);
+    //start_kthread(World, "World", 0, PRIORITY_LOW, TRUE);
+    //start_kthread(Hello, "Hello", 0, PRIORITY_LOW, TRUE);
     is_scheduler_on = 1;
     Schedule();
     
