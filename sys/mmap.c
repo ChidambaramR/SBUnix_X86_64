@@ -9,19 +9,16 @@
 
 
 void insert_vma(vm_area_struct *vma, kthread* k_thread){
-  vm_area_struct *last = k_thread->mmap_cache;
+//  vm_area_struct *last = k_thread->mmap_cache;
   vm_area_struct *first = k_thread->mmap;
-  if(!first)
-      k_thread->mmap = vma;    
   vma->vm_next = NULL;
-  //current->mmap_cache = vma;
-  if(last == NULL){
-      k_thread->mmap_cache = vma;
+  if(!first){
+      k_thread->mmap = vma;
   }
   else{
-      last->vm_next = vma;
-      k_thread->mmap_cache = vma;
+      k_thread->mmap_cache->vm_next = vma;
   }
+      k_thread->mmap_cache = vma;
 }
 
 void mmap(void *addr, uint32_t length, int prot, int flags, int fd, uint64_t offset, kthread* k_thread){

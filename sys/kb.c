@@ -5,6 +5,8 @@
 bool _shift, _ctrl, _caps, _alt;
 extern void irq_install_handler(int, void*);
 char keycode_to_ascii(uint8_t);
+extern int reading;
+extern char* io_buff;
 
 static int scan_code[] = {
 
@@ -193,7 +195,11 @@ void keyboard_handler(regs *r){
                           _caps = (_caps) ? FALSE : TRUE;
                           break;
                   default:
-                          write_char(TEXT_COLOR,keycode_to_ascii(key));    
+                            write_char(TEXT_COLOR,keycode_to_ascii(key));    
+                          if(reading){
+                            //printf("calling ip buff\n");
+                            write_io_buff(keycode_to_ascii(key));
+                            }
                           break;
               }
 

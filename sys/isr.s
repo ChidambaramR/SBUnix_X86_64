@@ -3,6 +3,7 @@
 .extern is_scheduler_on
 .extern runnable_kthread
 .extern next_runnable_kthread
+.extern do_execve
 
 .align 8
 
@@ -93,6 +94,12 @@ _isr14:
 #  80: Software Interrupt
 _isr80:
   cli
+       # cmpq $0x7, %rax
+       # jne .exit_t
+       # callq do_execve
+       # callq Schedule
+
+        .exit_t:
         cmpq $0x1, %rax
         jne .normal2
         callq sys_exit
@@ -109,8 +116,6 @@ isr_common_stub:
     movq %rsp, %rdi    # Push us the stack
     callq fault_handler       # A special call, preserves the 'eip' register
     
-    cmpq $0x80, 0x78(%rsp)
-    jne .normal
     movq %rax, 0x70(%rsp)
 
     cmp $0x1, (is_scheduler_on)

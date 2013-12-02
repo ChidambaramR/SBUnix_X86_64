@@ -5,10 +5,16 @@
 #include <sys/mm/mmgr.h>
 #include <sys/idt.h>
 #include <stdlib.h>
+#include <sys/mmap.h>
 
 extern kthread* currentThread;
 extern kthread* ptable[100];
 extern uint64_t get_cr3_register();
+volatile int reading = 0;
+volatile int reading_finished = 1;
+char iobuff[1024];
+char* io_buff;
+extern Thr_Queue runQueue;
 
 void reload_cr3(uint64_t pcr3){
     __asm__ __volatile__("movq %rdi, %cr3");
@@ -18,12 +24,29 @@ void page_fault_handler(uint64_t err_code, void* err_ins){
    // A page fault has occurred.
    // The faulting address is stored in the CR2 register.
    uint64_t faulting_address, phys, fault_page;
+   vm_area_struct *crawl;
    pt_entry* pte;
    asm volatile("mov %%cr2, %0" : "=r" (faulting_address));
 //   cls();
    pte  = get_pte_recurse(faulting_address);
-   if( !((uint64_t)pte & 0xFFF)){
-      printf("got you\n");
+    if(currentThread->kernel_thread == 0){
+        crawl = currentThread->mmap;
+        while(crawl){
+          if(((uint64_t)crawl->vm_start - faulting_address) <= 100){
+              if(currentThread->no_stack_pages <= 4){
+              currentThread->no_stack_pages++;
+              mmap((void*)((uint64_t)currentThread->mmap_cache->vm_start - 0x1000), VIRT_PAGE_SIZE, 0, 0, 0, 0, currentThread);
+              }
+              else{
+              printf("Stack Overflow! Killing the process %d\n",currentThread->pid);
+              currentThread->alive = 0;
+//              while(1);
+              remove_runnable_kthread(&runQueue, currentThread);
+              }
+              return;   
+          }               
+          crawl = crawl->vm_next;
+        } 
     }
   // printf("PFFFFPP %p \npte = %p \nCOW = %p \ncr3 = %x\n",*pte, pte, PTE_COW,get_cr3_register());
     if(*pte & PTE_COW){
@@ -86,9 +109,12 @@ void sys_exit(){
   Important: While coming to this function, the kernel actually executes in the context
   of the process. Thus we can easily get the PID of the process which currently issued the system call. 
   */
+  //printf("exiting %d\n",currentThread->pid);
   pid = currentThread->pid;
   k_thread = ptable[pid];
   thread_cleanup(k_thread);
+  ptable[pid] = NULL;
+  free_pid();
   return;
 }
 
@@ -98,6 +124,7 @@ void PushU(kthread* k_thread, uint64_t value){
 }
 
 void fork_int(kthread* k_thread, regs* r){
+  uint64_t pid = k_thread->pid;
   PushU(k_thread, (uint64_t)0x23); 
   PushU(k_thread, r->rsp); 
   PushU(k_thread, r->rflags); 
@@ -105,7 +132,7 @@ void fork_int(kthread* k_thread, regs* r){
   PushU(k_thread, r->rip); 
   PushU(k_thread, r->intNo); 
   PushU(k_thread, r->errCode); 
-  PushU(k_thread, r->rax); 
+  PushU(k_thread, pid); // Pushing rax which is the value which fork should return 
   PushU(k_thread, r->rbx); 
   PushU(k_thread, r->rcx); 
   PushU(k_thread, r->rdx); 
@@ -127,9 +154,11 @@ int fork(regs *r){
   kthread* k_thread = (kthread*)sub_malloc(sizeof(kthread),0);
   memcpy((char *)k_thread, (const char*)currentThread, sizeof(kthread));
   k_thread->pid = alloc_pid();
+  ptable[k_thread->pid] = k_thread;
   k_thread->kstack = (void*)sub_malloc(1,1);
   k_thread->krsp = (((uint64_t) k_thread->kstack) + 2*VIRT_PAGE_SIZE -0x8); 
   k_thread->kstack = (void*)(((uint64_t) k_thread->kstack) + 2*VIRT_PAGE_SIZE - 0x8);
+  k_thread->parent = currentThread;
   fork_int(k_thread, r);
   if ( !k_thread )
       PANIC(__FUNCTION__,__LINE__,"No mem");
@@ -138,8 +167,85 @@ int fork(regs *r){
   clone_pgdir(currentThread->cr3, k_thread->cr3);
   copy_page_table(currentThread->cr3, k_thread->cr3, 1);
 //  printf("%d",k_thread->cr3);
+  add_to_joinQueue(currentThread, k_thread);
   alllist_kthread(k_thread);
   runnable_kthread(k_thread);
 //  stackPage = (void*)UserStack;
   return 0;  
-} 
+}
+
+void sleep(uint64_t time){
+  currentThread->sleeping = time;
+}
+
+signed int doread(char* buf){
+  __asm__ __volatile__("sti");
+  //printf("querying for read_busy by %d val = %d\n",currentThread->pid, reading);
+  if(reading == 1 || reading_finished == 0){
+//      printf("returning -1 to %d",currentThread->pid);
+      return -1;
+  }
+//  cls();
+//  printf("setting read busy to 1 b %d\n",currentThread->pid);
+  reading = 1;
+  reading_finished = 0;
+  io_buff = iobuff;
+  while(reading == 1);
+  //printf("%s io buff \n",iobuff);
+  memcpy(buf,iobuff, strlen(iobuff));
+  reading = 0;
+  reading_finished = 1;
+  //printf("%d has finieshed reading\n",currentThread->pid);
+  return(strlen(buf));
+}
+
+void temp(){
+  return; 
+}
+void wait(){
+  __asm__ __volatile__("sti");
+  while(1){
+//  printf("find next\n");
+  temp();
+//  a++;
+  volatile kthread* next = (volatile kthread*)currentThread->head.next;
+  if(next != NULL)
+      continue;
+  else
+      break;
+  }
+  return;
+}
+
+int do_execve(char* name){
+void* start = tarfs_read(name);
+//printf("in do_execve\n");
+if( !start ){
+  //  printf("hmmm\n");
+    return -1;
+}
+main_execve(name);
+Schedule();
+//while(1);
+return 0;
+}
+
+void print_process(){
+    kthread* k_thread;
+    uint16_t i;
+    char* mode;
+    printf("Name      PID      Mode\n");
+    for(i=2; ptable[i] != 0; i++){
+//      printf("%p\n",ptable[i]);
+      k_thread = ptable[i];
+      if(k_thread->kernel_thread == 1)
+          mode = "Kernel";
+      else if(k_thread->kernel_thread == 0)
+          mode = "User";
+        printf("%s     %d        %s\n",k_thread->name, k_thread->pid, mode);
+    }
+}
+
+void do_cls(){
+  cls();
+}

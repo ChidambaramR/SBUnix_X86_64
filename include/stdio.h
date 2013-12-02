@@ -20,4 +20,5 @@ void PANIC(const char *, uint16_t, const char *);
 void SYS_TRACE(const char *, uint16_t, const char *);
 int printf(const char *format, ...);
 int scanf(const char *format, ...);
+void write_io_buff(char);
 #endif

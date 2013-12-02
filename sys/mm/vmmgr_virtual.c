@@ -195,7 +195,7 @@ void clone_pgdir(uint64_t parent_pml4, uint64_t child_pml4){
     }
     cpml4[510] = (uint64_t)cpml4 - 0xFFFFFFFF80000000;
     cpml4[510] = cpml4[510] | PTE_USER | PTE_PRESENT | PTE_WRITABLE;
-    printf("cpml4 510 = %x cpml4 = %p\n",cpml4[510],cpml4);
+    //printf("cpml4 510 = %x cpml4 = %p\n",cpml4[510],cpml4);
 }
 
 void copy_page_table(uint64_t parent_pml4, uint64_t child_pml4, bool is_user){
@@ -249,7 +249,6 @@ void copy_page_table(uint64_t parent_pml4, uint64_t child_pml4, bool is_user){
                     set_pde_entry((pd_entry*)&pde_dir_beg[k],pte_dir_phy, is_user);
                     memcpy((char*)pte_dir, (const char*)(virt_base + (uint64_t)PAGE_PHYSICAL_ADDRESS(&pd[k])), sizeof(pte));
                     pg = (pt_entry*)PAGE_PHYSICAL_ADDRESS(&pd[k]);
-                    printf("page phys addre = %x\n",pg);
                     pg = (pd_entry*)((uint64_t)pg + virt_base);
                     for(l=0; l<512; l++){
                         pt_entry_del_attrib(&pte_dir_beg[l], PTE_WRITABLE); 
@@ -262,7 +261,38 @@ void copy_page_table(uint64_t parent_pml4, uint64_t child_pml4, bool is_user){
             }    
         }
     }
-    printf("wow done");
+}
+
+
+
+void clear_page_tables(uint64_t parent_pml4){
+    uint16_t i,j,k;
+    pd_entry *pd, *pd_phy;
+    pt_entry *pg, *pg_phy;
+    pml4e_entry* ppml4 = (pml4e_entry*)parent_pml4;
+    pdpe_entry *ppdpe, *ppdpe_phy;
+    for(i=0; ppml4[i] != NULL; i++){
+        
+        // Second level
+        ppdpe_phy = (pdpe_entry*)PAGE_PHYSICAL_ADDRESS(&ppml4[i]);
+        ppdpe = (pdpe_entry*)((uint64_t)ppdpe_phy + virt_base);
+        ppml4[i] = 0;
+        for(j=0; ppdpe[j] != NULL; j++){
+            // Third level
+            pd_phy = (pd_entry*)PAGE_PHYSICAL_ADDRESS(&ppdpe[j]);
+            pd = (pd_entry*)((uint64_t)pd_phy + virt_base);
+            ppdpe[j] = 0;
+            for(k=0; k < 512; k++){
+                if(pd[k]){
+                    pg_phy = (pt_entry*)PAGE_PHYSICAL_ADDRESS(&pd[k]);
+                    pg = (pt_entry*)((uint64_t)pg_phy + virt_base);
+                    memset(pg, 0, VIRT_PAGE_SIZE);
+                    pd[k] = 0;
+                    }
+                    // To add COW bits
+            }
+        }
+    }
 }
 
 

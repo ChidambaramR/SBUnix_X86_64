@@ -11,6 +11,7 @@
 #include <sys/mm/vmmgr_virtual.h>
 #include <sys/kthread.h>
 #include <elf.h>
+#include <sys/shell.h>
 /*
 +defs.h - Included typedefs for datatypes
 */
@@ -21,7 +22,7 @@ extern void vmmgr_page_allocator_init();
 bool is_scheduler_on = 0;
 void* kphysfree = 0;
 extern void switch_to_user();
-extern void do_exec();
+extern void do_exec(char*);
 
 void hello_in_user_mode(){
 }
@@ -64,7 +65,12 @@ void start(uint16_t arg)
 //        printf("code buf = %s, data buf = %s, code length = %d, data_length = %d",a1,b1,ca,cb);
         // kernel starts here 
         //switch_to_user();
-        do_exec();
+        do_exec("bin/shell");
+        //shell_main();
+//        uint16_t i = 0;
+//        char* tmp = "chid";
+//        while(i <= 30)
+//            printf("hello %d name %s %d\n",i++,tmp,i);
         while(TRUE)     
 	  Yield();
        // while(1);

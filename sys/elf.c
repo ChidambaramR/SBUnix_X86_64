@@ -23,6 +23,38 @@ void printPgmHdr(void *bin_start, Elf64_Ehdr* bin_elf_start, uint16_t idx){
         printf("Pgm_vaddr %x, Pgm_offset = %d, Pgm_size = %d\n", pgmHdr->p_vaddr, pgmHdr->p_offset, pgmHdr->p_filesz);
 }
 
+int round(int no){
+  no = (((no/512)+1)* 512);
+  return no;
+}
+void* tarfs_read(char* name){
+//        uint64_t start = (uint64_t)&(_binary_tarfs_start);
+        void* start_addr = NULL;
+        int found = 0;
+        uint64_t end = (uint64_t)&(_binary_tarfs_end);
+        struct posix_header_ustar *header;
+        header = (struct posix_header_ustar*)(&_binary_tarfs_start);
+        //`printf("tarfs read\n");
+         while( (uint64_t)header <= end ){
+           if(strcmp((char*)header->name, name) == 0){
+//              printf("elf file found");
+              found = 1;
+              start_addr = (void*)(header + 1);
+              break;
+           } 
+        if(my_atool(header->size) == 0)
+            header = header + 1 + (my_atool(header->size));
+        else
+            header = (struct posix_header_ustar*)((uint64_t)(header + 1) + (uint64_t)round(my_atool(header->size)));
+        }
+  //      printf("Returning here\n");
+        if(found)
+          return start_addr;
+        else
+          return (void*)NULL;
+}
+
+
 /*
 Structure of ELF File.
 Start of 3*512 is the Elf header.
@@ -30,7 +62,7 @@ Immediately following the Elf header is the program header.
 After the program header ends, we get the actual contents of the program sections.
 From the start, elf_header + section offset we get the section headers
 */
-uint16_t readelf(struct exec *executable, uint16_t *pgm_entries, uint64_t *entry_point){
+uint16_t readelf(char *name, struct exec *executable, uint16_t *pgm_entries, uint64_t *entry_point){
         Elf64_Ehdr *bin_elf_start;
         Elf64_Shdr *sectHdr;
         Elf64_Phdr *pgmHdr;
@@ -43,25 +75,33 @@ uint16_t readelf(struct exec *executable, uint16_t *pgm_entries, uint64_t *entry
         uint64_t actual_mem_start;
         void* bin_start;
         void* load_buf;
-        bin_elf_start = (Elf64_Ehdr*)(&(_binary_tarfs_start) + 3*sizeof(struct posix_header_ustar));
+        //bin_elf_start = (Elf64_Ehdr*)(&(_binary_tarfs_start) + 3*sizeof(struct posix_header_ustar));
+        bin_start = (void*)tarfs_read(name);
+        if((uint64_t)bin_start == NULL)
+            return 0;
+        
+        bin_elf_start = (Elf64_Ehdr*)bin_start;
         *entry_point = bin_elf_start->e_entry;
         *pgm_entries = bin_elf_start->e_phnum - 1;
-        bin_start = (void*)(&(_binary_tarfs_start) + 3*sizeof(struct posix_header_ustar));
+        //bin_start = (void*)(&(_binary_tarfs_start) + 3*sizeof(struct posix_header_ustar));
         //printElfHdr(bin_start, bin_elf_start);
         //printPgmHdr(bin_start, bin_elf_start, 0);
         sectHdr = (Elf64_Shdr*)((bin_start + bin_elf_start->e_shoff + sizeof(Elf64_Ehdr)));
         text_start = sectHdr->sh_addr;
         //sectHdr = (Elf64_Shdr*)((bin_start + bin_elf_start->e_shoff + sizeof(Elf64_Ehdr) + sizeof(Elf64_Shdr)));
-        actual_mem_start = (uint64_t)(&(_binary_tarfs_start) + 3*sizeof(struct posix_header_ustar) + sizeof(Elf64_Ehdr) + ((*pgm_entries))*sizeof(Elf64_Phdr) + bin_elf_start->e_phoff);
+        actual_mem_start = (uint64_t)((uint64_t)bin_start + sizeof(Elf64_Ehdr) + ((*pgm_entries))*sizeof(Elf64_Phdr) + bin_elf_start->e_phoff);
         for(i=0; i < (*pgm_entries); i++){
           pgmHdr = (Elf64_Phdr*)((bin_start + sizeof(Elf64_Ehdr) +  i*sizeof(Elf64_Phdr)));
           load_size = pgmHdr->p_memsz;
-          load_start = pgmHdr->p_vaddr; // - pgmHdr->p_offset;
+          load_start = pgmHdr->p_vaddr - pgmHdr->p_offset;
           if(i==0)
             load_addr = text_start;
           else
             load_addr = pgmHdr->p_vaddr;
-          load_buf = (void*)(actual_mem_start + length);
+          if(i==0)
+            load_buf = (void*)(actual_mem_start + length);
+          else
+            load_buf = (void*)((uint64_t)bin_elf_start + pgmHdr->p_offset);
           length += load_size;
           executable[i].seg_length = load_size;
           executable[i].seg_page_start = load_start;

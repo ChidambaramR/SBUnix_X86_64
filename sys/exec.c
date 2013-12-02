@@ -23,6 +23,7 @@ extern kthread* currentThread;
 extern uint64_t kernel_pgd;
 extern int debug;
 extern void PushU(kthread*, uint64_t);
+extern void reload_cr3(uint64_t);
 /*init_user_memory(){
     pte* new_page_table = get_new_page_table((pml4*)(currentTask->cr3 & 0xFFFFF000), user_code);
     
@@ -109,18 +110,19 @@ static void Init_Thread_user(kthread* k_thread,const char* name, void* stackPage
     k_thread->rsp = ((uint64_t) k_thread->stackPage) + VIRT_PAGE_SIZE - 0x8;
     k_thread->krsp = ((uint64_t) k_thread->kstack) + 2*VIRT_PAGE_SIZE - 0x8;
     k_thread->kstack = (void*)(((uint64_t)k_thread->kstack) + 2*VIRT_PAGE_SIZE - 0x8);
-    k_thread->numTicks = 0;
     k_thread->priority = prio;
     //k_thread->userContext = 0;
     k_thread->owner = owner;
     k_thread->refCount = detached ? 1 : 2;
     k_thread->kernel_thread = 0;
+    k_thread->no_stack_pages = 1;
     k_thread->alive = TRUE;
+    k_thread->sleeping = 0;
     k_thread->name = name;
     k_thread->pcr3 = get_cr3_register();
-    k_thread->cr3 = (uint64_t)kernel_pgd;
-    init_thread_queue(&(k_thread->joinQueue));
-    k_thread->pid = alloc_pid();
+    k_thread->cr3 = (uint64_t)currentThread->cr3;
+    if(k_thread != currentThread)
+      k_thread->pid = alloc_pid();
 }
 
 kthread* create_kthread_user(const char* name, int prio, bool detached){
@@ -156,49 +158,28 @@ void create_new_task(kthread* k_thread, void* startFunc, const char* name, uint1
     return;
 }
 
-uint32_t do_exec(/*char *name, char *environment*/){
-   // uint64_t *data;
-    /*uint64_t currentCode_page;
-    uint64_t currentCode_len;
-    uint64_t currentData_page;
-    uint64_t currentData_len;
-    uint64_t new_pte;*/
+uint32_t do_exec(char *name){
     struct exec executable[20];
     uint64_t currentStack_page;
     uint16_t pgm_entries;
-    uint64_t new_pte;
     kthread* k_thread;
-//    task_struct* task;
   
-   // uint32_t size;
-   // int codeLen=10, dataLen;
     uint16_t i;
     uint64_t entry_point;
-    k_thread = create_kthread_user("first", 10, 1);
-    if(!k_thread)
-        return NULL;
-   // char *codeBuf, *dataBuf;
-   // struct posix_header_ustar executable;
-   // char *prog_name = (char*)sub_malloc(strlen(name),1);
-   // strcpy(prog_name, name);
-    if( readelf(executable, &pgm_entries, &entry_point) ){
-        // Initialize code page
+    printf("in exec\n");
+    if( readelf(name, executable, &pgm_entries, &entry_point) ){
+        k_thread = create_kthread_user(name, 10, 1);
+        if(!k_thread)
+            return NULL;
+        //cls();
         for(i=0; i < pgm_entries; i++){
-            printf(" seg length %d, page %x, bug %p\n",executable[i].seg_length, executable[i].seg_page_start, executable[i].seg_mem);
             mmap((void*)executable[i].seg_page_start, executable[i].seg_length, 0, 0, 0, 0, k_thread);
-            // Need to ask Prof about this
-//            if(i == 0)
-//                memcpy((char*)entry_point, executable[i].seg_mem, executable[i].seg_length);   
-//            else 
-                memcpy((char*)executable[i].seg_actual_start, executable[i].seg_mem, executable[i].seg_length);    
+            memcpy((char*)executable[i].seg_actual_start, executable[i].seg_mem, executable[i].seg_length);    
     
         }
 
-        // Initialize stack page
         currentStack_page = UserStack;
-        new_pte = (uint64_t)mmgr_alloc_block();
-        vmmgr_map_page_after_paging(new_pte, currentStack_page, 1);
-        memset((void*)currentStack_page, 0, sizeof(VIRT_PAGE_SIZE));
+        mmap((void*)currentStack_page, VIRT_PAGE_SIZE, 0, 0, 0, 0, k_thread);
 
         // Create the actual task structure
         create_new_task(k_thread, (void*)entry_point, "first", 0, 10, 1);
@@ -206,12 +187,56 @@ uint32_t do_exec(/*char *name, char *environment*/){
         disable_interrupts();
         runnable_kthread(k_thread);
         enable_interrupts();
-        //switch_to_user();
-//        Schedule();
-        /*currentPage = UserCode;
-        currentPage_size = usercode_len;
-        init_user_memory();
-        */
+        return 1;
     }
-    return 1;
+    else
+        return 0;
+}
+
+void do_exec1(char* name){
+    struct exec executable[20];
+    uint64_t currentStack_page;
+    uint16_t pgm_entries;
+    uint16_t i;
+    uint64_t entry_point;
+    Init_Thread_user(currentThread, name, (void*)UserStack, 10, 1);
+    append_global_list_queue(&allThreadList, currentThread);
+    printf("in exec1");
+    if( readelf(name, executable, &pgm_entries, &entry_point) ){
+        for(i=0; i < pgm_entries; i++){
+            mmap((void*)executable[i].seg_page_start, executable[i].seg_length, 0, 0, 0, 0, currentThread);
+            memcpy((char*)executable[i].seg_actual_start, executable[i].seg_mem, executable[i].seg_length);
+
+        }
+
+        currentStack_page = UserStack;
+        mmap((void*)currentStack_page, VIRT_PAGE_SIZE, 0, 0, 0, 0, currentThread);
+
+        // Create the actual task structure
+        create_new_task(currentThread, (void*)entry_point, name, 0, 10, 1);
+        disable_interrupts();
+        runnable_kthread(currentThread);
+        enable_interrupts();
+    }
+
+}
+void clear_vmas(kthread* k_thread){
+    vm_area_struct *crawl = k_thread->mmap, *tmp;
+    while(crawl){
+      tmp = crawl->vm_next;
+      memset((char*)crawl, 0, sizeof(vm_area_struct));
+      sub_free(crawl);
+      crawl = tmp;
+    }
+    k_thread->mmap = k_thread->mmap_cache = NULL;
+}
+
+void main_execve(char* name){
+    char temp[30];
+    memset(temp, 0, sizeof(temp));
+    strncpy(temp, name, strlen(name));
+    clear_vmas(currentThread);
+    clear_page_tables(currentThread->cr3);
+    reload_cr3(currentThread->pcr3);
+    do_exec1(temp);
 }

@@ -3,7 +3,6 @@
 #include <stdarg.h>
 #include <defs.h>
 
-char* str;
 uint16_t write(const char* buf){
   __asm__("movq $0x2, %rax;\n\tint $0x80;"); 
   return 0;
@@ -65,6 +64,6 @@ int printf(const char *fmt, ...) {
        }
        va_end(arg_p);
        write((const char*)buf);
-
+       memset(buf, '\0', sizeof(buf));
 	return 0;
 }

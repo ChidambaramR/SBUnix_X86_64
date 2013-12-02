@@ -3,8 +3,10 @@
 #include <io.h>
 #include <sys/timer.h>
 #include <stdio.h>
+#include <sys/kthread.h>
 
 extern void irq_install_handler(int,void *);
+extern Thr_Queue runQueue;
 uint16_t total_ticks = 0; // Variable to keep track of total ticks thus far
 uint16_t total_ticks_secs=0;
 uint16_t mins=0;
@@ -15,12 +17,22 @@ uint16_t minutes_units=0;
 uint16_t minutes_tens=0;
 uint16_t seconds_units=0;
 uint16_t seconds_tens=0;
+extern kthread* currentThread;
 
 void timer_handler(regs *r){
+    Thr_Queue* run_queue = &runQueue;
+    kthread* crawl = run_queue->head;
+    
+//    uint16_t prio,max=0;
   total_ticks++;
 //  kprintf("timer_handler totl_ticks=%d\n",total_ticks);
   if((total_ticks % 100) == 0){
       total_ticks_secs++;
+    while(crawl && crawl != currentThread){
+        if((crawl->sleeping > 0))
+            crawl->sleeping--;
+        crawl = crawl->next_in_ThreadQ;
+    }
 //      kprintf("tickes = %d\n",total_ticks_secs);
       if(total_ticks_secs >= 60){
           mins++;

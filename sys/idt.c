@@ -14,6 +14,7 @@ extern void write_string(int, const char *);
 extern void _x86_64_asm_ltr(void*);
 extern kthread* *ptable;
 idtE idt[MAX_IDT];
+extern kthread* currentThread;
 
 static struct idtr_t idtr = {
   sizeof(idt) - 1,
@@ -28,7 +29,7 @@ int fault_handler(regs *r)
       void* faulting_instruction;
       uint16_t callNo;
       const char* str;
-      int val=1;
+      signed int val=1;
       regs temp_r;
       regs *ptemp_r = &temp_r;
 //      kthread* k_thread;
@@ -42,13 +43,15 @@ int fault_handler(regs *r)
                         break;
               case 0x80:callNo = r->rax;
                         switch(callNo){
-                          case 1: 
+                          case 1: // Exit
                                   sys_exit();
                                   break;
-                          case 2: str = (const char*)r->rdi;
+                          case 2: // Write
+                                  str = (const char*)r->rdi;
                                   write(str);
                                   break;
-                          case 3: temp_r.rax = r->rax; 
+                          case 3: // Fork
+                                  temp_r.rax = r->rax; 
                                   temp_r.rbx = r->rbx; 
                                   temp_r.rcx = r->rcx; 
                                   temp_r.rdx = r->rdx; 
@@ -71,9 +74,30 @@ int fault_handler(regs *r)
                                   temp_r.intNo = r->intNo; 
                                   temp_r.errCode = r->errCode; 
                                   fork(ptemp_r);
+                                  val = 0; // Returning 0 for parent
                                   //printf("rax = %d\n",temp_r.rax);//fork(temp_r);
                                   break;
-                          case 20: val = sys_getpid();
+                          case 4: // Sleep
+                                  sleep(r->rdi);
+                                  break;
+                          case 5: // Read
+                                  val = -1;
+                                  val = doread((char*)r->rdi);
+                                  //printf("returning %d to %d",val,currentThread->pid);
+                                  break;
+                          case 6: wait();
+                                  break;
+                          case 7: //printf("exec file %s\n",(char*)r->rdi);
+                                  val = -1;
+                                  val = do_execve((char*)r->rdi);
+                                  //printf("val = %d\n",val);
+                                  break;
+                          case 8: print_process();
+                                  break;
+                          case 9: do_cls();
+                                  break;
+                          case 20:// GetPID 
+                                  val = sys_getpid();
                                   break;
                         } 
                         break;

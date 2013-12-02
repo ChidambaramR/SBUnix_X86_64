@@ -81,7 +81,6 @@ void* sub_malloc(uint16_t size, bool align){
         }
         else{
         s = align(size);  // Al gin it to a byte boundary
-        printf("size = %d\n",s);
         if(base){
                 last = base;
                 b = find_block(&last,s); // Find the available block

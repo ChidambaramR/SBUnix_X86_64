@@ -61,5 +61,5 @@ uint64_t seg_page_start;
 uint64_t seg_actual_start;
 void* seg_mem;
 };
-uint16_t readelf(struct exec*, uint16_t*, uint64_t*);
+uint16_t readelf(char*, struct exec*, uint16_t*, uint64_t*);
 #endif

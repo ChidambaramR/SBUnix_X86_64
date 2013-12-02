@@ -158,4 +158,6 @@ void clone_pgdir(uint64_t, uint64_t);
 pd_entry* get_pde_offset_recurse(virtual_addr);
 
 pt_entry* get_pte_recurse(virtual_addr);
+
+void clear_page_tables(uint64_t);
 #endif

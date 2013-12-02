@@ -40,7 +40,6 @@ __asm__("movq %%cr3, %0;"
         ://No input operands
       :"%eax"
      );
-  printf("cr3 = %d\n",cr3);
   return cr3;
 }
 void pmmngr_load_PDBR (uint64_t* addr) {

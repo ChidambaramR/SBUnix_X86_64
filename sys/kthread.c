@@ -51,6 +51,10 @@ int alloc_pid(){
     nextFreePid++;
     return nextFreePid;
 }
+
+void free_pid(){
+    nextFreePid--;
+}
 /*
 Add it to the end of the run queue. The scheduler function choosed which thread
 can be run only from this run queue.
@@ -111,6 +115,39 @@ void insert_global_list_queue(global_thread_list *listPtr, kthread *nodePtr) {
 }
 
 
+void append_join_queue(kthread *nodePtr, kthread *cthread) {
+    /*if((uint64_t)nodePtr & 0xFFF){
+        debug = 1;
+        printf("nodePtr = %x", nodePtr);
+        PANIC(__FUNCTION__,__LINE__,"oooooo");
+    }*/
+    /*nodePtr->next_in_joinQ = 0;
+    if(listPtr->tail == 0){
+        listPtr->head = listPtr->tail = nodePtr;
+        nodePtr->prev_in_joinQ = cthread;
+        cthread->next_in_joinQ = nodePtr;
+    }
+    else{
+        listPtr->tail->next_in_joinQ = nodePtr;
+        nodePtr->prev_in_joinQ = listPtr->tail;
+        listPtr->tail = nodePtr;
+    }
+    */
+    joinQ *crawl,*temp;
+    crawl = &(cthread->head);
+    temp = (joinQ*)sub_malloc(sizeof(joinQ),0);
+    temp->child = nodePtr;
+    temp->next = NULL;
+    while(crawl->next){
+         crawl = crawl->next;
+    }
+    crawl->next = temp;
+}
+
+void add_to_joinQueue(kthread* currentThread, kthread* k_thread){
+    append_join_queue(k_thread, currentThread);
+}
+
 /*
 We are removing a runnable thread because, it has been scheduled and thus it should not
 be in the run queue. 
@@ -145,10 +182,27 @@ void remove_runnable_kthread(Thr_Queue* run_queue, kthread* runnable){
     
 }
 
+void remove_child(kthread* parent, kthread* child_node){
+    joinQ *tmp, *crawl;
+    crawl = &(parent->head);
+    while(crawl->next){
+        if(crawl->next->child == child_node)
+          break;
+        crawl = crawl->next;
+    }
+    tmp = crawl->next;
+    crawl->next = crawl->next->next;
+    sub_free(tmp);
+}
+
 void thread_cleanup(kthread* k_thread){
     Thr_Queue* run_queue = &runQueue;
+    kthread *parent_node;
     remove_runnable_kthread(run_queue, k_thread);
     remove_alllist_kthread(&allThreadList, k_thread);
+    parent_node = k_thread->parent;
+    if(parent_node)
+      remove_child(parent_node, k_thread);
 //    sub_free(k_thread->stackpage);
 }
 
@@ -161,14 +215,11 @@ kthread* next_runnable_kthread(){
     kthread* crawl = run_queue->head;
     kthread* runnable=0;
 //    uint16_t prio,max=0;
-    /*while(crawl){
-        prio = crawl->priority;
-        if(prio > max){
-            max = prio;
-            runnable = crawl;
-        }
+    while(crawl){
+        if((crawl->sleeping == 0) && crawl->alive)
+            break;
         crawl = crawl->next_in_ThreadQ;
-    }*/
+    }
     runnable = crawl;
     if(!runnable)
       PANIC(__FUNCTION__,__LINE__,"NULL!!");
@@ -281,6 +332,7 @@ This is the IDLE thread. If we happen to come here, then we need to just run and
 return from the IDLE thread. Infact we should never return from an Idle thread.
 */
 void Idle(uint16_t arg){
+    //shell_main();
     while(TRUE)
       Yield();
 }
@@ -313,13 +365,14 @@ static void Init_Thread(kthread* k_thread,const char* name, void* stackPage, uin
     kthread* owner = detached ? (kthread*)0: currentThread;
     k_thread->stackPage = stackPage;
     k_thread->rsp = ((uint64_t) k_thread->stackPage) + VIRT_PAGE_SIZE;
-    k_thread->numTicks = 0;
     k_thread->priority = prio;
     //k_thread->userContext = 0;
     k_thread->owner = owner;
+    k_thread->sleeping = 0;
     k_thread->refCount = detached ? 1 : 2;
     k_thread->kernel_thread = 1;
     k_thread->alive = TRUE;
+    k_thread->no_stack_pages = 1;
     k_thread->name = name;
     k_thread->pcr3 = get_cr3_register();
     k_thread->cr3 = (uint64_t)kernel_pgd;
@@ -400,8 +453,10 @@ end of the runQueue so that the next time this same thread can be chosen if this
 highest priority of all.
 */
 void Yield(void){
+    disable_interrupts();
     kthread* current = Get_Current();
     runnable_kthread(current);
+    enable_interrupts();
     Schedule();
 }
 
@@ -453,7 +508,7 @@ void scheduler_init(){
     Init_Thread(main_thread,"main",(void *)stackPage, PRIORITY_NORMAL, TRUE);
     currentThread = main_thread;
     append_global_list_queue(&allThreadList, main_thread);
-    start_kthread(Idle, "Idle", 0, PRIORITY_IDLE, TRUE);
+    //start_kthread(Idle, "Idle", 0, PRIORITY_IDLE, TRUE);
     start_kthread(start, "Start", 0, PRIORITY_NORMAL, TRUE);
     //start_kthread(World, "World", 0, PRIORITY_LOW, TRUE);
     //start_kthread(Hello, "Hello", 0, PRIORITY_LOW, TRUE);

@@ -28,6 +28,13 @@ struct Thread_queue{
 };
 typedef struct Thread_queue Thr_Queue;
 
+
+
+struct join_Queue{
+  kthread* child;
+  struct join_Queue* next;
+};
+typedef struct join_Queue joinQ;
 /*
  * Kernel thread context data structure.
  * NOTE: there is assembly code in lowlevel.asm that depends
@@ -41,15 +48,17 @@ struct Kernel_Thread {
     uint64_t pcr3;
     uint64_t cr3;
     void* kstack;
-    volatile uint64_t numTicks;           /* offset 4 */
+    signed int sleeping;           /* offset 4 */
     int priority;
     struct Kernel_Thread *prev_in_ThreadQ, *next_in_ThreadQ;
     void* stackPage;
+    int no_stack_pages;
 //    struct User_Context* userContext;
     struct Kernel_Thread* owner;
+    struct Kernel_Thread* parent;
     struct Thread_queue joinQueue;
     int refCount;
-
+    joinQ head;
     /* These fields are used to implement the Join() function */
     bool alive;
     const char* name;
@@ -97,7 +106,12 @@ void Push_General_Registers(kthread*);
 void Push(kthread*, uint64_t);
 void init_thread_queue(Thr_Queue*);
 int alloc_pid();
+void free_pid();
 void add_to_ptable(kthread*);
 void thread_cleanup(kthread*);
 void alllist_kthread(kthread*);
+void add_to_joinQueue(kthread*, kthread*);
+void remove_runnable_kthread(Thr_Queue*, kthread*);
+void* tarfs_read(char*);
+void main_execve(char*);
 #endif

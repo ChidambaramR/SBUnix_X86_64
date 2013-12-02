@@ -7,8 +7,8 @@
 char* video_memory = (char *)START_MEMORY;
 char* timer_memory = (char *)TIMER_MEMORY;
 char* keyboard_memory = (char*)KEYBOARD_WARMUP_MEMORY;
-
-
+extern char* io_buff;
+extern int reading;
 /*
 FUnction to convert a number to any base and it returns as a character pointer,
 */
@@ -81,7 +81,7 @@ void write_char(int color, char c)
        volatile char *video = (volatile char*)video_memory;
        volatile uint64_t diff;
        volatile uint64_t col1;
-       if(c == '\n'){
+       if(c == '\n' || (int)c == 13){
               /*
                * \n is a special case. We need to push the video_memory by one row. Since
                * each character occupies two bytes, to move just one row down, we need to
@@ -100,6 +100,19 @@ void write_char(int color, char c)
        update_cursor();
 }
 
+
+void write_io_buff(char c)
+{
+//       printf("received %d\n",c);
+       if(c == '\n' || (int)c == 13){
+            *io_buff++ = c;
+            //printf("setting reading = 0\n");
+            reading = 0;
+       }
+       else{
+            *io_buff++ = c;
+       }
+}
 
 void strncpy(char* dest, const char* src, uint32_t size){
     uint32_t i;  
@@ -226,11 +239,13 @@ void update_cursor()
 {
     volatile uint64_t diff = (long)(video_memory - START_MEMORY);
     volatile char* video = (volatile char*)START_MEMORY;
+    char* tmp_video_memory;
     /* Long is used because the size a pointer in 64 bit machine is 8 bytes.
        So we cannot type cast it to an int which is of lesser size. In C
        we can always typecast from lower size to upper size but not from
        bigger size to lower size.
     */
+    uint16_t i;
     int temp_row;
     uint64_t pos; // Long because, we cant typecast temp_row*80 + START_MEMORY to char*.
              // If we do so, we would typecast from int to char* which is 4 bytes
@@ -250,8 +265,13 @@ void update_cursor()
        pos = temp_row*80*2 + START_MEMORY;
        memcpy((char *)video, (const char*)(pos), (24-temp_row)*80*2);
        video_memory = (char *)(23*80*2 + START_MEMORY);
+       tmp_video_memory = video_memory;
        row1 = 23;
        col1=0;
+       for(i=0; i<80; i++){
+          *tmp_video_memory++ = 0x20;
+          *tmp_video_memory++ = 0x0; 
+       }
     }
 
     unsigned short position=(row1*80) + col1;
@@ -318,7 +338,7 @@ uint32_t my_atoi(char *str){
     uint32_t res=0;
     uint16_t i;
     for(i=0; str[i] != '\0'; i++){
-      printf("%c ",str[i]);
+//      printf("%c ",str[i]);
       res = res*10 + (str[i] - '0');
     }
     return res;
@@ -329,8 +349,46 @@ uint32_t my_atool(char *str){
     uint32_t res=0;
     uint16_t i;
     for(i=0; str[i] != '\0'; i++){
-      printf("%c ",str[i]);
+//      printf("%c ",str[i]);
       res = res*8 + (str[i] - '0');
     }
     return res;
+}
+
+int strcmp(char *a, char* b){
+    int i=0, equals = 0; // equals = 0 is the tru value
+    int len1 = strlen(a);
+    int len2 = strlen(b);
+    if( len1 != len2 )
+        return 1;
+    while(a[i] != NULL){
+        if(a[i] == b[i]){
+          i++;
+          continue;
+        }
+        else{
+          equals = 1;
+          break;
+        }
+    }
+    return equals;
+}
+
+char *strchr(const char *s, int c)
+{
+    while (*s != (char)c)
+        if (!*s++)
+            return 0;
+    return (char *)s;
+}
+
+int strcpsn(const char *s1, const char *s2)
+{
+    int ret=0;
+    while(*s1)
+        if(strchr(s2,*s1))
+            return ret;
+        else
+            s1++,ret++;
+    return ret;
 }
