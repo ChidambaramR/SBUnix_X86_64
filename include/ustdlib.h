@@ -17,4 +17,5 @@ int strcmp(char*, char*);
 int strcpsn(const char*, const char*);
 int strlen(const char*);
 void memset(void*, uint8_t, uint32_t);
+void exit(int);
 #endif

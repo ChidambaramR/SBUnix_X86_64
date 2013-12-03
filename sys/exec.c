@@ -121,8 +121,10 @@ static void Init_Thread_user(kthread* k_thread,const char* name, void* stackPage
     k_thread->name = name;
     k_thread->pcr3 = get_cr3_register();
     k_thread->cr3 = (uint64_t)currentThread->cr3;
-    if(k_thread != currentThread)
-      k_thread->pid = alloc_pid();
+    if(k_thread != currentThread){
+       printf("Alloc'ng new pid\n");
+       k_thread->pid = alloc_pid();
+    }
 }
 
 kthread* create_kthread_user(const char* name, int prio, bool detached){

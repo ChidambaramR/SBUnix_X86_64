@@ -123,6 +123,7 @@ int main(int argc, char* argv[], char* envp[])
           if(ret == -1)
             printf("Bad File name\n");
           //while(1);
+            exit(1);
           }
         else{
           wait();

@@ -109,7 +109,7 @@ void sys_exit(){
   Important: While coming to this function, the kernel actually executes in the context
   of the process. Thus we can easily get the PID of the process which currently issued the system call. 
   */
-  //printf("exiting %d\n",currentThread->pid);
+  printf("exiting %d\n",currentThread->pid);
   pid = currentThread->pid;
   k_thread = ptable[pid];
   thread_cleanup(k_thread);
@@ -247,5 +247,6 @@ void print_process(){
 }
 
 void do_cls(){
-  cls();
+  //cls();
+  return;
 }

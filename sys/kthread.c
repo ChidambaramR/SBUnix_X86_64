@@ -19,6 +19,7 @@ int nextFreePid = 0;
 kthread* ptable[100];
 
 void add_to_ptable(kthread* k_thread){
+    printf("adding to tpable\n");
     ptable[k_thread->pid] = k_thread;
 }
 
