@@ -105,7 +105,7 @@ void shell_main()
         if (emit_prompt) {
             printf("%s", prompt);
         }
-        doread(cmdline);
+        doread(cmdline,STDIN);
 //        printf("read %s from the terminal\n",cmdline);
         /* Remove the trailing newline */
         cmdline[strlen(cmdline)-1] = '\0';

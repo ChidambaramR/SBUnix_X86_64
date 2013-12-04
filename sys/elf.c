@@ -6,6 +6,21 @@
 #include <sys/mm/vmmgr_virtual.h>
 #include <defs.h>
 
+char cwd[] = "rootfs/";
+char files[50][100];
+int file_used[50]; // A value of 1 in fd means, file is used
+
+int file_count=1; // Start with 1 as FD 0 is to indicate error
+
+struct fs_tree{
+  char name[50];
+  struct fs_tree* child[30];
+  int no_child;
+};
+
+struct fs_tree rootfs;
+struct fs_tree *pwd;
+
 void printSectHrds(void* bin_start, Elf64_Ehdr* bin_elf_start, uint16_t idx){
         Elf64_Shdr* sectHdr;
             sectHdr = (Elf64_Shdr*)((bin_start + bin_elf_start->e_shoff + idx*(sizeof(Elf64_Shdr)) + sizeof(Elf64_Ehdr)));
@@ -26,6 +41,101 @@ void printPgmHdr(void *bin_start, Elf64_Ehdr* bin_elf_start, uint16_t idx){
 int round(int no){
   no = (((no/512)+1)* 512);
   return no;
+}
+
+struct fs_tree* get_pwd(char* name){
+    int pchild=0, i;
+    struct fs_tree *crawl = pwd;
+    pchild = crawl->no_child;
+    if(crawl == &rootfs)
+      pchild = pchild - 1;
+    for(i=0; i<pchild; i++){
+      if(strcmp(crawl->child[i]->name, name) == 0)
+        break;
+      //printf("%s \n",crawl->child[i]->name);
+    }
+    return crawl->child[i];
+}
+
+void print_pwd(){
+    printf("%s\n",pwd->name);
+    return;
+}
+
+void tarfs_dir(){
+        uint64_t end = (uint64_t)&(_binary_tarfs_end);
+        struct posix_header_ustar *header;
+        header = (struct posix_header_ustar*)(&_binary_tarfs_start);
+         while( (uint64_t)header <= end ){
+           if(my_atool(header->size) > 0){
+                strncpy(files[file_count++], (char*)header->name, strlen((char*)header->name));
+            }
+        if(my_atool(header->size) == 0)
+            header = header + 1 + (my_atool(header->size));
+        else
+            header = (struct posix_header_ustar*)((uint64_t)(header + 1) + (uint64_t)round(my_atool(header->size)));
+           }
+        return;
+}
+
+bool strncmp(char *src, char *dst, int n){
+  int i=0;
+  for(i=0; i<n; i++)
+    if(src[i] == dst[i])
+      continue;
+    else
+      return TRUE;
+    return FALSE;
+}
+
+void init_tarfs(){
+        uint64_t end = (uint64_t)&(_binary_tarfs_end);
+        struct posix_header_ustar *header;
+        pwd = &rootfs;
+        struct fs_tree* temp_rt = &rootfs;
+        struct fs_tree* old_dir = &rootfs;
+
+        strncpy(rootfs.name, "rootfs/", 7);  
+        header = (struct posix_header_ustar*)(&_binary_tarfs_start);
+         while( (uint64_t)header <= end ){
+          if(strncmp(old_dir->name, (char*)header->name, strlen((char*)old_dir->name)) == 0)
+              temp_rt = old_dir;
+          else
+              temp_rt = &rootfs;
+          if(my_atool(header->size) > 0){
+              struct fs_tree* temp = (struct fs_tree*)sub_malloc(sizeof(struct fs_tree),0);
+              memset(temp, '\0', sizeof(struct fs_tree));
+              strncpy(temp->name, (char*)header->name, strlen((char*)header->name));
+              temp_rt->child[(temp_rt->no_child)++] = temp;
+          }
+          else{
+              struct fs_tree* temp = (struct fs_tree*)sub_malloc(sizeof(struct fs_tree),0);
+              memset(temp, '\0', sizeof(struct fs_tree));
+              strncpy(temp->name, (char*)header->name, strlen((char*)header->name));
+              temp_rt->child[temp_rt->no_child] = temp;
+              (temp_rt->no_child)++;
+              old_dir = temp;
+          }
+        if(my_atool(header->size) == 0)
+            header = header + 1 + (my_atool(header->size));
+        else
+            header = (struct posix_header_ustar*)((uint64_t)(header + 1) + (uint64_t)round(my_atool(header->size)));
+           }
+        return;
+ 
+}
+int tarfs_open(char* name){
+        int i=0;
+        int fd=0;
+        for(i=1; i<file_count; i++){
+            if(strcmp(name, files[i]) == 0){
+                fd=i;
+                break;
+            }
+        }   
+        if(fd != 0)
+          file_used[fd] = 1;
+        return fd;
 }
 void* tarfs_read(char* name){
 //        uint64_t start = (uint64_t)&(_binary_tarfs_start);
@@ -54,7 +164,50 @@ void* tarfs_read(char* name){
           return (void*)NULL;
 }
 
+int do_cd(char* name){
+  void* addr = tarfs_read(name);
+  if(!addr)
+    return -1;
+  pwd = get_pwd(name);
+  //printf("pwd %s\n",pwd->name);
+  return 0;
+}
 
+void print_ls_rec(struct fs_tree *crawl){
+    if(!crawl)
+      return;
+    int pchild=0, i;
+    pchild = crawl->no_child;
+    if(crawl == &rootfs)
+      pchild -= 1;
+    for(i=0; i<pchild; i++){
+      printf("%s ",crawl->child[i]->name);
+      //print_ls_rec(crawl->child[i]);
+    }
+    //print_ls(
+     
+}
+
+void print_ls(){
+  print_ls_rec(pwd);
+  return;
+}
+
+void print_ll(){
+
+    uint64_t end = (uint64_t)&(_binary_tarfs_end);
+    struct posix_header_ustar *header;
+    header = (struct posix_header_ustar*)(&_binary_tarfs_start);
+        //`printf("tarfs read\n");
+    while( (uint64_t)header <= end ){
+      printf("%s ",(char*)header->name);
+      if(my_atool(header->size) == 0)
+          header = header + 1 + (my_atool(header->size));
+      else
+          header = (struct posix_header_ustar*)((uint64_t)(header + 1) + (uint64_t)round(my_atool(header->size)));
+    }
+    
+}
 /*
 Structure of ELF File.
 Start of 3*512 is the Elf header.

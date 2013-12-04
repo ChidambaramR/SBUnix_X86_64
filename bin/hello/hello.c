@@ -16,7 +16,7 @@ int main(int argc, char* argv[]) {
 //          b = 5;   
       char buf[30];
       printf("Welcome to Parent. Enter some data\n");
-      while((no = read(buf)) == -1);
+      while((no = read(buf,STDIN)) == -1);
       printf("parent got data %s\n", buf);
 //      sum(5,6); 
       printf("waiting for childs to exit\n");

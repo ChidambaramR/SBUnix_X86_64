@@ -4,944 +4,992 @@
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
 !_TAG_PROGRAM_VERSION	5.8	//
-ALIGN	./sys/mm/slob.c	11;"	d	file:
-ALLOC_BLOCK_SIZE	./sys/mm/myalloc.c	30;"	d	file:
-All_threads	./include/sys/kthread.h	/^struct All_threads{$/;"	s
-BLOCKS_PER_BYTE	./include/sys/mm/mmgr.h	4;"	d
-BLOCK_ALIGN	./include/sys/mm/mmgr.h	8;"	d
-BLOCK_SIZE	./include/sys/mm/mmgr.h	7;"	d
-BUILTIN_BG	./include/sys/shell.h	/^        BUILTIN_BG,$/;"	e	enum:cmdline_tokens::builtins_t
-BUILTIN_FG	./include/sys/shell.h	/^        BUILTIN_FG} builtins;$/;"	e	enum:cmdline_tokens::builtins_t
-BUILTIN_JOBS	./include/sys/shell.h	/^        BUILTIN_JOBS,$/;"	e	enum:cmdline_tokens::builtins_t
-BUILTIN_NONE	./include/sys/shell.h	/^        BUILTIN_NONE,$/;"	e	enum:cmdline_tokens::builtins_t
-BUILTIN_QUIT	./include/sys/shell.h	/^        BUILTIN_QUIT,$/;"	e	enum:cmdline_tokens::builtins_t
-C	./include/sys/gdt.h	18;"	d
-D	./include/sys/gdt.h	25;"	d
-DPL0	./include/sys/gdt.h	19;"	d
-DPL1	./include/sys/gdt.h	20;"	d
-DPL2	./include/sys/gdt.h	21;"	d
-DPL3	./include/sys/gdt.h	22;"	d
-E_MEM_NOMEM	./include/errors.h	/^    E_MEM_NOMEM = -1, \/\/ Out of memoru$/;"	e	enum:_memory_error
-E_MEM_SUCCESS	./include/errors.h	/^    E_MEM_SUCCESS = 0,$/;"	e	enum:_memory_error
-E_PID_NOPID	./include/errors.h	/^    E_PID_NOPID = -1,$/;"	e	enum:_task_error
-E_PID_SUCCESS	./include/errors.h	/^    E_PID_SUCCESS = 0,$/;"	e	enum:_task_error
-Elf64_Addr	./include/elf.h	/^typedef uint64_t   Elf64_Addr;$/;"	t
-Elf64_Ehdr	./include/elf.h	/^} Elf64_Ehdr;$/;"	t	typeref:struct:__anon3
-Elf64_Half	./include/elf.h	/^typedef uint16_t   Elf64_Half;$/;"	t
-Elf64_Off	./include/elf.h	/^typedef uint64_t   Elf64_Off;$/;"	t
-Elf64_Phdr	./include/elf.h	/^} Elf64_Phdr;$/;"	t	typeref:struct:__anon5
-Elf64_SHalf	./include/elf.h	/^typedef uint16_t   Elf64_SHalf;$/;"	t
-Elf64_Shdr	./include/elf.h	/^} Elf64_Shdr;$/;"	t	typeref:struct:__anon4
-Elf64_Sword	./include/elf.h	/^typedef uint32_t   Elf64_Sword;$/;"	t
-Elf64_Sxword	./include/elf.h	/^typedef uint64_t   Elf64_Sxword;$/;"	t
-Elf64_Word	./include/elf.h	/^typedef uint32_t   Elf64_Word;$/;"	t
-Elf64_Xword	./include/elf.h	/^typedef uint64_t   Elf64_Xword;$/;"	t
-Exit_thread	./sys/kthread.c	/^void Exit_thread(uint16_t exit_code){$/;"	f
-FALSE	./include/defs.h	/^  FALSE,$/;"	e	enum:__anon1
-GDT_CS	./include/sys/gdt.h	15;"	d
-GDT_DS	./include/sys/gdt.h	16;"	d
-Get_Current	./sys/kthread.c	/^struct Kernel_Thread* Get_Current(void)$/;"	f
-Hello	./sys/kthread.c	/^void Hello(uint16_t arg){$/;"	f
-INITIAL_STACK_SIZE	./sys/main.c	79;"	d	file:
-INIT_LIST_HEAD	./include/sys/list.h	23;"	d
-Idle	./sys/kthread.c	/^void Idle(uint16_t arg){$/;"	f
-Init_Thread	./sys/kthread.c	/^static void Init_Thread(kthread* k_thread,const char* name, void* stackPage, uint16_t prio, bool detached){$/;"	f	file:
-Init_Thread_user	./sys/exec.c	/^static void Init_Thread_user(kthread* k_thread,const char* name, void* stackPage, uint16_t prio, bool detached){$/;"	f	file:
-KERN_CS	./sys/kthread.c	/^uint64_t KERN_CS=0x8;$/;"	v
-KERN_DS	./sys/kthread.c	/^uint64_t KERN_DS=0x10;$/;"	v
-KEYBOARD_WARMUP_MEMORY	./include/stdio.h	6;"	d
-KEYCODE	./include/sys/kb.h	/^} KEYCODE;$/;"	t	typeref:enum:__anon2
-KEY_0	./include/sys/kb.h	/^  KEY_0                 = '0',$/;"	e	enum:__anon2
-KEY_1	./include/sys/kb.h	/^  KEY_1                 = '1',$/;"	e	enum:__anon2
-KEY_2	./include/sys/kb.h	/^  KEY_2                 = '2',$/;"	e	enum:__anon2
-KEY_3	./include/sys/kb.h	/^  KEY_3                 = '3',$/;"	e	enum:__anon2
-KEY_4	./include/sys/kb.h	/^  KEY_4                 = '4',$/;"	e	enum:__anon2
-KEY_5	./include/sys/kb.h	/^  KEY_5                 = '5',$/;"	e	enum:__anon2
-KEY_6	./include/sys/kb.h	/^  KEY_6                 = '6',$/;"	e	enum:__anon2
-KEY_7	./include/sys/kb.h	/^  KEY_7                 = '7',$/;"	e	enum:__anon2
-KEY_8	./include/sys/kb.h	/^  KEY_8                 = '8',$/;"	e	enum:__anon2
-KEY_9	./include/sys/kb.h	/^  KEY_9                 = '9',$/;"	e	enum:__anon2
-KEY_A	./include/sys/kb.h	/^  KEY_A                 = 'a',$/;"	e	enum:__anon2
-KEY_AMPERSAND	./include/sys/kb.h	/^  KEY_AMPERSAND         = '&',$/;"	e	enum:__anon2
-KEY_ASTERISK	./include/sys/kb.h	/^  KEY_ASTERISK          = '*',$/;"	e	enum:__anon2
-KEY_AT	./include/sys/kb.h	/^  KEY_AT                = '@',$/;"	e	enum:__anon2
-KEY_B	./include/sys/kb.h	/^  KEY_B                 = 'b',$/;"	e	enum:__anon2
-KEY_BACKSLASH	./include/sys/kb.h	/^  KEY_BACKSLASH         = '\\\\',$/;"	e	enum:__anon2
-KEY_BACKSPACE	./include/sys/kb.h	/^  KEY_BACKSPACE         = '\\b',$/;"	e	enum:__anon2
-KEY_BAR	./include/sys/kb.h	/^  KEY_BAR               = '|',$/;"	e	enum:__anon2
-KEY_C	./include/sys/kb.h	/^  KEY_C                 = 'c',$/;"	e	enum:__anon2
-KEY_CAPSLOCK	./include/sys/kb.h	/^  KEY_CAPSLOCK          = 0x4001,$/;"	e	enum:__anon2
-KEY_CARRET	./include/sys/kb.h	/^  KEY_CARRET            = '^',$/;"	e	enum:__anon2
-KEY_COLON	./include/sys/kb.h	/^  KEY_COLON             = ':',$/;"	e	enum:__anon2
-KEY_COMMA	./include/sys/kb.h	/^  KEY_COMMA             = ',',$/;"	e	enum:__anon2
-KEY_D	./include/sys/kb.h	/^  KEY_D                 = 'd',$/;"	e	enum:__anon2
-KEY_DELETE	./include/sys/kb.h	/^  KEY_DELETE            = 0x400b,$/;"	e	enum:__anon2
-KEY_DOLLAR	./include/sys/kb.h	/^  KEY_DOLLAR            = '$',$/;"	e	enum:__anon2
-KEY_DOT	./include/sys/kb.h	/^  KEY_DOT               = '.',$/;"	e	enum:__anon2
-KEY_DOWN	./include/sys/kb.h	/^  KEY_DOWN              = 0x1101,$/;"	e	enum:__anon2
-KEY_E	./include/sys/kb.h	/^  KEY_E                 = 'e',$/;"	e	enum:__anon2
-KEY_END	./include/sys/kb.h	/^  KEY_END               = 0x400d,$/;"	e	enum:__anon2
-KEY_EQUAL	./include/sys/kb.h	/^  KEY_EQUAL             = '=',$/;"	e	enum:__anon2
-KEY_ESCAPE	./include/sys/kb.h	/^  KEY_ESCAPE            = 0x1001,$/;"	e	enum:__anon2
-KEY_EURO	./include/sys/kb.h	/^  KEY_EURO              = '$',$/;"	e	enum:__anon2
-KEY_EXCLAMATION	./include/sys/kb.h	/^  KEY_EXCLAMATION       = '!',$/;"	e	enum:__anon2
-KEY_F	./include/sys/kb.h	/^  KEY_F                 = 'f',$/;"	e	enum:__anon2
-KEY_F1	./include/sys/kb.h	/^  KEY_F1                = 0x1201,$/;"	e	enum:__anon2
-KEY_F10	./include/sys/kb.h	/^  KEY_F10               = 0x120a,$/;"	e	enum:__anon2
-KEY_F11	./include/sys/kb.h	/^  KEY_F11               = 0x120b,$/;"	e	enum:__anon2
-KEY_F12	./include/sys/kb.h	/^  KEY_F12               = 0x120b,$/;"	e	enum:__anon2
-KEY_F13	./include/sys/kb.h	/^  KEY_F13               = 0x120c,$/;"	e	enum:__anon2
-KEY_F14	./include/sys/kb.h	/^  KEY_F14               = 0x120d,$/;"	e	enum:__anon2
-KEY_F15	./include/sys/kb.h	/^  KEY_F15               = 0x120e,$/;"	e	enum:__anon2
-KEY_F2	./include/sys/kb.h	/^  KEY_F2                = 0x1202,$/;"	e	enum:__anon2
-KEY_F3	./include/sys/kb.h	/^  KEY_F3                = 0x1203,$/;"	e	enum:__anon2
-KEY_F4	./include/sys/kb.h	/^  KEY_F4                = 0x1204,$/;"	e	enum:__anon2
-KEY_F5	./include/sys/kb.h	/^  KEY_F5                = 0x1205,$/;"	e	enum:__anon2
-KEY_F6	./include/sys/kb.h	/^  KEY_F6                = 0x1206,$/;"	e	enum:__anon2
-KEY_F7	./include/sys/kb.h	/^  KEY_F7                = 0x1207,$/;"	e	enum:__anon2
-KEY_F8	./include/sys/kb.h	/^  KEY_F8                = 0x1208,$/;"	e	enum:__anon2
-KEY_F9	./include/sys/kb.h	/^  KEY_F9                = 0x1209,$/;"	e	enum:__anon2
-KEY_G	./include/sys/kb.h	/^  KEY_G                 = 'g',$/;"	e	enum:__anon2
-KEY_GRAVE	./include/sys/kb.h	/^  KEY_GRAVE             = '`',$/;"	e	enum:__anon2
-KEY_GREATER	./include/sys/kb.h	/^  KEY_GREATER           = '>',$/;"	e	enum:__anon2
-KEY_H	./include/sys/kb.h	/^  KEY_H                 = 'h',$/;"	e	enum:__anon2
-KEY_HASH	./include/sys/kb.h	/^  KEY_HASH              = '#',$/;"	e	enum:__anon2
-KEY_HOME	./include/sys/kb.h	/^  KEY_HOME              = 0x400c,$/;"	e	enum:__anon2
-KEY_I	./include/sys/kb.h	/^  KEY_I                 = 'i',$/;"	e	enum:__anon2
-KEY_INSERT	./include/sys/kb.h	/^  KEY_INSERT            = 0x400a,$/;"	e	enum:__anon2
-KEY_J	./include/sys/kb.h	/^  KEY_J                 = 'j',$/;"	e	enum:__anon2
-KEY_K	./include/sys/kb.h	/^  KEY_K                 = 'k',$/;"	e	enum:__anon2
-KEY_KP_0	./include/sys/kb.h	/^  KEY_KP_0              = '0',$/;"	e	enum:__anon2
-KEY_KP_1	./include/sys/kb.h	/^  KEY_KP_1              = '1',$/;"	e	enum:__anon2
-KEY_KP_2	./include/sys/kb.h	/^  KEY_KP_2              = '2',$/;"	e	enum:__anon2
-KEY_KP_3	./include/sys/kb.h	/^  KEY_KP_3              = '3',$/;"	e	enum:__anon2
-KEY_KP_4	./include/sys/kb.h	/^  KEY_KP_4              = '4',$/;"	e	enum:__anon2
-KEY_KP_5	./include/sys/kb.h	/^  KEY_KP_5              = '5',$/;"	e	enum:__anon2
-KEY_KP_6	./include/sys/kb.h	/^  KEY_KP_6              = '6',$/;"	e	enum:__anon2
-KEY_KP_7	./include/sys/kb.h	/^  KEY_KP_7              = '7',$/;"	e	enum:__anon2
-KEY_KP_8	./include/sys/kb.h	/^  KEY_KP_8              = '8',$/;"	e	enum:__anon2
-KEY_KP_9	./include/sys/kb.h	/^  KEY_KP_9              = '9',$/;"	e	enum:__anon2
-KEY_KP_ASTERISK	./include/sys/kb.h	/^  KEY_KP_ASTERISK       = '*',$/;"	e	enum:__anon2
-KEY_KP_DECIMAL	./include/sys/kb.h	/^  KEY_KP_DECIMAL        = '.',$/;"	e	enum:__anon2
-KEY_KP_DIVIDE	./include/sys/kb.h	/^  KEY_KP_DIVIDE         = '\/',$/;"	e	enum:__anon2
-KEY_KP_ENTER	./include/sys/kb.h	/^  KEY_KP_ENTER          = 0x3010,$/;"	e	enum:__anon2
-KEY_KP_MINUS	./include/sys/kb.h	/^  KEY_KP_MINUS          = '-',$/;"	e	enum:__anon2
-KEY_KP_NUMLOCK	./include/sys/kb.h	/^  KEY_KP_NUMLOCK        = 0x300f,$/;"	e	enum:__anon2
-KEY_KP_PLUS	./include/sys/kb.h	/^  KEY_KP_PLUS           = '+',$/;"	e	enum:__anon2
-KEY_L	./include/sys/kb.h	/^  KEY_L                 = 'l',$/;"	e	enum:__anon2
-KEY_LALT	./include/sys/kb.h	/^  KEY_LALT              = 0x4004,$/;"	e	enum:__anon2
-KEY_LCTRL	./include/sys/kb.h	/^  KEY_LCTRL             = 0x4003,$/;"	e	enum:__anon2
-KEY_LEFT	./include/sys/kb.h	/^  KEY_LEFT              = 0x1102,$/;"	e	enum:__anon2
-KEY_LEFTBRACKET	./include/sys/kb.h	/^  KEY_LEFTBRACKET       = '[',$/;"	e	enum:__anon2
-KEY_LEFTCURL	./include/sys/kb.h	/^  KEY_LEFTCURL          = '{',$/;"	e	enum:__anon2
-KEY_LEFTPARENTHESIS	./include/sys/kb.h	/^  KEY_LEFTPARENTHESIS   = '(',$/;"	e	enum:__anon2
-KEY_LESS	./include/sys/kb.h	/^  KEY_LESS              = '<',$/;"	e	enum:__anon2
-KEY_LSHIFT	./include/sys/kb.h	/^  KEY_LSHIFT            = 0x4002,$/;"	e	enum:__anon2
-KEY_LWIN	./include/sys/kb.h	/^  KEY_LWIN              = 0x4005,$/;"	e	enum:__anon2
-KEY_M	./include/sys/kb.h	/^  KEY_M                 = 'm',$/;"	e	enum:__anon2
-KEY_MINUS	./include/sys/kb.h	/^  KEY_MINUS             = '-',$/;"	e	enum:__anon2
-KEY_N	./include/sys/kb.h	/^  KEY_N                 = 'n',$/;"	e	enum:__anon2
-KEY_NUMKEYCODES	./include/sys/kb.h	/^  KEY_NUMKEYCODES$/;"	e	enum:__anon2
-KEY_O	./include/sys/kb.h	/^  KEY_O                 = 'o',$/;"	e	enum:__anon2
-KEY_P	./include/sys/kb.h	/^  KEY_P                 = 'p',$/;"	e	enum:__anon2
-KEY_PAGEDOWN	./include/sys/kb.h	/^  KEY_PAGEDOWN          = 0x400f,$/;"	e	enum:__anon2
-KEY_PAGEUP	./include/sys/kb.h	/^  KEY_PAGEUP            = 0x400e,$/;"	e	enum:__anon2
-KEY_PAUSE	./include/sys/kb.h	/^  KEY_PAUSE             = 0x4011,$/;"	e	enum:__anon2
-KEY_PERCENT	./include/sys/kb.h	/^  KEY_PERCENT           = '%',$/;"	e	enum:__anon2
-KEY_PLUS	./include/sys/kb.h	/^  KEY_PLUS              = '+',$/;"	e	enum:__anon2
-KEY_POUND	./include/sys/kb.h	/^  KEY_POUND             = '£',$/;"	e	enum:__anon2
-KEY_Q	./include/sys/kb.h	/^  KEY_Q                 = 'q',$/;"	e	enum:__anon2
-KEY_QUESTION	./include/sys/kb.h	/^  KEY_QUESTION          = '?',$/;"	e	enum:__anon2
-KEY_QUOTE	./include/sys/kb.h	/^  KEY_QUOTE             = '\\'',$/;"	e	enum:__anon2
-KEY_QUOTEDOUBLE	./include/sys/kb.h	/^  KEY_QUOTEDOUBLE       = '\\"',$/;"	e	enum:__anon2
-KEY_R	./include/sys/kb.h	/^  KEY_R                 = 'r',$/;"	e	enum:__anon2
-KEY_RALT	./include/sys/kb.h	/^  KEY_RALT              = 0x4008,$/;"	e	enum:__anon2
-KEY_RCTRL	./include/sys/kb.h	/^  KEY_RCTRL             = 0x4007,$/;"	e	enum:__anon2
-KEY_RETURN	./include/sys/kb.h	/^  KEY_RETURN            = '\\r',$/;"	e	enum:__anon2
-KEY_RIGHT	./include/sys/kb.h	/^  KEY_RIGHT             = 0x1103,$/;"	e	enum:__anon2
-KEY_RIGHTBRACKET	./include/sys/kb.h	/^  KEY_RIGHTBRACKET      = ']',$/;"	e	enum:__anon2
-KEY_RIGHTCURL	./include/sys/kb.h	/^  KEY_RIGHTCURL         = '}',$/;"	e	enum:__anon2
-KEY_RIGHTPARENTHESIS	./include/sys/kb.h	/^  KEY_RIGHTPARENTHESIS  = ')',$/;"	e	enum:__anon2
-KEY_RSHIFT	./include/sys/kb.h	/^  KEY_RSHIFT            = 0x4006,$/;"	e	enum:__anon2
-KEY_RWIN	./include/sys/kb.h	/^  KEY_RWIN              = 0x4009,$/;"	e	enum:__anon2
-KEY_S	./include/sys/kb.h	/^  KEY_S                 = 's',$/;"	e	enum:__anon2
-KEY_SCROLLLOCK	./include/sys/kb.h	/^  KEY_SCROLLLOCK        = 0x4010,$/;"	e	enum:__anon2
-KEY_SEMICOLON	./include/sys/kb.h	/^  KEY_SEMICOLON         = ';',$/;"	e	enum:__anon2
-KEY_SLASH	./include/sys/kb.h	/^  KEY_SLASH             = '\/',$/;"	e	enum:__anon2
-KEY_SPACE	./include/sys/kb.h	/^  KEY_SPACE             = ' ',$/;"	e	enum:__anon2
-KEY_T	./include/sys/kb.h	/^  KEY_T                 = 't',$/;"	e	enum:__anon2
-KEY_TAB	./include/sys/kb.h	/^  KEY_TAB               = 0x4000,$/;"	e	enum:__anon2
-KEY_TILDE	./include/sys/kb.h	/^  KEY_TILDE             = '~',$/;"	e	enum:__anon2
-KEY_U	./include/sys/kb.h	/^  KEY_U                 = 'u',$/;"	e	enum:__anon2
-KEY_UNDERSCORE	./include/sys/kb.h	/^  KEY_UNDERSCORE        = '_',$/;"	e	enum:__anon2
-KEY_UNKNOWN	./include/sys/kb.h	/^  KEY_UNKNOWN,$/;"	e	enum:__anon2
-KEY_UP	./include/sys/kb.h	/^  KEY_UP                = 0x1100,$/;"	e	enum:__anon2
-KEY_V	./include/sys/kb.h	/^  KEY_V                 = 'v',$/;"	e	enum:__anon2
-KEY_W	./include/sys/kb.h	/^  KEY_W                 = 'w',$/;"	e	enum:__anon2
-KEY_X	./include/sys/kb.h	/^  KEY_X                 = 'x',$/;"	e	enum:__anon2
-KEY_Y	./include/sys/kb.h	/^  KEY_Y                 = 'y',$/;"	e	enum:__anon2
-KEY_Z	./include/sys/kb.h	/^  KEY_Z                 = 'z',$/;"	e	enum:__anon2
-KILO_BYTE	./include/sys/mm/mmgr.h	5;"	d
-KYBRD_CTRL_CMD_REG	./include/sys/kb.h	/^    KYBRD_CTRL_CMD_REG  = 0x64$/;"	e	enum:KYBRD_CTRL_IO
-KYBRD_CTRL_IO	./include/sys/kb.h	/^enum KYBRD_CTRL_IO {$/;"	g
-KYBRD_CTRL_STATS_MASK	./include/sys/kb.h	/^enum KYBRD_CTRL_STATS_MASK {$/;"	g
-KYBRD_CTRL_STATS_MASK_IN_BUF	./include/sys/kb.h	/^    KYBRD_CTRL_STATS_MASK_IN_BUF  = 2,    \/\/00000010$/;"	e	enum:KYBRD_CTRL_STATS_MASK
-KYBRD_CTRL_STATS_MASK_OUT_BUF	./include/sys/kb.h	/^    KYBRD_CTRL_STATS_MASK_OUT_BUF = 1,    \/\/00000001$/;"	e	enum:KYBRD_CTRL_STATS_MASK
-KYBRD_CTRL_STATS_REG	./include/sys/kb.h	/^    KYBRD_CTRL_STATS_REG  = 0x64,$/;"	e	enum:KYBRD_CTRL_IO
-KYBRD_ENCODER_IO	./include/sys/kb.h	/^enum KYBRD_ENCODER_IO {$/;"	g
-KYBRD_ENC_CMD_REG	./include/sys/kb.h	/^    KYBRD_ENC_CMD_REG = 0x60$/;"	e	enum:KYBRD_ENCODER_IO
-KYBRD_ENC_INPUT_BUF	./include/sys/kb.h	/^    KYBRD_ENC_INPUT_BUF = 0x60,$/;"	e	enum:KYBRD_ENCODER_IO
-Kernel_Thread	./include/sys/kthread.h	/^struct Kernel_Thread {$/;"	s
-L	./include/sys/gdt.h	24;"	d
-LIST_HEAD	./include/sys/list.h	20;"	d
-LIST_HEAD_INIT	./include/sys/list.h	18;"	d
-LIST_POISON1	./include/sys/list.h	10;"	d
-LIST_POISON2	./include/sys/list.h	11;"	d
-Launch_Thread	./sys/kthread.c	/^void Launch_Thread(void)$/;"	f
-MAXARGS	./include/sys/shell.h	4;"	d
-MAXLINE	./sys/shell.c	6;"	d	file:
-MAX_COLUMNS	./include/stdio.h	8;"	d
-MAX_GDT	./sys/gdt.c	5;"	d	file:
-MAX_IDT	./sys/idt.c	5;"	d	file:
-MAX_ROWS	./include/stdio.h	7;"	d
-MAX_TLOCAL_KEYS	./include/sys/kthread.h	75;"	d
-MEGA_BYTE	./include/sys/mm/mmgr.h	6;"	d
-MM_PHY_ACPI_NVS	./include/sys/mm/regions.h	/^        MM_PHY_ACPI_NVS,$/;"	e	enum:mm_phy_types
-MM_PHY_ACPI_RECLAIMABLE	./include/sys/mm/regions.h	/^        MM_PHY_ACPI_RECLAIMABLE,$/;"	e	enum:mm_phy_types
-MM_PHY_BAD	./include/sys/mm/regions.h	/^        MM_PHY_BAD,$/;"	e	enum:mm_phy_types
-MM_PHY_MAX	./include/sys/mm/regions.h	/^        MM_PHY_MAX$/;"	e	enum:mm_phy_types
-MM_PHY_RESERVED	./include/sys/mm/regions.h	/^        MM_PHY_RESERVED,$/;"	e	enum:mm_phy_types
-MM_PHY_UNKNOWN	./include/sys/mm/regions.h	/^        MM_PHY_UNKNOWN=0,$/;"	e	enum:mm_phy_types
-MM_PHY_USABLE	./include/sys/mm/regions.h	/^        MM_PHY_USABLE,$/;"	e	enum:mm_phy_types
-MY_KERNEL_SIZE	./include/defs.h	6;"	d
-NULL	./include/defs.h	4;"	d
-P	./include/sys/gdt.h	23;"	d
-PAGES_PED_DIR	./include/sys/mm/vm_mmgr.h	4;"	d
-PAGES_PER_DIR	./include/sys/mm/vmmgr_virtual.h	12;"	d
-PAGES_PER_TABLE	./include/sys/mm/vm_mmgr.h	3;"	d
-PAGES_PER_TABLE	./include/sys/mm/vmmgr_virtual.h	11;"	d
-PAGE_DIRECTORY_OFFSET	./include/sys/mm/vmmgr_virtual.h	16;"	d
-PAGE_PDE_FLAGS	./include/sys/mm/vmmgr_pde.h	/^enum PAGE_PDE_FLAGS{$/;"	g
-PAGE_PDPE_FLAGS	./include/sys/mm/vmmgr_pdpe.h	/^enum PAGE_PDPE_FLAGS{$/;"	g
-PAGE_PHYSICAL_ADDRESS	./include/sys/mm/vmmgr_virtual.h	19;"	d
-PAGE_PML4E_FLAGS	./include/sys/mm/vmmgr_pml4.h	/^enum PAGE_PML4E_FLAGS{$/;"	g
-PAGE_PML4_OFFSET	./include/sys/mm/vmmgr_virtual.h	18;"	d
-PAGE_POINTER_OFFSET	./include/sys/mm/vmmgr_virtual.h	17;"	d
-PAGE_PTE_FLAGS	./include/sys/mm/vmmgr_pte.h	/^enum PAGE_PTE_FLAGS{$/;"	g
-PAGE_TABLE_OFFSET	./include/sys/mm/vmmgr_virtual.h	15;"	d
-PANIC	./sys/stdfns.c	/^void PANIC(const char *s, uint16_t line, const char* str){$/;"	f
-PDE_4MB	./include/sys/mm/vmmgr_pde.h	/^    PDE_4MB = 0x80,$/;"	e	enum:PAGE_PDE_FLAGS
-PDE_ACCESSED	./include/sys/mm/vmmgr_pde.h	/^    PDE_ACCESSED = 0x20,              \/*Whether the page or pagen translation table this entry$/;"	e	enum:PAGE_PDE_FLAGS
-PDE_AVL	./include/sys/mm/vmmgr_pde.h	/^    PDE_AVL = 0x700,                  \/\/Bits 9,10 and 11$/;"	e	enum:PAGE_PDE_FLAGS
-PDE_FRAME	./include/sys/mm/vmmgr_pde.h	/^    PDE_FRAME = 0x00000FFFFFFFF000    \/\/ Target physical address which is directly stored.$/;"	e	enum:PAGE_PDE_FLAGS
-PDE_NOT_CACHABLE	./include/sys/mm/vmmgr_pde.h	/^    PDE_NOT_CACHABLE = 0x10,          \/*Whether the page or pagen translation table this entry$/;"	e	enum:PAGE_PDE_FLAGS
-PDE_PRESENT	./include/sys/mm/vmmgr_pde.h	/^    PDE_PRESENT = 1,                  \/\/Is page present in physical memory.$/;"	e	enum:PAGE_PDE_FLAGS
-PDE_USER	./include/sys/mm/vmmgr_pde.h	/^    PDE_USER = 4,                     \/*Is it a user page or kernel page. 1 means both user and$/;"	e	enum:PAGE_PDE_FLAGS
-PDE_WRITABLE	./include/sys/mm/vmmgr_pde.h	/^    PDE_WRITABLE = 2,                 \/\/Is page write permitted. 1 means both read and write access$/;"	e	enum:PAGE_PDE_FLAGS
-PDE_WRITETHROUGH	./include/sys/mm/vmmgr_pde.h	/^    PDE_WRITETHROUGH = 8,             \/*Write back or write through cache policy for the$/;"	e	enum:PAGE_PDE_FLAGS
-PDPE_4MB	./include/sys/mm/vmmgr_pdpe.h	/^    PDPE_4MB = 0x80,$/;"	e	enum:PAGE_PDPE_FLAGS
-PDPE_ACCESSED	./include/sys/mm/vmmgr_pdpe.h	/^    PDPE_ACCESSED = 0x20,              \/*Whether the page or pagen translation table this entry$/;"	e	enum:PAGE_PDPE_FLAGS
-PDPE_AVL	./include/sys/mm/vmmgr_pdpe.h	/^    PDPE_AVL = 0x700,                  \/\/Bits 9,10 and 11$/;"	e	enum:PAGE_PDPE_FLAGS
-PDPE_FRAME	./include/sys/mm/vmmgr_pdpe.h	/^    PDPE_FRAME = 0x00000FFFFFFFF000    \/\/ Target physical address which is directly stored.$/;"	e	enum:PAGE_PDPE_FLAGS
-PDPE_NOT_CACHABLE	./include/sys/mm/vmmgr_pdpe.h	/^    PDPE_NOT_CACHABLE = 0x10,          \/*Whether the page or pagen translation table this entry$/;"	e	enum:PAGE_PDPE_FLAGS
-PDPE_PRESENT	./include/sys/mm/vmmgr_pdpe.h	/^    PDPE_PRESENT = 1,                  \/\/Is page present in physical memory.$/;"	e	enum:PAGE_PDPE_FLAGS
-PDPE_USER	./include/sys/mm/vmmgr_pdpe.h	/^    PDPE_USER = 4,                     \/*Is it a user page or kernel page. 1 means both user and$/;"	e	enum:PAGE_PDPE_FLAGS
-PDPE_WRITABLE	./include/sys/mm/vmmgr_pdpe.h	/^    PDPE_WRITABLE = 2,                 \/\/Is page write permitted. 1 means both read and write access$/;"	e	enum:PAGE_PDPE_FLAGS
-PDPE_WRITETHROUGH	./include/sys/mm/vmmgr_pdpe.h	/^    PDPE_WRITETHROUGH = 8,             \/*Write back or write through cache policy for the$/;"	e	enum:PAGE_PDPE_FLAGS
-PHY_PAGE_SIZE	./include/sys/mm/mmgr.h	9;"	d
-PML4E_4MB	./include/sys/mm/vmmgr_pml4.h	/^    PML4E_4MB = 0x80,$/;"	e	enum:PAGE_PML4E_FLAGS
-PML4E_ACCESSED	./include/sys/mm/vmmgr_pml4.h	/^    PML4E_ACCESSED = 0x20,              \/*Whether the page or pagen translation table this entry$/;"	e	enum:PAGE_PML4E_FLAGS
-PML4E_AVL	./include/sys/mm/vmmgr_pml4.h	/^    PML4E_AVL = 0x700,                  \/\/Bits 9,10 and 11$/;"	e	enum:PAGE_PML4E_FLAGS
-PML4E_FRAME	./include/sys/mm/vmmgr_pml4.h	/^    PML4E_FRAME = 0x00000FFFFFFFF000    \/\/ Target physical address which is directly stored.$/;"	e	enum:PAGE_PML4E_FLAGS
-PML4E_NOT_CACHABLE	./include/sys/mm/vmmgr_pml4.h	/^    PML4E_NOT_CACHABLE = 0x10,          \/*Whether the page or pagen translation table this entry$/;"	e	enum:PAGE_PML4E_FLAGS
-PML4E_PRESENT	./include/sys/mm/vmmgr_pml4.h	/^    PML4E_PRESENT = 1,                  \/\/Is page present in physical memory.$/;"	e	enum:PAGE_PML4E_FLAGS
-PML4E_USER	./include/sys/mm/vmmgr_pml4.h	/^    PML4E_USER = 4,                     \/*Is it a user page or kernel page. 1 means both user and$/;"	e	enum:PAGE_PML4E_FLAGS
-PML4E_WRITABLE	./include/sys/mm/vmmgr_pml4.h	/^    PML4E_WRITABLE = 2,                 \/\/Is page write permitted. 1 means both read and write access$/;"	e	enum:PAGE_PML4E_FLAGS
-PML4E_WRITETHROUGH	./include/sys/mm/vmmgr_pml4.h	/^    PML4E_WRITETHROUGH = 8,             \/*Write back or write through cache policy for the$/;"	e	enum:PAGE_PML4E_FLAGS
-PRIORITY_HIGH	./include/sys/kthread.h	13;"	d
-PRIORITY_IDLE	./include/sys/kthread.h	9;"	d
-PRIORITY_LOW	./include/sys/kthread.h	11;"	d
-PRIORITY_NORMAL	./include/sys/kthread.h	12;"	d
-PRIORITY_USER	./include/sys/kthread.h	10;"	d
-PTE_ACCESSED	./include/sys/mm/vmmgr_pte.h	/^    PTE_ACCESSED = 0x20,              \/*Whether the page or pagen translation table this entry$/;"	e	enum:PAGE_PTE_FLAGS
-PTE_AVL	./include/sys/mm/vmmgr_pte.h	/^    PTE_AVL = 0x700,                  \/\/Bits 9,10 and 11$/;"	e	enum:PAGE_PTE_FLAGS
-PTE_COW	./include/sys/mm/vmmgr_pte.h	/^    PTE_COW = 0x4000000000000000,$/;"	e	enum:PAGE_PTE_FLAGS
-PTE_DIRTY	./include/sys/mm/vmmgr_pte.h	/^    PTE_DIRTY = 0x40,                 \/*Whether the physical page pointed to by this entry is written.$/;"	e	enum:PAGE_PTE_FLAGS
-PTE_FRAME	./include/sys/mm/vmmgr_pte.h	/^    PTE_FRAME = 0x00000FFFFFFFF000    \/\/ Target physical address which is directly stored.$/;"	e	enum:PAGE_PTE_FLAGS
-PTE_GLOBAL	./include/sys/mm/vmmgr_pte.h	/^    PTE_GLOBAL = 0x100,               \/*Value 1 indicates it is a global page. TLB for a global page$/;"	e	enum:PAGE_PTE_FLAGS
-PTE_NOT_CACHABLE	./include/sys/mm/vmmgr_pte.h	/^    PTE_NOT_CACHABLE = 0x10,          \/*Whether the page or pagen translation table this entry$/;"	e	enum:PAGE_PTE_FLAGS
-PTE_PAT	./include/sys/mm/vmmgr_pte.h	/^    PTE_PAT = 0x80, $/;"	e	enum:PAGE_PTE_FLAGS
-PTE_PRESENT	./include/sys/mm/vmmgr_pte.h	/^    PTE_PRESENT = 1,                  \/\/Is page present in physical memory.$/;"	e	enum:PAGE_PTE_FLAGS
-PTE_USER	./include/sys/mm/vmmgr_pte.h	/^    PTE_USER = 4,                     \/*Is it a user page or kernel page. 1 means both user and $/;"	e	enum:PAGE_PTE_FLAGS
-PTE_WRITABLE	./include/sys/mm/vmmgr_pte.h	/^    PTE_WRITABLE = 2,                 \/\/Is page write permitted. 1 means both read and write access$/;"	e	enum:PAGE_PTE_FLAGS
-PTE_WRITETHROUGH	./include/sys/mm/vmmgr_pte.h	/^    PTE_WRITETHROUGH = 8,             \/*Write back or write through cache policy for the $/;"	e	enum:PAGE_PTE_FLAGS
-Push	./sys/kthread.c	/^void Push(kthread* k_thread, uint64_t value)$/;"	f
-PushU	./sys/isr.c	/^void PushU(kthread* k_thread, uint64_t value){$/;"	f
-PushU_General_Registers	./sys/exec.c	/^void PushU_General_Registers(kthread* k_thread){$/;"	f
-Push_General_Registers	./sys/kthread.c	/^void Push_General_Registers(kthread* k_thread){$/;"	f
-RECURSIVE_ENTRY	./sys/mm/vmmgr_virtual.c	7;"	d	file:
-RECURSIVE_PAGE_DIRECTORY_ENTRY	./sys/mm/vmmgr_virtual.c	9;"	d	file:
-RECURSIVE_PAGE_POINTER_ENTRY	./sys/mm/vmmgr_virtual.c	10;"	d	file:
-RECURSIVE_PAGE_TABLE_ENTRY	./sys/mm/vmmgr_virtual.c	8;"	d	file:
-SLOB_ALIGN	./sys/mm/slob.c	8;"	d	file:
-SLOB_UNIT	./sys/mm/slob.c	6;"	d	file:
-SLOB_UNITS	./sys/mm/slob.c	7;"	d	file:
-START_MEMORY	./include/stdio.h	4;"	d
-SYSCALL_PROTO	./include/syscall.h	6;"	d
-SYS_TRACE	./sys/stdfns.c	/^void SYS_TRACE(const char *s, uint16_t line, const char* str){$/;"	f
-Schedule	./sys/kthread.c	/^void Schedule(void)$/;"	f
-Switch_To_Thread	./sys/kthread.s	/^Switch_To_Thread:$/;"	l
-TEXT_COLOR	./include/defs.h	5;"	d
-TIMER_MEMORY	./include/stdio.h	5;"	d
-TRUE	./include/defs.h	/^  TRUE$/;"	e	enum:__anon1
-Thr_Queue	./include/sys/kthread.h	/^typedef struct Thread_queue Thr_Queue;$/;"	t	typeref:struct:Thread_queue
-Thread_queue	./include/sys/kthread.h	/^struct Thread_queue{$/;"	s
-USER_CS	./sys/kthread.c	/^uint64_t USER_CS=0x1B;$/;"	v
-USER_DS	./sys/kthread.c	/^uint64_t USER_DS=0x23;$/;"	v
-UserCode	./include/sys/exec.h	1;"	d
-UserCode	./sys/exec.c	11;"	d	file:
-UserData	./include/sys/exec.h	2;"	d
-UserData	./sys/exec.c	12;"	d	file:
-UserStack	./sys/exec.c	13;"	d	file:
-VIRT_PAGE_SIZE	./include/sys/mm/vmmgr_virtual.h	13;"	d
-VIRT_PAGE_SIZE	./sys/mm/vmmgr_page_allocator.c	4;"	d	file:
-VmaStart	./sys/exec.c	14;"	d	file:
-W	./include/sys/gdt.h	26;"	d
-World	./sys/kthread.c	/^void World(uint16_t arg){$/;"	f
-Yield	./sys/kthread.c	/^void Yield(void){$/;"	f
-_DEFS_H	./include/defs.h	2;"	d
-_ELF_H_	./include/elf.h	2;"	d
-_ERROR_H	./include/errors.h	2;"	d
-_GDT_H	./include/sys/gdt.h	2;"	d
-_IDT_H	./include/sys/idt.h	2;"	d
-_IO_H	./include/io.h	2;"	d
-_IRQ_H	./include/sys/irq.h	2;"	d
-_ISR_H	./include/sys/isr.h	2;"	d
-_KTHREAD_H_	./include/sys/kthread.h	2;"	d
-_LIST_H	./include/sys/list.h	2;"	d
-_MMAP_H_	./include/sys/mmap.h	2;"	d
-_MMGR_H	./include/sys/mm/mmgr.h	2;"	d
-_REGIONS_H	./include/sys/mm/regions.h	2;"	d
-_SHELL_H	./include/sys/shell.h	2;"	d
-_STDIO_H	./include/stdio.h	2;"	d
-_STDLIB_H	./include/stdlib.h	2;"	d
-_SYSCALLS_H_	./include/syscalls.h	2;"	d
-_SYSCALL_H	./include/syscall.h	2;"	d
-_TARFS_H	./include/sys/tarfs.h	2;"	d
-_TASK_H	./include/sys/task.h	3;"	d
-_USTDLIB_H_	./include/ustdlib.h	2;"	d
-_VMMGR_VIRTUAL_H	./include/sys/mm/vmmgr_virtual.h	2;"	d
-__ALIGN_KERNEL	./sys/mm/slob.c	9;"	d	file:
-__ALIGN_KERNEL_MASK	./sys/mm/slob.c	10;"	d	file:
-__int32_t	./include/defs.h	/^typedef int __int32_t;$/;"	t
-__list_add	./include/sys/list.h	/^static inline void __list_add(struct list_head *new,$/;"	f
-__list_del	./include/sys/list.h	/^static inline void __list_del(struct list_head * prev, struct list_head * next)$/;"	f
-__list_for_each	./include/sys/list.h	210;"	d
-__list_splice	./include/sys/list.h	/^static inline void __list_splice(struct list_head *list,$/;"	f
-__uchar8_t	./include/defs.h	/^typedef unsigned char __uchar8_t;$/;"	t
-__uint16_t	./include/defs.h	/^typedef unsigned short __uint16_t;$/;"	t
-__uint32_t	./include/defs.h	/^typedef unsigned int __uint32_t;$/;"	t
-__uint64_t	./include/defs.h	/^typedef unsigned long __uint64_t;$/;"	t
-_alt	./sys/kb.c	/^bool _shift, _ctrl, _caps, _alt;$/;"	v
-_caps	./sys/kb.c	/^bool _shift, _ctrl, _caps, _alt;$/;"	v
-_ctrl	./sys/kb.c	/^bool _shift, _ctrl, _caps, _alt;$/;"	v
-_cur_pde_directory	./sys/mm/vmmgr_virtual.c	/^pde* _cur_pde_directory=0;$/;"	v
-_cur_pdpe_directory	./sys/mm/vmmgr_virtual.c	/^pdpe* _cur_pdpe_directory=0;$/;"	v
-_cur_pml4_base_pointer	./sys/mm/vmmgr_virtual.c	/^pml4* _cur_pml4_base_pointer=0;$/;"	v
-_cur_pml4_base_pointer_pg	./sys/mm/vmmgr_virtual.c	/^pml4* _cur_pml4_base_pointer_pg=(pml4*)RECURSIVE_ENTRY;$/;"	v
-_cur_pml4_directory	./sys/mm/vmmgr_virtual.c	/^pml4* _cur_pml4_directory=0;$/;"	v
-_irq0	./sys/irq.s	/^_irq0:$/;"	l
-_irq1	./sys/irq.s	/^_irq1:$/;"	l
-_irq10	./sys/irq.s	/^_irq10:$/;"	l
-_irq11	./sys/irq.s	/^_irq11:$/;"	l
-_irq12	./sys/irq.s	/^_irq12:$/;"	l
-_irq13	./sys/irq.s	/^_irq13:$/;"	l
-_irq14	./sys/irq.s	/^_irq14:$/;"	l
-_irq15	./sys/irq.s	/^_irq15:$/;"	l
-_irq2	./sys/irq.s	/^_irq2:$/;"	l
-_irq3	./sys/irq.s	/^_irq3:$/;"	l
-_irq4	./sys/irq.s	/^_irq4:$/;"	l
-_irq5	./sys/irq.s	/^_irq5:$/;"	l
-_irq6	./sys/irq.s	/^_irq6:$/;"	l
-_irq7	./sys/irq.s	/^_irq7:$/;"	l
-_irq8	./sys/irq.s	/^_irq8:$/;"	l
-_irq9	./sys/irq.s	/^_irq9:$/;"	l
-_isr0	./sys/isr.s	/^_isr0:$/;"	l
-_isr1	./sys/isr.s	/^_isr1:$/;"	l
-_isr13	./sys/isr.s	/^_isr13:$/;"	l
-_isr14	./sys/isr.s	/^_isr14:$/;"	l
-_isr80	./sys/isr.s	/^_isr80:$/;"	l
-_memory_error	./include/errors.h	/^enum _memory_error{$/;"	g
-_shift	./sys/kb.c	/^bool _shift, _ctrl, _caps, _alt;$/;"	v
-_start	./crt/crt1.c	/^void _start(void) {$/;"	f
-_task_error	./include/errors.h	/^enum _task_error{$/;"	g
-_x86_64_asm_lgdt	./sys/gdt.s	/^_x86_64_asm_lgdt:$/;"	l
-_x86_64_asm_lidt	./sys/idt.s	/^_x86_64_asm_lidt:$/;"	l
-_x86_64_asm_ltr	./sys/idt.s	/^_x86_64_asm_ltr:$/;"	l
-a	./bin/shell/shell.c	/^volatile char a[] = "abcsdef\\n";$/;"	v
-a1	./include/syscall.h	/^SYSCALL_PROTO(2)(uint64_t n, uint64_t a1, uint64_t a2) {$/;"	v
-a1	./include/syscall.h	/^SYSCALL_PROTO(3)(uint64_t n, uint64_t a1, uint64_t a2, uint64_t a3) {$/;"	v
-a1	./include/syscall.h	/^SYSCALL_PROTO(4)(uint64_t n, uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4) {$/;"	v
-a2	./include/syscall.h	/^SYSCALL_PROTO(3)(uint64_t n, uint64_t a1, uint64_t a2, uint64_t a3) {$/;"	v
-a2	./include/syscall.h	/^SYSCALL_PROTO(4)(uint64_t n, uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4) {$/;"	v
-a3	./include/syscall.h	/^SYSCALL_PROTO(4)(uint64_t n, uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4) {$/;"	v
-add_to_joinQueue	./sys/kthread.c	/^void add_to_joinQueue(kthread* currentThread, kthread* k_thread){$/;"	f
-add_to_ptable	./sys/kthread.c	/^void add_to_ptable(kthread* k_thread){$/;"	f
-addr	./include/sys/idt.h	/^    uint64_t addr;$/;"	m	struct:idtr_t
-addr	./sys/gdt.c	/^	uint64_t addr;$/;"	m	struct:gdtr_t	file:
-align	./sys/mm/myalloc.c	27;"	d	file:
-alive	./include/sys/kthread.h	/^    bool alive;$/;"	m	struct:Kernel_Thread
-allThreadList	./sys/kthread.c	/^global_thread_list allThreadList;$/;"	v
-alllist_kthread	./sys/kthread.c	/^void alllist_kthread(kthread* k_thread){$/;"	f
-alloc_pid	./sys/kthread.c	/^int alloc_pid(){$/;"	f
-append_global_list_queue	./sys/kthread.c	/^void append_global_list_queue(global_thread_list *listPtr, kthread *nodePtr) {                                           $/;"	f
-append_join_queue	./sys/kthread.c	/^void append_join_queue(kthread *nodePtr, kthread *cthread) {$/;"	f
-append_run_queue	./sys/kthread.c	/^void append_run_queue(Thr_Queue *listPtr, kthread *nodePtr) {       $/;"	f
-arena	./sys/mm/slob.c	/^static slob_t arena = { .next = &arena, .units = 1};$/;"	v	file:
-argc	./include/sys/shell.h	/^    int argc;               \/* Number of arguments *\/$/;"	m	struct:cmdline_tokens
-argv	./include/sys/shell.h	/^    char *argv[MAXARGS];    \/* The arguments list *\/$/;"	m	struct:cmdline_tokens
-b	./bin/hello/hello.c	/^int b=199;$/;"	v
-base	./include/sys/mm/mmgr.h	/^      uint64_t base, length;$/;"	m	struct:smap_t
-base	./sys/mm/myalloc.c	/^t_block base = NULL;  \/\/Base pointer$/;"	v
-baseHigh	./include/sys/idt.h	/^      uint32_t   baseHigh;$/;"	m	struct:idtEntry
-baseLow	./include/sys/idt.h	/^      uint16_t   baseLow;$/;"	m	struct:idtEntry
-baseMid	./include/sys/idt.h	/^      uint16_t   baseMid;$/;"	m	struct:idtEntry
-bigblock	./sys/mm/slob.c	/^struct bigblock{$/;"	s	file:
-bigblock_t	./sys/mm/slob.c	/^typedef struct bigblock bigblock_t;$/;"	t	typeref:struct:bigblock	file:
-bool	./include/defs.h	/^} bool;$/;"	t	typeref:enum:__anon1
-boot	./sys/main.c	/^void boot(void)$/;"	f
-builtins	./include/sys/shell.h	/^        BUILTIN_FG} builtins;$/;"	m	struct:cmdline_tokens	typeref:enum:cmdline_tokens::builtins_t
-builtins_t	./include/sys/shell.h	/^    enum builtins_t {       \/* Indicates if argv[0] is a builtin command *\/$/;"	g	struct:cmdline_tokens
-bump_addr	./sys/mm/vmmgr_virtual.c	/^uint64_t bump_addr = 0;$/;"	v
-bump_start	./sys/mm/vmmgr_virtual.c	/^uint64_t bump_start = 0;$/;"	v
-checksum	./include/sys/tarfs.h	/^	char checksum[8];$/;"	m	struct:posix_header_ustar
-child	./include/sys/kthread.h	/^  kthread* child;$/;"	m	struct:join_Queue
-clear_page_tables	./sys/mm/vmmgr_virtual.c	/^void clear_page_tables(uint64_t parent_pml4){$/;"	f
-clear_vmas	./sys/exec.c	/^void clear_vmas(kthread* k_thread){$/;"	f
-cli	./sys/task_switch.s	/^cli$/;"	l
-clone_pgdir	./sys/mm/vmmgr_virtual.c	/^void clone_pgdir(uint64_t parent_pml4, uint64_t child_pml4){$/;"	f
-cls	./libc/cls.c	/^void cls(){$/;"	f
-cls	./sys/stdfns.c	/^void cls(){$/;"	f
-cmdline_tokens	./include/sys/shell.h	/^struct cmdline_tokens {$/;"	s
-convert	./sys/stdfns.c	/^char *convert(uint64_t num, int base)$/;"	f
-convert_u	./libc/stdlib.c	/^char *convert_u(uint64_t num, uint16_t base)$/;"	f
-copy_page_table	./sys/mm/vmmgr_virtual.c	/^void copy_page_table(uint64_t parent_pml4, uint64_t child_pml4, bool is_user){$/;"	f
-cr3	./include/sys/kthread.h	/^    uint64_t cr3;$/;"	m	struct:Kernel_Thread
-create_kthread	./sys/kthread.c	/^static kthread* create_kthread(const char* name, int prio, bool detached){$/;"	f	file:
-create_kthread_user	./sys/exec.c	/^kthread* create_kthread_user(const char* name, int prio, bool detached){$/;"	f
-create_new_task	./sys/exec.c	/^void create_new_task(kthread* k_thread, void* startFunc, const char* name, uint16_t arg, uint16_t priority, bool detached){$/;"	f
-cs	./include/sys/idt.h	/^    uint64_t rip, cs, rflags, rsp, ss;$/;"	m	struct:registers
-currentThread	./sys/kthread.c	/^kthread* currentThread;$/;"	v
-debug	./sys/kthread.c	/^int debug;$/;"	v
-devmajor	./include/sys/tarfs.h	/^	char devmajor[8];$/;"	m	struct:posix_header_ustar
-devminor	./include/sys/tarfs.h	/^	char devminor[8];$/;"	m	struct:posix_header_ustar
-disable_interrupts	./sys/kthread.c	/^void disable_interrupts(void){$/;"	f
-do_cls	./sys/isr.c	/^void do_cls(){$/;"	f
-do_exec	./sys/exec.c	/^uint32_t do_exec(char *name){$/;"	f
-do_exec1	./sys/exec.c	/^void do_exec1(char* name){$/;"	f
-do_execve	./sys/isr.c	/^int do_execve(char* name){$/;"	f
-doread	./sys/isr.c	/^signed int doread(char* buf){$/;"	f
-e_ehsize	./include/elf.h	/^Elf64_Half e_ehsize; \/* ELF header size *\/$/;"	m	struct:__anon3
-e_entry	./include/elf.h	/^Elf64_Addr e_entry; \/* Entry point address *\/$/;"	m	struct:__anon3
-e_flags	./include/elf.h	/^Elf64_Word e_flags; \/* Processor-specific flags *\/$/;"	m	struct:__anon3
-e_ident	./include/elf.h	/^unsigned char e_ident[16]; \/* ELF identification *\/$/;"	m	struct:__anon3
-e_machine	./include/elf.h	/^Elf64_Half e_machine; \/* Machine type *\/$/;"	m	struct:__anon3
-e_phentsize	./include/elf.h	/^Elf64_Half e_phentsize; \/* Size of program header entry *\/$/;"	m	struct:__anon3
-e_phnum	./include/elf.h	/^Elf64_Half e_phnum; \/* Number of program header entries *\/$/;"	m	struct:__anon3
-e_phoff	./include/elf.h	/^Elf64_Off e_phoff; \/* Program header offset *\/$/;"	m	struct:__anon3
-e_shentsize	./include/elf.h	/^Elf64_Half e_shentsize; \/* Size of section header entry *\/$/;"	m	struct:__anon3
-e_shnum	./include/elf.h	/^Elf64_Half e_shnum; \/* Number of section header entries *\/$/;"	m	struct:__anon3
-e_shoff	./include/elf.h	/^Elf64_Off e_shoff; \/* Section header offset *\/$/;"	m	struct:__anon3
-e_shstrndx	./include/elf.h	/^Elf64_Half e_shstrndx; \/* Section name string table index *\/$/;"	m	struct:__anon3
-e_type	./include/elf.h	/^Elf64_Half e_type; \/* Object file type *\/$/;"	m	struct:__anon3
-e_version	./include/elf.h	/^Elf64_Word e_version; \/* Object file version *\/$/;"	m	struct:__anon3
-enable_interrupts	./sys/kthread.c	/^void enable_interrupts(void){$/;"	f
-entry	./include/sys/mm/vmmgr_virtual.h	/^  pd_entry entry[PAGES_PER_DIR];$/;"	m	struct:page_directory_table
-entry	./include/sys/mm/vmmgr_virtual.h	/^  pdpe_entry entry[PAGES_PER_DIR];$/;"	m	struct:page_directory_pointer_table
-entry	./include/sys/mm/vmmgr_virtual.h	/^  pml4e_entry entry[PAGES_PER_DIR];$/;"	m	struct:page_map_level_4
-entry	./include/sys/mm/vmmgr_virtual.h	/^  pt_entry entry[PAGES_PER_TABLE];$/;"	m	struct:page_table
-errCode	./include/sys/idt.h	/^    uint64_t intNo, errCode;$/;"	m	struct:registers
-eval	./bin/shell/shell.c	/^int eval(char *cmdline) $/;"	f
-eval	./sys/shell.c	/^void eval(char *cmdline) $/;"	f
-exec	./bin/shell/shell.c	/^int exec(char* name){$/;"	f
-exec	./include/elf.h	/^struct exec{$/;"	s
-exec	./sys/shell.c	/^void exec(char* name){$/;"	f
-execve	./libc/exec.c	/^int execve(const char* buf){$/;"	f
-exit	./crt/crt1.c	/^void exit(res){$/;"	f
-exit	./libc/exit.c	/^void exit(int status) {$/;"	f
-exitCode	./include/sys/kthread.h	/^    int exitCode;$/;"	m	struct:Kernel_Thread
-extend_heap	./sys/mm/myalloc.c	/^t_block extend_heap(t_block last, uint16_t size){$/;"	f
-fault_handler	./sys/idt.c	/^int fault_handler(regs *r)$/;"	f
-find_block	./sys/mm/myalloc.c	/^t_block find_block(t_block *last, uint16_t size){$/;"	f
-flags	./include/sys/idt.h	/^      unsigned char   flags;$/;"	m	struct:idtEntry
-fork	./libc/fork.c	/^int fork(){$/;"	f
-fork	./sys/isr.c	/^int fork(regs *r){$/;"	f
-fork_int	./sys/isr.c	/^void fork_int(kthread* k_thread, regs* r){$/;"	f
-free	./sys/mm/myalloc.c	/^uint16_t free;  \/\/ Indictaes if this block is free or not$/;"	m	struct:metadata_block	file:
-free_pid	./sys/kthread.c	/^void free_pid(){$/;"	f
-gdt	./sys/gdt.c	/^uint64_t gdt[MAX_GDT] = {$/;"	v
-gdtr	./sys/gdt.c	/^static struct gdtr_t gdtr = {$/;"	v	typeref:struct:gdtr_t	file:
-gdtr_t	./sys/gdt.c	/^struct gdtr_t {$/;"	s	file:
-general_protection_fault_handler	./sys/isr.c	/^void general_protection_fault_handler(uint64_t err_code){$/;"	f
-get_cr0_register	./sys/mm/paging.c	/^uint64_t get_cr0_register(){$/;"	f
-get_cr3_register	./sys/mm/paging.c	/^uint64_t get_cr3_register(){$/;"	f
-get_cr4_register	./sys/mm/paging.c	/^uint64_t get_cr4_register(){$/;"	f
-get_flag_register	./sys/kthread.s	/^get_flag_register:$/;"	l
-get_paging_status	./sys/mm/paging.c	/^bool get_paging_status() {$/;"	f
-get_pde_offset_recurse	./sys/mm/vmmgr_virtual.c	/^pd_entry* get_pde_offset_recurse(virtual_addr virt){$/;"	f
-get_pdpe_offset_recurse	./sys/mm/vmmgr_virtual.c	/^pdpe_entry* get_pdpe_offset_recurse(virtual_addr virt){$/;"	f
-get_pml4e_offset_recurse	./sys/mm/vmmgr_virtual.c	/^pml4e_entry* get_pml4e_offset_recurse(virtual_addr virt){$/;"	f
-get_pte_recurse	./sys/mm/vmmgr_virtual.c	/^pt_entry* get_pte_recurse(virtual_addr virt){$/;"	f
-get_total_blocks	./sys/mm/mmgr.c	/^uint64_t get_total_blocks(){$/;"	f
-get_total_usable_blocks	./sys/mm/mmgr.c	/^uint64_t get_total_usable_blocks(){$/;"	f
-get_total_usable_memory	./sys/mm/mmgr.c	/^uint64_t get_total_usable_memory(){$/;"	f
-get_used_blocks	./sys/mm/mmgr.c	/^uint64_t get_used_blocks(){$/;"	f
-getpid	./libc/getpid.c	/^int getpid(){$/;"	f
-gid	./include/sys/tarfs.h	/^	char gid[8];$/;"	m	struct:posix_header_ustar
-global_thread_list	./include/sys/kthread.h	/^typedef struct All_threads global_thread_list;$/;"	t	typeref:struct:All_threads
-gname	./include/sys/tarfs.h	/^	char gname[32];$/;"	m	struct:posix_header_ustar
-head	./include/sys/kthread.h	/^    joinQ head;$/;"	m	struct:Kernel_Thread
-head	./include/sys/kthread.h	/^    kthread *head, *tail;$/;"	m	struct:Thread_queue
-head	./include/sys/kthread.h	/^  kthread *head, *tail;$/;"	m	struct:All_threads
-hello_in_user_mode	./sys/main.c	/^void hello_in_user_mode(){$/;"	f
-hours	./sys/timer.c	/^uint16_t hours=0;$/;"	v
-hours_tens	./sys/timer.c	/^uint16_t hours_tens=0;$/;"	v
-hours_units	./sys/timer.c	/^uint16_t hours_units=0;$/;"	v
-idt	./sys/idt.c	/^idtE idt[MAX_IDT];$/;"	v
-idtE	./include/sys/idt.h	/^} __attribute__((packed)) idtE;$/;"	t	typeref:struct:idtEntry
-idtEntry	./include/sys/idt.h	/^typedef struct idtEntry {$/;"	s
-idt_set_gate	./sys/idt.c	/^void idt_set_gate(unsigned char number, uint64_t base, uint16_t selector, unsigned char flags) {$/;"	f
-idtr	./sys/idt.c	/^static struct idtr_t idtr = {$/;"	v	typeref:struct:idtr_t	file:
-idtr_t	./include/sys/idt.h	/^struct idtr_t {$/;"	s
-inb	./include/io.h	/^unsigned char inb( unsigned short port )$/;"	f
-init_bump_addr	./sys/mm/vmmgr_virtual.c	/^void init_bump_addr(){$/;"	f
-init_thread_queue	./sys/kthread.c	/^void init_thread_queue(Thr_Queue *node){$/;"	f
-insert_global_list_queue	./sys/kthread.c	/^void insert_global_list_queue(global_thread_list *listPtr, kthread *nodePtr) {  $/;"	f
-insert_run_queue	./sys/kthread.c	/^void insert_run_queue(Thr_Queue *listPtr, kthread *nodePtr) {  $/;"	f
-insert_vma	./sys/mmap.c	/^void insert_vma(vm_area_struct *vma, kthread* k_thread){$/;"	f
-int32_t	./include/defs.h	/^typedef __int32_t int32_t;$/;"	t
-intNo	./include/sys/idt.h	/^    uint64_t intNo, errCode;$/;"	m	struct:registers
-io_buff	./sys/isr.c	/^char* io_buff;$/;"	v
-iobuff	./sys/isr.c	/^char iobuff[1024];$/;"	v
-iretq	./sys/task_switch.s	/^iretq $/;"	l
-irq_common_stub	./sys/irq.s	/^irq_common_stub:$/;"	l
-irq_handler	./sys/irq.c	/^void irq_handler(regs *r)$/;"	f
-irq_install	./sys/irq.c	/^void irq_install()$/;"	f
-irq_install_handler	./sys/irq.c	/^void irq_install_handler(int irq, void (*handler)(regs *r)){$/;"	f
-irq_remap	./sys/irq.c	/^void irq_remap(){$/;"	f
-irq_routines	./sys/irq.c	/^void *irq_routines[16] =$/;"	v
-irq_uninstall_handler	./sys/irq.c	/^void irq_uninstall_handler(int irq){$/;"	f
-is_interrupt_on	./sys/kthread.c	/^bool is_interrupt_on(void){$/;"	f
-is_scheduler_on	./sys/main.c	/^bool is_scheduler_on = 0;$/;"	v
-isr_common_stub	./sys/isr.s	/^isr_common_stub:$/;"	l
-joinQ	./include/sys/kthread.h	/^typedef struct join_Queue joinQ;$/;"	t	typeref:struct:join_Queue
-joinQueue	./include/sys/kthread.h	/^    struct Thread_queue joinQueue;$/;"	m	struct:Kernel_Thread	typeref:struct:Kernel_Thread::Thread_queue
-join_Queue	./include/sys/kthread.h	/^struct join_Queue{$/;"	s
-kernel_pgd	./sys/mm/vmmgr_virtual.c	/^uint64_t kernel_pgd = 0;$/;"	v
-kernel_thread	./include/sys/kthread.h	/^    uint64_t kernel_thread;$/;"	m	struct:Kernel_Thread
-keyboard_handler	./sys/kb.c	/^void keyboard_handler(regs *r){$/;"	f
-keyboard_install	./sys/kb.c	/^void keyboard_install(){$/;"	f
-keyboard_memory	./sys/stdfns.c	/^char* keyboard_memory = (char*)KEYBOARD_WARMUP_MEMORY;$/;"	v
-keybrd_enc_read_buf	./sys/kb.c	/^uint8_t keybrd_enc_read_buf() {$/;"	f
-keycode_to_ascii	./sys/kb.c	/^char keycode_to_ascii(uint8_t code){$/;"	f
-kphysfree	./sys/main.c	/^void* kphysfree = 0;$/;"	v
-krsp	./include/sys/kthread.h	/^    uint64_t krsp;$/;"	m	struct:Kernel_Thread
-kstack	./include/sys/kthread.h	/^    void* kstack;$/;"	m	struct:Kernel_Thread
-kthread	./include/sys/kthread.h	/^typedef struct Kernel_Thread kthread;$/;"	t	typeref:struct:Kernel_Thread
-kybrd_ctrl_read_status	./sys/kb.c	/^uint8_t kybrd_ctrl_read_status() { $/;"	f
-kybrd_ctrl_send_cmd	./sys/kb.c	/^void kybrd_ctrl_send_cmd(uint8_t cmd) {$/;"	f
-kybrd_enc_send_cmd	./sys/kb.c	/^void kybrd_enc_send_cmd (uint8_t cmd) {$/;"	f
-last	./sys/mm/myalloc.c	/^t_block last = NULL;  \/\/Last pointer$/;"	v
-leaq	./sys/task_switch.s	/^leaq (tss), %rax$/;"	l
-leaq	./sys/task_switch.s	/^leaq 0x4(%rax), %rax$/;"	l
-leaq	./sys/task_switch.s	/^leaq 0x8(%rax), %rax$/;"	l
-length	./include/sys/mm/mmgr.h	/^      uint64_t base, length;$/;"	m	struct:smap_t
-linkname	./include/sys/tarfs.h	/^	char linkname[100];$/;"	m	struct:posix_header_ustar
-list_add	./include/sys/list.h	/^static inline void list_add(struct list_head *new, struct list_head *head)$/;"	f
-list_add_tail	./include/sys/list.h	/^static inline void list_add_tail(struct list_head *new, struct list_head *head)$/;"	f
-list_del	./include/sys/list.h	/^static inline void list_del(struct list_head *entry)$/;"	f
-list_del_init	./include/sys/list.h	/^static inline void list_del_init(struct list_head *entry)$/;"	f
-list_empty	./include/sys/list.h	/^static inline int list_empty(const struct list_head *head)$/;"	f
-list_empty_careful	./include/sys/list.h	/^static inline int list_empty_careful(const struct list_head *head)$/;"	f
-list_head	./include/sys/list.h	/^struct list_head {$/;"	s
-list_move	./include/sys/list.h	/^static inline void list_move(struct list_head *list, struct list_head *head)$/;"	f
-list_move_tail	./include/sys/list.h	/^static inline void list_move_tail(struct list_head *list,$/;"	f
-list_splice	./include/sys/list.h	/^static inline void list_splice(struct list_head *list, struct list_head *head)$/;"	f
-list_splice_init	./include/sys/list.h	/^static inline void list_splice_init(struct list_head *list,$/;"	f
-loader_stack	./sys/main.c	/^uint32_t* loader_stack;$/;"	v
-m_entires	./include/sys/mm/vm_mmgr.h	/^  pt_entry m_entires[PAGES_PER_TABLE];$/;"	m	struct:page_table
-m_entries	./include/sys/mm/vm_mmgr.h	/^  pd_entry m_entries[PAGES_PED_DIR];$/;"	m	struct:page_directory_table
-m_entries	./include/sys/mm/vm_mmgr.h	/^  pdpe_entry m_entries[PAGES_PED_DIR];$/;"	m	struct:page_directory_pointer_table
-m_entries	./include/sys/mm/vm_mmgr.h	/^  pml4e_entry m_entries[PAGES_PER_DIR];$/;"	m	struct:page_map_level_4
-magic	./include/sys/tarfs.h	/^	char magic[6];$/;"	m	struct:posix_header_ustar
-main	./bin/hello/hello.c	/^int main(int argc, char* argv[]) {$/;"	f
-main	./bin/ps/ps.c	/^int main(){$/;"	f
-main	./bin/shell/shell.c	/^int main(int argc, char* argv[], char* envp[]) $/;"	f
-main	./bin/world/world.c	/^int main(int argc, char *argv[]){$/;"	f
-main_execve	./sys/exec.c	/^void main_execve(char* name){$/;"	f
-mem_error_t	./include/errors.h	/^typedef enum _memory_error mem_error_t;$/;"	t	typeref:enum:_memory_error
-memcpy	./sys/stdfns.c	/^char *memcpy(char *dest, const char *src, uint32_t n)$/;"	f
-memset	./libc/stdlib.c	/^void memset(void *s, uint8_t c, uint32_t n)$/;"	f
-memset	./sys/stdfns.c	/^void *memset(void *s, uint8_t c, uint32_t n)$/;"	f
-metadata_block	./sys/mm/myalloc.c	/^struct metadata_block{$/;"	s	file:
-mins	./sys/timer.c	/^uint16_t mins=0;$/;"	v
-minutes_tens	./sys/timer.c	/^uint16_t minutes_tens=0;$/;"	v
-minutes_units	./sys/timer.c	/^uint16_t minutes_units=0;$/;"	v
-mm_phy_init	./sys/mm/mmgr.c	/^void mm_phy_init(uint32_t* modulep){$/;"	f
-mm_phy_types	./include/sys/mm/regions.h	/^enum mm_phy_types {$/;"	g
-mmap	./include/sys/kthread.h	/^    vm_area_struct *mmap;$/;"	m	struct:Kernel_Thread
-mmap	./sys/mmap.c	/^void mmap(void *addr, uint32_t length, int prot, int flags, int fd, uint64_t offset, kthread* k_thread){$/;"	f
-mmap_cache	./include/sys/kthread.h	/^    vm_area_struct *mmap_cache;$/;"	m	struct:Kernel_Thread
-mmgr_alloc_block	./sys/mm/mmgr.c	/^void* mmgr_alloc_block(){$/;"	f
-mmgr_alloc_size_blocks	./sys/mm/mmgr.c	/^void* mmgr_alloc_size_blocks(int size){$/;"	f
-mmgr_free_block	./sys/mm/mmgr.c	/^void mmgr_free_block(void *p){$/;"	f
-mmgr_free_size_blocks	./sys/mm/mmgr.c	/^void mmgr_free_size_blocks(void *p, int size){$/;"	f
-mmgr_get_block_count	./sys/mm/mmgr.c	/^inline uint16_t mmgr_get_block_count(){$/;"	f
-mmgr_get_first_free	./sys/mm/mmgr.c	/^int mmgr_get_first_free(){$/;"	f
-mmgr_get_first_range_free	./sys/mm/mmgr.c	/^int mmgr_get_first_range_free(int size){$/;"	f
-mmgr_is_block_free	./sys/mm/mmgr.c	/^inline bool mmgr_is_block_free (int bit) {$/;"	f
-mmgr_max_blocks	./sys/mm/mmgr.c	/^static  uint64_t  mmgr_max_blocks=0;$/;"	v	file:
-mmgr_memory_map	./sys/mm/mmgr.c	/^static  uint64_t mmgr_memory_map[1200];$/;"	v	file:
-mmgr_phy_deinit_regions	./sys/mm/mmgr.c	/^void mmgr_phy_deinit_regions(uint64_t base, uint64_t length){$/;"	f
-mmgr_phy_init_regions	./sys/mm/mmgr.c	/^void mmgr_phy_init_regions(uint64_t base, uint64_t length){$/;"	f
-mmgr_print_memory_status	./sys/mm/mmgr.c	/^void mmgr_print_memory_status(){$/;"	f
-mmgr_set_block	./sys/mm/mmgr.c	/^inline void mmgr_set_block (int bit) {$/;"	f
-mmgr_syncwith_kernel	./sys/mm/mmgr.c	/^void mmgr_syncwith_kernel(){$/;"	f
-mmgr_unset_block	./sys/mm/mmgr.c	/^inline void mmgr_unset_block (int bit) {$/;"	f
-mmgr_usable_memory_size	./sys/mm/mmgr.c	/^static  uint64_t  mmgr_usable_memory_size=0;$/;"	v	file:
-mmgr_used_blocks	./sys/mm/mmgr.c	/^static  uint64_t  mmgr_used_blocks=0;$/;"	v	file:
-mode	./include/sys/tarfs.h	/^	char mode[8];$/;"	m	struct:posix_header_ustar
-movq	./sys/task_switch.s	/^movq $0x23, %rax # USER DS = 0x20 | 0x3 ( DPL ) = 0x23$/;"	l
-movq	./sys/task_switch.s	/^movq %rax, %ds$/;"	l
-movq	./sys/task_switch.s	/^movq %rax, %es$/;"	l
-movq	./sys/task_switch.s	/^movq %rax, %fs$/;"	l
-movq	./sys/task_switch.s	/^movq %rax, %gs$/;"	l
-movq	./sys/task_switch.s	/^movq %rsp, (%rax)$/;"	l
-movq	./sys/task_switch.s	/^movq (%rax), %rax$/;"	l
-movq	./sys/task_switch.s	/^movq (currentThread), %rax$/;"	l
-mtime	./include/sys/tarfs.h	/^	char mtime[12];$/;"	m	struct:posix_header_ustar
-my_atoi	./sys/stdfns.c	/^uint32_t my_atoi(char *str){$/;"	f
-my_atool	./sys/stdfns.c	/^uint32_t my_atool(char *str){$/;"	f
-n	./include/syscall.h	/^SYSCALL_PROTO(1)(uint64_t n, uint64_t a1) {$/;"	v
-n	./include/syscall.h	/^SYSCALL_PROTO(2)(uint64_t n, uint64_t a1, uint64_t a2) {$/;"	v
-n	./include/syscall.h	/^SYSCALL_PROTO(3)(uint64_t n, uint64_t a1, uint64_t a2, uint64_t a3) {$/;"	v
-n	./include/syscall.h	/^SYSCALL_PROTO(4)(uint64_t n, uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4) {$/;"	v
-name	./include/sys/kthread.h	/^    const char* name;$/;"	m	struct:Kernel_Thread
-name	./include/sys/tarfs.h	/^	char name[100];$/;"	m	struct:posix_header_ustar
-name	./include/sys/task.h	/^  char* name;$/;"	m	struct:vmas
-next	./include/sys/kthread.h	/^  struct join_Queue* next;$/;"	m	struct:join_Queue	typeref:struct:join_Queue::join_Queue
-next	./include/sys/list.h	/^        struct list_head *next, *prev;$/;"	m	struct:list_head	typeref:struct:list_head::list_head
-next	./sys/mm/myalloc.c	/^t_block next; \/\/ Pointer to the next block$/;"	m	struct:metadata_block	file:
-next	./sys/mm/slob.c	/^    struct bigblock *next;$/;"	m	struct:bigblock	typeref:struct:bigblock::bigblock	file:
-next	./sys/mm/slob.c	/^    struct slob_block *next;$/;"	m	struct:slob_block	typeref:struct:slob_block::slob_block	file:
-nextFreePid	./sys/kthread.c	/^int nextFreePid = 0;$/;"	v
-next_in_ThreadList	./include/sys/kthread.h	/^    struct Kernel_Thread *prev_in_ThreadList, *next_in_ThreadList;$/;"	m	struct:Kernel_Thread	typeref:struct:Kernel_Thread::
-next_in_ThreadQ	./include/sys/kthread.h	/^    struct Kernel_Thread *prev_in_ThreadQ, *next_in_ThreadQ;$/;"	m	struct:Kernel_Thread	typeref:struct:Kernel_Thread::
-next_runnable_kthread	./sys/kthread.c	/^kthread* next_runnable_kthread(){$/;"	f
-no_stack_pages	./include/sys/kthread.h	/^    int no_stack_pages;$/;"	m	struct:Kernel_Thread
-order	./sys/mm/slob.c	/^    int order;$/;"	m	struct:bigblock	file:
-orq	./sys/task_switch.s	/^orq $0x200, %rax$/;"	l
-outb	./include/io.h	/^outb (unsigned short int port, unsigned char value)$/;"	f
-owner	./include/sys/kthread.h	/^    struct Kernel_Thread* owner;$/;"	m	struct:Kernel_Thread	typeref:struct:Kernel_Thread::Kernel_Thread
-p_align	./include/elf.h	/^Elf64_Xword p_align; \/* Alignment of segment *\/$/;"	m	struct:__anon5
-p_filesz	./include/elf.h	/^Elf64_Xword p_filesz; \/* Size of segment in file *\/$/;"	m	struct:__anon5
-p_flags	./include/elf.h	/^Elf64_Word p_flags; \/* Segment attributes *\/$/;"	m	struct:__anon5
-p_memsz	./include/elf.h	/^Elf64_Xword p_memsz; \/* Size of segment in memory *\/$/;"	m	struct:__anon5
-p_offset	./include/elf.h	/^Elf64_Off p_offset; \/* Offset in file *\/$/;"	m	struct:__anon5
-p_paddr	./include/elf.h	/^Elf64_Addr p_paddr; \/* Reserved *\/$/;"	m	struct:__anon5
-p_type	./include/elf.h	/^Elf64_Word p_type; \/* Type of segment *\/$/;"	m	struct:__anon5
-p_vaddr	./include/elf.h	/^Elf64_Addr p_vaddr; \/* Virtual address in memory *\/$/;"	m	struct:__anon5
-pad	./include/sys/tarfs.h	/^	char pad[12];$/;"	m	struct:posix_header_ustar
-page_directory_pointer_table	./include/sys/mm/vm_mmgr.h	/^struct page_directory_pointer_table{$/;"	s
-page_directory_pointer_table	./include/sys/mm/vmmgr_virtual.h	/^struct page_directory_pointer_table{$/;"	s
-page_directory_table	./include/sys/mm/vm_mmgr.h	/^struct page_directory_table{$/;"	s
-page_directory_table	./include/sys/mm/vmmgr_virtual.h	/^struct page_directory_table{$/;"	s
-page_fault_handler	./sys/isr.c	/^void page_fault_handler(uint64_t err_code, void* err_ins){$/;"	f
-page_map_level_4	./include/sys/mm/vm_mmgr.h	/^struct page_map_level_4{$/;"	s
-page_map_level_4	./include/sys/mm/vmmgr_virtual.h	/^struct page_map_level_4{$/;"	s
-page_table	./include/sys/mm/vm_mmgr.h	/^struct page_table{$/;"	s
-page_table	./include/sys/mm/vmmgr_virtual.h	/^struct page_table{$/;"	s
-pages	./sys/mm/slob.c	/^    void *pages;$/;"	m	struct:bigblock	file:
-parent	./include/sys/kthread.h	/^    struct Kernel_Thread* parent;$/;"	m	struct:Kernel_Thread	typeref:struct:Kernel_Thread::Kernel_Thread
-parseline	./bin/shell/shell.c	/^int parseline(const char *cmdline, struct cmdline_tokens *tok) $/;"	f
-parseline	./sys/shell.c	/^int parseline(const char *cmdline, struct cmdline_tokens *tok) $/;"	f
-pcr3	./include/sys/kthread.h	/^    uint64_t pcr3;$/;"	m	struct:Kernel_Thread
-pd_entry	./include/sys/mm/vmmgr_pde.h	/^typedef uint64_t pd_entry;$/;"	t
-pd_entry_add_attrib	./sys/mm/vmmgr_pde.c	/^inline void pd_entry_add_attrib(pd_entry *e, uint64_t attrib){$/;"	f
-pd_entry_del_attrib	./sys/mm/vmmgr_pde.c	/^inline void pd_entry_del_attrib(pd_entry *e, uint64_t attrib){$/;"	f
-pd_entry_is_4mb	./sys/mm/vmmgr_pde.c	/^inline bool pd_entry_is_4mb (pd_entry e) {$/;"	f
-pd_entry_is_present	./sys/mm/vmmgr_pde.c	/^inline bool pd_entry_is_present(pd_entry e){$/;"	f
-pd_entry_is_user	./sys/mm/vmmgr_pde.c	/^inline bool pd_entry_is_user (pd_entry e) {$/;"	f
-pd_entry_is_writable	./sys/mm/vmmgr_pde.c	/^inline bool pd_entry_is_writable(pd_entry e){$/;"	f
-pd_entry_pfn	./sys/mm/vmmgr_pde.c	/^inline uint32_t pd_entry_pfn(pd_entry e){$/;"	f
-pd_entry_set_frame	./sys/mm/vmmgr_pde.c	/^inline void pd_entry_set_frame(pd_entry *e, uint64_t addr){$/;"	f
-pde	./include/sys/mm/vm_mmgr.h	/^typedef page_directory_table pde;$/;"	t
-pde	./include/sys/mm/vmmgr_virtual.h	/^typedef struct page_directory_table pde;$/;"	t	typeref:struct:page_directory_table
-pdpe	./include/sys/mm/vm_mmgr.h	/^typedef page_directory_pointer_table pdpe;$/;"	t
-pdpe	./include/sys/mm/vmmgr_virtual.h	/^typedef struct page_directory_pointer_table pdpe;$/;"	t	typeref:struct:page_directory_pointer_table
-pdpe_entry	./include/sys/mm/vmmgr_pdpe.h	/^typedef uint64_t pdpe_entry;$/;"	t
-pdpe_entry_add_attrib	./sys/mm/vmmgr_pdpe.c	/^inline void pdpe_entry_add_attrib(pdpe_entry *e, uint64_t attrib){$/;"	f
-pdpe_entry_del_attrib	./sys/mm/vmmgr_pdpe.c	/^inline void pdpe_entry_del_attrib(pdpe_entry *e, uint64_t attrib){$/;"	f
-pdpe_entry_is_4mb	./sys/mm/vmmgr_pdpe.c	/^inline bool pdpe_entry_is_4mb (pdpe_entry e) {$/;"	f
-pdpe_entry_is_present	./sys/mm/vmmgr_pdpe.c	/^inline bool pdpe_entry_is_present(pdpe_entry e){$/;"	f
-pdpe_entry_is_user	./sys/mm/vmmgr_pdpe.c	/^inline bool pdpe_entry_is_user (pdpe_entry e) {$/;"	f
-pdpe_entry_is_writable	./sys/mm/vmmgr_pdpe.c	/^inline bool pdpe_entry_is_writable(pdpe_entry e){$/;"	f
-pdpe_entry_pfn	./sys/mm/vmmgr_pdpe.c	/^inline uint32_t pdpe_entry_pfn(pdpe_entry e){$/;"	f
-pdpe_entry_set_frame	./sys/mm/vmmgr_pdpe.c	/^inline void pdpe_entry_set_frame(pdpe_entry *e, uint64_t addr){$/;"	f
-pid	./include/sys/kthread.h	/^    int pid;$/;"	m	struct:Kernel_Thread
-pml4	./include/sys/mm/vm_mmgr.h	/^typedef page_map_level_4 pml4;$/;"	t
-pml4	./include/sys/mm/vmmgr_virtual.h	/^typedef struct page_map_level_4 pml4;$/;"	t	typeref:struct:page_map_level_4
-pml4e_entry	./include/sys/mm/vmmgr_pml4.h	/^typedef uint64_t pml4e_entry;$/;"	t
-pml4e_entry_add_attrib	./sys/mm/vmmgr_pml4.c	/^inline void pml4e_entry_add_attrib(pml4e_entry *e, uint64_t attrib){$/;"	f
-pml4e_entry_del_attrib	./sys/mm/vmmgr_pml4.c	/^inline void pml4e_entry_del_attrib(pml4e_entry *e, uint64_t attrib){$/;"	f
-pml4e_entry_is_4mb	./sys/mm/vmmgr_pml4.c	/^inline bool pml4e_entry_is_4mb (pml4e_entry e) {$/;"	f
-pml4e_entry_is_present	./sys/mm/vmmgr_pml4.c	/^inline bool pml4e_entry_is_present(pml4e_entry e){$/;"	f
-pml4e_entry_is_user	./sys/mm/vmmgr_pml4.c	/^inline bool pml4e_entry_is_user (pml4e_entry e) {$/;"	f
-pml4e_entry_is_writable	./sys/mm/vmmgr_pml4.c	/^inline bool pml4e_entry_is_writable(pml4e_entry e){$/;"	f
-pml4e_entry_pfn	./sys/mm/vmmgr_pml4.c	/^inline uint32_t pml4e_entry_pfn(pml4e_entry e){$/;"	f
-pml4e_entry_set_frame	./sys/mm/vmmgr_pml4.c	/^inline void pml4e_entry_set_frame(pml4e_entry *e, uint64_t addr){$/;"	f
-pmmngr_load_PDBR	./sys/mm/paging.c	/^void pmmngr_load_PDBR (uint64_t* addr) {$/;"	f
-popq	./sys/task_switch.s	/^popq %rax$/;"	l
-posix_header_ustar	./include/sys/tarfs.h	/^struct posix_header_ustar {$/;"	s
-prefix	./include/sys/tarfs.h	/^	char prefix[155];$/;"	m	struct:posix_header_ustar
-prev	./include/sys/list.h	/^        struct list_head *next, *prev;$/;"	m	struct:list_head	typeref:struct:list_head::
-prev_in_ThreadList	./include/sys/kthread.h	/^    struct Kernel_Thread *prev_in_ThreadList, *next_in_ThreadList;$/;"	m	struct:Kernel_Thread	typeref:struct:Kernel_Thread::Kernel_Thread
-prev_in_ThreadQ	./include/sys/kthread.h	/^    struct Kernel_Thread *prev_in_ThreadQ, *next_in_ThreadQ;$/;"	m	struct:Kernel_Thread	typeref:struct:Kernel_Thread::Kernel_Thread
-prev_no_pages	./sys/mm/vmmgr_virtual.c	/^uint16_t prev_no_pages = 0;$/;"	v
-printElfHdr	./sys/elf.c	/^void printElfHdr(void *bin_start, Elf64_Ehdr* bin_elf_start){$/;"	f
-printPgmHdr	./sys/elf.c	/^void printPgmHdr(void *bin_start, Elf64_Ehdr* bin_elf_start, uint16_t idx){$/;"	f
-printSectHrds	./sys/elf.c	/^void printSectHrds(void* bin_start, Elf64_Ehdr* bin_elf_start, uint16_t idx){$/;"	f
-print_process	./sys/isr.c	/^void print_process(){$/;"	f
-print_total_system_memory	./sys/mm/mmgr.c	/^void print_total_system_memory(){$/;"	f
-print_usable_system_memory	./sys/mm/mmgr.c	/^void print_usable_system_memory(){$/;"	f
-printf	./libc/printf.c	/^int printf(const char *fmt, ...) {$/;"	f
-printf	./sys/stdfns.c	/^int printf(const char *fmt,...){$/;"	f
-priority	./include/sys/kthread.h	/^    int priority;$/;"	m	struct:Kernel_Thread
-prompt	./bin/shell/shell.c	/^char prompt[] = "SBUINX> ";$/;"	v
-ps	./libc/ps.c	/^uint16_t ps(){$/;"	f
-pt_entry	./include/sys/mm/vmmgr_pte.h	/^typedef uint64_t pt_entry;$/;"	t
-pt_entry_add_attrib	./sys/mm/vmmgr_pte.c	/^inline void pt_entry_add_attrib(pt_entry *e, uint64_t attrib){$/;"	f
-pt_entry_del_attrib	./sys/mm/vmmgr_pte.c	/^inline void pt_entry_del_attrib(pt_entry *e, uint64_t attrib){$/;"	f
-pt_entry_is_accessed	./sys/mm/vmmgr_pte.c	/^inline bool pt_entry_is_accessed(pt_entry e){$/;"	f
-pt_entry_is_dirty	./sys/mm/vmmgr_pte.c	/^inline bool pt_entry_is_dirty(pt_entry e){$/;"	f
-pt_entry_is_present	./sys/mm/vmmgr_pte.c	/^inline bool pt_entry_is_present(pt_entry e){$/;"	f
-pt_entry_is_user	./sys/mm/vmmgr_pte.c	/^inline bool pt_entry_is_user(pt_entry e){$/;"	f
-pt_entry_is_writable	./sys/mm/vmmgr_pte.c	/^inline bool pt_entry_is_writable(pt_entry e){$/;"	f
-pt_entry_pfn	./sys/mm/vmmgr_pte.c	/^inline uint32_t pt_entry_pfn(pt_entry e){$/;"	f
-pt_entry_set_frame	./sys/mm/vmmgr_pte.c	/^inline void pt_entry_set_frame(pt_entry *e, uint64_t addr){$/;"	f
-ptable	./sys/kthread.c	/^kthread* ptable[100];$/;"	v
-pte	./include/sys/mm/vm_mmgr.h	/^typedef struct page_table pte;$/;"	t	typeref:struct:page_table
-pte	./include/sys/mm/vmmgr_virtual.h	/^typedef struct page_table pte;$/;"	t	typeref:struct:page_table
-pushfq	./sys/task_switch.s	/^pushfq$/;"	l
-pushq	./sys/task_switch.s	/^pushq $0x1B # User CS = 0x18 | 0x3 ( DPL ) = 0x1B$/;"	l
-pushq	./sys/task_switch.s	/^pushq $0x23$/;"	l
-pushq	./sys/task_switch.s	/^pushq %rax$/;"	l
-pushq	./sys/task_switch.s	/^pushq (%rax)$/;"	l
-r10	./include/sys/idt.h	/^    uint64_t r15, r14, r13, r12, r11, r10, r9, r8, rsi, rdi, rbp, rdx, rcx, rbx, rax;$/;"	m	struct:registers
-r11	./include/sys/idt.h	/^    uint64_t r15, r14, r13, r12, r11, r10, r9, r8, rsi, rdi, rbp, rdx, rcx, rbx, rax;$/;"	m	struct:registers
-r12	./include/sys/idt.h	/^    uint64_t r15, r14, r13, r12, r11, r10, r9, r8, rsi, rdi, rbp, rdx, rcx, rbx, rax;$/;"	m	struct:registers
-r13	./include/sys/idt.h	/^    uint64_t r15, r14, r13, r12, r11, r10, r9, r8, rsi, rdi, rbp, rdx, rcx, rbx, rax;$/;"	m	struct:registers
-r14	./include/sys/idt.h	/^    uint64_t r15, r14, r13, r12, r11, r10, r9, r8, rsi, rdi, rbp, rdx, rcx, rbx, rax;$/;"	m	struct:registers
-r15	./include/sys/idt.h	/^    uint64_t r15, r14, r13, r12, r11, r10, r9, r8, rsi, rdi, rbp, rdx, rcx, rbx, rax;$/;"	m	struct:registers
-r8	./include/sys/idt.h	/^    uint64_t r15, r14, r13, r12, r11, r10, r9, r8, rsi, rdi, rbp, rdx, rcx, rbx, rax;$/;"	m	struct:registers
-r9	./include/sys/idt.h	/^    uint64_t r15, r14, r13, r12, r11, r10, r9, r8, rsi, rdi, rbp, rdx, rcx, rbx, rax;$/;"	m	struct:registers
-rax	./include/sys/idt.h	/^    uint64_t r15, r14, r13, r12, r11, r10, r9, r8, rsi, rdi, rbp, rdx, rcx, rbx, rax;$/;"	m	struct:registers
-rbp	./include/sys/idt.h	/^    uint64_t r15, r14, r13, r12, r11, r10, r9, r8, rsi, rdi, rbp, rdx, rcx, rbx, rax;$/;"	m	struct:registers
-rbx	./include/sys/idt.h	/^    uint64_t r15, r14, r13, r12, r11, r10, r9, r8, rsi, rdi, rbp, rdx, rcx, rbx, rax;$/;"	m	struct:registers
-rcx	./include/sys/idt.h	/^    uint64_t r15, r14, r13, r12, r11, r10, r9, r8, rsi, rdi, rbp, rdx, rcx, rbx, rax;$/;"	m	struct:registers
-rdi	./include/sys/idt.h	/^    uint64_t r15, r14, r13, r12, r11, r10, r9, r8, rsi, rdi, rbp, rdx, rcx, rbx, rax;$/;"	m	struct:registers
-rdx	./include/sys/idt.h	/^    uint64_t r15, r14, r13, r12, r11, r10, r9, r8, rsi, rdi, rbp, rdx, rcx, rbx, rax;$/;"	m	struct:registers
-read	./libc/read.c	/^int read(char* buf){$/;"	f
-readelf	./sys/elf.c	/^uint16_t readelf(char *name, struct exec *executable, uint16_t *pgm_entries, uint64_t *entry_point){$/;"	f
-reading	./sys/isr.c	/^volatile int reading = 0;$/;"	v
-reading_finished	./sys/isr.c	/^volatile int reading_finished = 1;$/;"	v
-refCount	./include/sys/kthread.h	/^    int refCount;$/;"	m	struct:Kernel_Thread
-registers	./include/sys/idt.h	/^typedef struct registers{$/;"	s
-regs	./include/sys/idt.h	/^    } regs;$/;"	t	typeref:struct:registers
-reload_cr3	./sys/isr.c	/^void reload_cr3(uint64_t pcr3){$/;"	f
-reload_gdt	./sys/gdt.c	/^void reload_gdt() {$/;"	f
-reload_idt	./sys/idt.c	/^void reload_idt() {$/;"	f
-remove_alllist_kthread	./sys/kthread.c	/^void remove_alllist_kthread(global_thread_list* all_queue, kthread* runnable){$/;"	f
-remove_child	./sys/kthread.c	/^void remove_child(kthread* parent, kthread* child_node){$/;"	f
-remove_runnable_kthread	./sys/kthread.c	/^void remove_runnable_kthread(Thr_Queue* run_queue, kthread* runnable){$/;"	f
-reserved	./include/sys/gdt.h	/^	uint32_t reserved;$/;"	m	struct:tss_t
-reserved	./include/sys/idt.h	/^      uint32_t   reserved;$/;"	m	struct:idtEntry
-reservedIst	./include/sys/idt.h	/^      unsigned char   reservedIst;$/;"	m	struct:idtEntry
-rflags	./include/sys/idt.h	/^    uint64_t rip, cs, rflags, rsp, ss;$/;"	m	struct:registers
-rip	./include/sys/idt.h	/^    uint64_t rip, cs, rflags, rsp, ss;$/;"	m	struct:registers
-round	./sys/elf.c	/^int round(int no){$/;"	f
-rsi	./include/sys/idt.h	/^    uint64_t r15, r14, r13, r12, r11, r10, r9, r8, rsi, rdi, rbp, rdx, rcx, rbx, rax;$/;"	m	struct:registers
-rsp	./include/sys/idt.h	/^    uint64_t rip, cs, rflags, rsp, ss;$/;"	m	struct:registers
-rsp	./include/sys/kthread.h	/^    uint64_t rsp;                         \/* offset 0 *\/$/;"	m	struct:Kernel_Thread
-rsp0	./include/sys/gdt.h	/^	uint64_t rsp0;$/;"	m	struct:tss_t
-runQueue	./sys/kthread.c	/^Thr_Queue runQueue;$/;"	v
-runnable_kthread	./sys/kthread.c	/^void runnable_kthread(kthread* k_thread){$/;"	f
-scan_code	./sys/kb.c	/^static int scan_code[] = {$/;"	v	file:
-scheduler_init	./sys/kthread.c	/^void scheduler_init(){$/;"	f
-sd_dpl	./sys/gdt.c	/^	uint64_t sd_dpl:2;     \/* segment descriptor priority level *\/$/;"	m	struct:sys_segment_descriptor	file:
-sd_gran	./sys/gdt.c	/^	uint64_t sd_gran:1;    \/* limit granularity (byte\/page) *\/$/;"	m	struct:sys_segment_descriptor	file:
-sd_hibase	./sys/gdt.c	/^	uint64_t sd_hibase:40; \/* segment base address (msb) *\/$/;"	m	struct:sys_segment_descriptor	file:
-sd_hilimit	./sys/gdt.c	/^	uint64_t sd_hilimit:4; \/* segment extent (msb) *\/$/;"	m	struct:sys_segment_descriptor	file:
-sd_lobase	./sys/gdt.c	/^	uint64_t sd_lobase:24; \/* segment base address (lsb) *\/$/;"	m	struct:sys_segment_descriptor	file:
-sd_lolimit	./sys/gdt.c	/^	uint64_t sd_lolimit:16;\/* segment extent (lsb) *\/$/;"	m	struct:sys_segment_descriptor	file:
-sd_p	./sys/gdt.c	/^	uint64_t sd_p:1;       \/* segment descriptor present *\/$/;"	m	struct:sys_segment_descriptor	file:
-sd_type	./sys/gdt.c	/^	uint64_t sd_type:5;    \/* segment type *\/$/;"	m	struct:sys_segment_descriptor	file:
-sd_xx1	./sys/gdt.c	/^	uint64_t sd_xx1:3;     \/* avl, long and def32 (not used) *\/$/;"	m	struct:sys_segment_descriptor	file:
-sd_xx2	./sys/gdt.c	/^	uint64_t sd_xx2:8;     \/* reserved *\/$/;"	m	struct:sys_segment_descriptor	file:
-sd_xx3	./sys/gdt.c	/^	uint64_t sd_xx3:19;    \/* reserved *\/$/;"	m	struct:sys_segment_descriptor	file:
-sd_zero	./sys/gdt.c	/^	uint64_t sd_zero:5;    \/* must be zero *\/$/;"	m	struct:sys_segment_descriptor	file:
-seconds_tens	./sys/timer.c	/^uint16_t seconds_tens=0;$/;"	v
-seconds_units	./sys/timer.c	/^uint16_t seconds_units=0;$/;"	v
-seg_actual_start	./include/elf.h	/^uint64_t seg_actual_start;$/;"	m	struct:exec
-seg_length	./include/elf.h	/^uint32_t seg_length;$/;"	m	struct:exec
-seg_mem	./include/elf.h	/^void* seg_mem;$/;"	m	struct:exec
-seg_page_start	./include/elf.h	/^uint64_t seg_page_start;$/;"	m	struct:exec
-selector	./include/sys/idt.h	/^      uint16_t   selector;$/;"	m	struct:idtEntry
-set_kernel_stack	./sys/main.c	/^void set_kernel_stack(uint64_t stack) \/\/this will update the ESP0 stack used when an interrupt occurs$/;"	f
-set_page_entry	./sys/mm/vmmgr_virtual.c	/^void set_page_entry(pt_entry* e, uint64_t phys, bool is_user){$/;"	f
-set_pde_entry	./sys/mm/vmmgr_virtual.c	/^void set_pde_entry(pd_entry* e2, pte* pte_dir, bool is_user){$/;"	f
-set_pdpe_entry	./sys/mm/vmmgr_virtual.c	/^void set_pdpe_entry(pdpe_entry* e1, pde* pde_dir, bool is_user){$/;"	f
-set_phys_virt_recurse	./sys/mm/vmmgr_virtual.c	/^void set_phys_virt_recurse(uint64_t phys, virtual_addr virt, bool is_user){$/;"	f
-set_pml4_entry	./sys/mm/vmmgr_virtual.c	/^void set_pml4_entry(pml4e_entry* e, pdpe* pdpe_dir, bool is_user){$/;"	f
-set_pml4_entry_recurs	./sys/mm/vmmgr_virtual.c	/^void set_pml4_entry_recurs(pml4e_entry* e, pml4* pml4_dir, bool is_user){$/;"	f
-setup_kthread	./sys/kthread.c	/^void setup_kthread(kthread* k_thread, thread_func startFunc, uint16_t arg){$/;"	f
-setup_kthread_user	./sys/exec.c	/^void setup_kthread_user(kthread* k_thread, void* startFunc, uint16_t arg){$/;"	f
-setup_tss	./sys/gdt.c	/^void setup_tss() {$/;"	f
-sh_addr	./include/elf.h	/^Elf64_Addr sh_addr; \/* Virtual address in memory *\/$/;"	m	struct:__anon4
-sh_addralign	./include/elf.h	/^Elf64_Xword sh_addralign; \/* Address alignment boundary *\/$/;"	m	struct:__anon4
-sh_entsize	./include/elf.h	/^Elf64_Xword sh_entsize; \/* Size of entries, if section has table *\/$/;"	m	struct:__anon4
-sh_flags	./include/elf.h	/^Elf64_Xword sh_flags; \/* Section attributes *\/$/;"	m	struct:__anon4
-sh_info	./include/elf.h	/^Elf64_Word sh_info; \/* Miscellaneous information *\/$/;"	m	struct:__anon4
-sh_link	./include/elf.h	/^Elf64_Word sh_link; \/* Link to other section *\/$/;"	m	struct:__anon4
-sh_name	./include/elf.h	/^Elf64_Word sh_name; \/* Section name *\/$/;"	m	struct:__anon4
-sh_offset	./include/elf.h	/^Elf64_Off sh_offset; \/* Offset in file *\/$/;"	m	struct:__anon4
-sh_size	./include/elf.h	/^Elf64_Xword sh_size; \/* Size of section *\/$/;"	m	struct:__anon4
-sh_type	./include/elf.h	/^Elf64_Word sh_type; \/* Section type *\/$/;"	m	struct:__anon4
-shell_main	./sys/shell.c	/^void shell_main() $/;"	f
-size	./include/sys/idt.h	/^    uint16_t size;$/;"	m	struct:idtr_t
-size	./include/sys/tarfs.h	/^	char size[12];$/;"	m	struct:posix_header_ustar
-size	./sys/gdt.c	/^	uint16_t size;$/;"	m	struct:gdtr_t	file:
-size	./sys/mm/myalloc.c	/^uint16_t size; \/\/ Size of the current chunk$/;"	m	struct:metadata_block	file:
-sleep	./libc/sleep.c	/^void sleep(uint64_t time){$/;"	f
-sleep	./sys/isr.c	/^void sleep(uint64_t time){$/;"	f
-sleeping	./include/sys/kthread.h	/^    signed int sleeping;           \/* offset 4 *\/$/;"	m	struct:Kernel_Thread
-slob_alloc	./sys/mm/slob.c	/^void *slob_alloc(int size, int align){$/;"	f
-slob_block	./sys/mm/slob.c	/^struct slob_block{$/;"	s	file:
-slob_free	./sys/mm/slob.c	/^void slob_free(void *block, int size){$/;"	f
-slob_t	./sys/mm/slob.c	/^typedef struct slob_block slob_t;$/;"	t	typeref:struct:slob_block	file:
-slobfree	./sys/mm/slob.c	/^static slob_t *slobfree = &arena;$/;"	v	file:
-smap_t	./include/sys/mm/mmgr.h	/^struct smap_t {$/;"	s
-split_block	./sys/mm/myalloc.c	/^void split_block(t_block b,uint16_t size){$/;"	f
-ss	./include/sys/idt.h	/^    uint64_t rip, cs, rflags, rsp, ss;$/;"	m	struct:registers
-stack	./sys/main.c	/^char stack[INITIAL_STACK_SIZE];$/;"	v
-stackPage	./include/sys/kthread.h	/^    void* stackPage;$/;"	m	struct:Kernel_Thread
-start	./sys/main.c	/^void start(uint16_t arg)$/;"	f
-start_kthread	./sys/kthread.c	/^kthread* start_kthread(thread_func startFunc, const char* name, uint16_t arg, uint16_t priority, bool detached){$/;"	f
-strchr	./libc/stdlib.c	/^char *strchr(const char *s, int c)$/;"	f
-strchr	./sys/stdfns.c	/^char *strchr(const char *s, int c)$/;"	f
-strcmp	./libc/stdlib.c	/^int strcmp(char *a, char* b){$/;"	f
-strcmp	./sys/stdfns.c	/^int strcmp(char *a, char* b){$/;"	f
-strcpsn	./libc/stdlib.c	/^int strcpsn(const char *s1, const char *s2)$/;"	f
-strcpsn	./sys/stdfns.c	/^int strcpsn(const char *s1, const char *s2)$/;"	f
-strlen	./libc/stdlib.c	/^int strlen(const char *s){$/;"	f
-strlen	./sys/stdfns.c	/^int strlen(const char *s){$/;"	f
-strncpy	./libc/stdlib.c	/^void strncpy(char* dest, const char* src, uint32_t size){$/;"	f
-strncpy	./sys/stdfns.c	/^void strncpy(char* dest, const char* src, uint32_t size){$/;"	f
-sub_free	./sys/mm/myalloc.c	/^void sub_free(void* p){$/;"	f
-sub_malloc	./sys/mm/myalloc.c	/^void* sub_malloc(uint16_t size, bool align){$/;"	f
-sum	./bin/hello/hello.c	/^void sum(int a, int b){$/;"	f
-switch_to_user	./sys/task_switch.s	/^switch_to_user:$/;"	l
-sys_exit	./sys/isr.c	/^void sys_exit(){$/;"	f
-sys_getpid	./sys/isr.c	/^int sys_getpid(){$/;"	f
-sys_segment_descriptor	./sys/gdt.c	/^struct sys_segment_descriptor {$/;"	s	file:
-sys_total_memory	./sys/mm/mmgr.c	/^struct smap_t sys_total_memory[10];$/;"	v	typeref:struct:smap_t
-sys_usable_memory	./sys/mm/mmgr.c	/^struct smap_t sys_usable_memory[10];$/;"	v	typeref:struct:smap_t
-t_block	./sys/mm/myalloc.c	/^typedef struct metadata_block *t_block;$/;"	t	typeref:struct:metadata_block	file:
-tail	./include/sys/kthread.h	/^    kthread *head, *tail;$/;"	m	struct:Thread_queue
-tail	./include/sys/kthread.h	/^  kthread *head, *tail;$/;"	m	struct:All_threads
-tarfs_read	./sys/elf.c	/^void* tarfs_read(char* name){$/;"	f
-task_error_t	./include/errors.h	/^typedef enum _task_error task_error_t;$/;"	t	typeref:enum:_task_error
-temp	./sys/isr.c	/^void temp(){$/;"	f
-thread_cleanup	./sys/kthread.c	/^void thread_cleanup(kthread* k_thread){$/;"	f
-thread_exit	./sys/kthread.c	/^static void thread_exit(void)$/;"	f	file:
-thread_func	./include/sys/kthread.h	/^typedef void (*thread_func)(uint16_t arg);$/;"	t
-timer_handler	./sys/timer.c	/^void timer_handler(regs *r){$/;"	f
-timer_install	./sys/timer.c	/^void timer_install(){$/;"	f
-timer_memory	./sys/stdfns.c	/^char* timer_memory = (char *)TIMER_MEMORY;$/;"	v
-timer_setup	./sys/timer.c	/^void timer_setup(int hz)$/;"	f
-tlocalData	./include/sys/kthread.h	/^    const void* tlocalData[MAX_TLOCAL_KEYS];$/;"	m	struct:Kernel_Thread
-total_mem_counter	./sys/mm/mmgr.c	/^uint64_t total_mem_counter = 0;$/;"	v
-total_ticks	./sys/timer.c	/^uint16_t total_ticks = 0; \/\/ Variable to keep track of total ticks thus far$/;"	v
-total_ticks_secs	./sys/timer.c	/^uint16_t total_ticks_secs=0;$/;"	v
-tss	./sys/main.c	/^struct tss_t tss;$/;"	v	typeref:struct:tss_t
-tss_t	./include/sys/gdt.h	/^struct tss_t {$/;"	s
-type	./include/sys/mm/mmgr.h	/^      uint32_t type;$/;"	m	struct:smap_t
-typeflag	./include/sys/tarfs.h	/^	char typeflag[1];$/;"	m	struct:posix_header_ustar
-uid	./include/sys/tarfs.h	/^	char uid[8];$/;"	m	struct:posix_header_ustar
-uint16_t	./include/defs.h	/^typedef __uint16_t uint16_t;$/;"	t
-uint32_t	./include/defs.h	/^typedef __uint32_t uint32_t;$/;"	t
-uint64_t	./include/defs.h	/^typedef __uint64_t uint64_t;$/;"	t
-uint8_t	./include/defs.h	/^typedef __uchar8_t uint8_t;$/;"	t
-uname	./include/sys/tarfs.h	/^	char uname[32];$/;"	m	struct:posix_header_ustar
-units	./sys/mm/slob.c	/^    int units;$/;"	m	struct:slob_block	file:
-unused	./include/sys/gdt.h	/^	uint32_t unused[11];$/;"	m	struct:tss_t
-update_cursor	./sys/stdfns.c	/^void update_cursor()$/;"	f
-usable_mem_counter	./sys/mm/mmgr.c	/^uint64_t usable_mem_counter = 0;$/;"	v
-usage	./bin/shell/shell.c	/^void usage(){$/;"	f
-usage	./sys/shell.c	/^void usage(){$/;"	f
-va_arg	./include/stdarg.h	2;"	d
-va_copy	./include/stdarg.h	4;"	d
-va_end	./include/stdarg.h	3;"	d
-va_list	./include/stdarg.h	/^typedef __builtin_va_list va_list;$/;"	t
-va_start	./include/stdarg.h	1;"	d
-version	./include/sys/tarfs.h	/^	char version[2];$/;"	m	struct:posix_header_ustar
-video_memory	./sys/stdfns.c	/^char* video_memory = (char *)START_MEMORY;$/;"	v
-virt_base	./sys/mm/vmmgr_virtual.c	/^uint64_t virt_base = 0xFFFFFFFF80000000;$/;"	v
-virtual_addr	./include/sys/mm/vm_mmgr.h	/^typedef uint64_t virtual_addr;$/;"	t
-virtual_addr	./include/sys/mm/vmmgr_virtual.h	/^typedef uint64_t virtual_addr;$/;"	t
-vm_area_struct	./include/sys/task.h	/^typedef struct vmas vm_area_struct;$/;"	t	typeref:struct:vmas
-vm_end	./include/sys/task.h	/^  void *vm_start, *vm_end; \/\/ Start and end of the region$/;"	m	struct:vmas
-vm_flags	./include/sys/task.h	/^  uint16_t vm_flags;$/;"	m	struct:vmas
-vm_next	./include/sys/task.h	/^  struct vmas *vm_next;$/;"	m	struct:vmas	typeref:struct:vmas::vmas
-vm_start	./include/sys/task.h	/^  void *vm_start, *vm_end; \/\/ Start and end of the region$/;"	m	struct:vmas
-vmas	./include/sys/task.h	/^struct vmas {$/;"	s
-vmmgr_alloc_block	./sys/mm/vmmgr_page_allocator.c	/^void* vmmgr_alloc_block(){$/;"	f
-vmmgr_alloc_page	./sys/mm/vmmgr_virtual.c	/^inline void* vmmgr_alloc_page(uint16_t page){$/;"	f
-vmmgr_free_block	./sys/mm/vmmgr_page_allocator.c	/^void vmmgr_free_block(void *p){$/;"	f
-vmmgr_free_page	./sys/mm/vmmgr_virtual.c	/^inline void vmmgr_free_page(){$/;"	f
-vmmgr_get_current_pml4_directory	./sys/mm/vmmgr_virtual.c	/^pml4* vmmgr_get_current_pml4_directory(){$/;"	f
-vmmgr_get_first_free	./sys/mm/vmmgr_page_allocator.c	/^int vmmgr_get_first_free(){$/;"	f
-vmmgr_get_total_blocks	./sys/mm/vmmgr_page_allocator.c	/^uint64_t vmmgr_get_total_blocks(){$/;"	f
-vmmgr_get_total_usable_blocks	./sys/mm/vmmgr_page_allocator.c	/^uint64_t vmmgr_get_total_usable_blocks(){$/;"	f
-vmmgr_get_total_usable_memory	./sys/mm/vmmgr_page_allocator.c	/^uint64_t vmmgr_get_total_usable_memory(){$/;"	f
-vmmgr_get_used_blocks	./sys/mm/vmmgr_page_allocator.c	/^uint64_t vmmgr_get_used_blocks(){$/;"	f
-vmmgr_init	./sys/mm/vmmgr_virtual.c	/^void vmmgr_init(){$/;"	f
-vmmgr_is_block_free	./sys/mm/vmmgr_page_allocator.c	/^inline bool vmmgr_is_block_free (int bit) {$/;"	f
-vmmgr_load_pml4	./sys/mm/paging.s	/^vmmgr_load_pml4:$/;"	l
-vmmgr_map_page	./sys/mm/vmmgr_virtual.c	/^void vmmgr_map_page(uint64_t phys, uint64_t virt){$/;"	f
-vmmgr_map_page_after_paging	./sys/mm/vmmgr_virtual.c	/^void vmmgr_map_page_after_paging(uint64_t phys, uint64_t virt, bool is_user){$/;"	f
-vmmgr_max_blocks	./sys/mm/vmmgr_page_allocator.c	/^uint64_t vmmgr_max_blocks=0;$/;"	v
-vmmgr_memory_map	./sys/mm/vmmgr_page_allocator.c	/^static uint64_t vmmgr_memory_map[ (MY_KERNEL_SIZE*1024*1024)\/(4096*64*10) ];$/;"	v	file:
-vmmgr_page_alloc	./sys/mm/vmmgr_page_allocator.c	/^void* vmmgr_page_alloc(){$/;"	f
-vmmgr_page_allocator_init	./sys/mm/vmmgr_page_allocator.c	/^void vmmgr_page_allocator_init(){$/;"	f
-vmmgr_page_directory_lookup_entry	./sys/mm/vmmgr_virtual.c	/^pd_entry* vmmgr_page_directory_lookup_entry(pde* p, virtual_addr addr){$/;"	f
-vmmgr_page_pointer_directory_lookup_entry	./sys/mm/vmmgr_virtual.c	/^pdpe_entry* vmmgr_page_pointer_directory_lookup_entry(pdpe* p, virtual_addr addr){$/;"	f
-vmmgr_pml4_directory_lookup_entry	./sys/mm/vmmgr_virtual.c	/^pml4e_entry* vmmgr_pml4_directory_lookup_entry(pml4* p, virtual_addr addr){$/;"	f
-vmmgr_print_stats	./sys/mm/vmmgr_page_allocator.c	/^void vmmgr_print_stats(){$/;"	f
-vmmgr_ptable_lookup_entry	./sys/mm/vmmgr_virtual.c	/^pt_entry* vmmgr_ptable_lookup_entry(pte* p, virtual_addr addr){$/;"	f
-vmmgr_set_block	./sys/mm/vmmgr_page_allocator.c	/^inline void vmmgr_set_block (int bit) {$/;"	f
-vmmgr_switch_pml4_directory	./sys/mm/vmmgr_virtual.c	/^inline void vmmgr_switch_pml4_directory(pml4* p){$/;"	f
-vmmgr_unset_block	./sys/mm/vmmgr_page_allocator.c	/^inline void vmmgr_unset_block (int bit) {$/;"	f
-vmmgr_usable_memory_size	./sys/mm/vmmgr_page_allocator.c	/^uint64_t vmmgr_usable_memory_size;$/;"	v
-vmmgr_used_blocks	./sys/mm/vmmgr_page_allocator.c	/^uint64_t vmmgr_used_blocks=0;$/;"	v
-wait	./libc/wait.c	/^int wait(){$/;"	f
-wait	./sys/isr.c	/^void wait(){$/;"	f
-write	./libc/printf.c	/^uint16_t write(const char* buf){$/;"	f
-write	./libc/syscalls.s	/^write:$/;"	l
-write	./sys/isr.c	/^void write(const char* str){$/;"	f
-write_char	./sys/stdfns.c	/^void write_char(int color, char c)$/;"	f
-write_io_buff	./sys/stdfns.c	/^void write_io_buff(char c)$/;"	f
-write_key	./sys/stdfns.c	/^void write_key(int color, char c){$/;"	f
-write_string	./sys/stdfns.c	/^void write_string( int color, const char *string )$/;"	f
-write_time	./sys/stdfns.c	/^void write_time(uint16_t su, uint16_t st, uint16_t mu, uint16_t mt, uint16_t hu, uint16_t ht)$/;"	f
-x86_64_asm_ltr	./sys/idt.c	/^void x86_64_asm_ltr(){$/;"	f
+-exclude	Makefile	/^	tar -czvf $(USER).tgz --exclude=$(ROOTLIB) --exclude=$(ROOTBIN) --exclude=.empty --exclude=.*.sw? --exclude=*~ LICENSE Makefile linker.script sys bin libc ld include $(ROOTFS)$/;"	m
+ALIGN	sys/mm/slob.c	11;"	d	file:
+ALLOC_BLOCK_SIZE	sys/mm/myalloc.c	30;"	d	file:
+AR	Makefile	/^AR=ar$/;"	m
+AS	Makefile	/^AS=as$/;"	m
+All_threads	include/sys/kthread.h	/^struct All_threads{$/;"	s
+BINS	Makefile	/^BINS:=$(addprefix $(ROOTFS)\/,$(wildcard bin\/*))$/;"	m
+BIN_SRCS	Makefile	/^BIN_SRCS:=$(wildcard bin\/*\/*.c)$/;"	m
+BLOCKS_PER_BYTE	include/sys/mm/mmgr.h	4;"	d
+BLOCK_ALIGN	include/sys/mm/mmgr.h	8;"	d
+BLOCK_SIZE	include/sys/mm/mmgr.h	7;"	d
+BLOCK_SIZE	libc/malloc.c	17;"	d	file:
+BUILTIN_BG	include/sys/shell.h	/^        BUILTIN_BG,$/;"	e	enum:cmdline_tokens::builtins_t
+BUILTIN_FG	include/sys/shell.h	/^        BUILTIN_FG} builtins;$/;"	e	enum:cmdline_tokens::builtins_t
+BUILTIN_JOBS	include/sys/shell.h	/^        BUILTIN_JOBS,$/;"	e	enum:cmdline_tokens::builtins_t
+BUILTIN_NONE	include/sys/shell.h	/^        BUILTIN_NONE,$/;"	e	enum:cmdline_tokens::builtins_t
+BUILTIN_QUIT	include/sys/shell.h	/^        BUILTIN_QUIT,$/;"	e	enum:cmdline_tokens::builtins_t
+C	include/sys/gdt.h	18;"	d
+CC	Makefile	/^CC=gcc$/;"	m
+CFLAGS	Makefile	/^CFLAGS=-O1 -Wall -Werror -nostdinc -Iinclude -msoft-float -mno-sse -mno-red-zone -fno-builtin -fPIC -march=amdfam10 -g3$/;"	m
+D	include/sys/gdt.h	25;"	d
+DPL0	include/sys/gdt.h	19;"	d
+DPL1	include/sys/gdt.h	20;"	d
+DPL2	include/sys/gdt.h	21;"	d
+DPL3	include/sys/gdt.h	22;"	d
+E_MEM_NOMEM	include/errors.h	/^    E_MEM_NOMEM = -1, \/\/ Out of memoru$/;"	e	enum:_memory_error
+E_MEM_SUCCESS	include/errors.h	/^    E_MEM_SUCCESS = 0,$/;"	e	enum:_memory_error
+E_PID_NOPID	include/errors.h	/^    E_PID_NOPID = -1,$/;"	e	enum:_task_error
+E_PID_SUCCESS	include/errors.h	/^    E_PID_SUCCESS = 0,$/;"	e	enum:_task_error
+Elf64_Addr	include/elf.h	/^typedef uint64_t   Elf64_Addr;$/;"	t
+Elf64_Ehdr	include/elf.h	/^} Elf64_Ehdr;$/;"	t	typeref:struct:__anon3
+Elf64_Half	include/elf.h	/^typedef uint16_t   Elf64_Half;$/;"	t
+Elf64_Off	include/elf.h	/^typedef uint64_t   Elf64_Off;$/;"	t
+Elf64_Phdr	include/elf.h	/^} Elf64_Phdr;$/;"	t	typeref:struct:__anon5
+Elf64_SHalf	include/elf.h	/^typedef uint16_t   Elf64_SHalf;$/;"	t
+Elf64_Shdr	include/elf.h	/^} Elf64_Shdr;$/;"	t	typeref:struct:__anon4
+Elf64_Sword	include/elf.h	/^typedef uint32_t   Elf64_Sword;$/;"	t
+Elf64_Sxword	include/elf.h	/^typedef uint64_t   Elf64_Sxword;$/;"	t
+Elf64_Word	include/elf.h	/^typedef uint32_t   Elf64_Word;$/;"	t
+Elf64_Xword	include/elf.h	/^typedef uint64_t   Elf64_Xword;$/;"	t
+Exit_thread	sys/kthread.c	/^void Exit_thread(uint16_t exit_code){$/;"	f
+FALSE	include/defs.h	/^  FALSE,$/;"	e	enum:__anon1
+GDT_CS	include/sys/gdt.h	15;"	d
+GDT_DS	include/sys/gdt.h	16;"	d
+Get_Current	sys/kthread.c	/^struct Kernel_Thread* Get_Current(void)$/;"	f
+Hello	sys/kthread.c	/^void Hello(uint16_t arg){$/;"	f
+INITIAL_STACK_SIZE	sys/main.c	79;"	d	file:
+INIT_LIST_HEAD	include/sys/list.h	23;"	d
+Idle	sys/kthread.c	/^void Idle(uint16_t arg){$/;"	f
+Init_Thread	sys/kthread.c	/^static void Init_Thread(kthread* k_thread,const char* name, void* stackPage, uint16_t prio, bool detached){$/;"	f	file:
+Init_Thread_user	sys/exec.c	/^static void Init_Thread_user(kthread* k_thread,const char* name, void* stackPage, uint16_t prio, bool detached){$/;"	f	file:
+KERN_CS	sys/kthread.c	/^uint64_t KERN_CS=0x8;$/;"	v
+KERN_DS	sys/kthread.c	/^uint64_t KERN_DS=0x10;$/;"	v
+KERN_SRCS	Makefile	/^KERN_SRCS:=$(wildcard sys\/*.c sys\/*.s sys\/*\/*.c sys\/*\/*.s)$/;"	m
+KEYBOARD_WARMUP_MEMORY	include/stdio.h	6;"	d
+KEYCODE	include/sys/kb.h	/^} KEYCODE;$/;"	t	typeref:enum:__anon2
+KEY_0	include/sys/kb.h	/^  KEY_0                 = '0',$/;"	e	enum:__anon2
+KEY_1	include/sys/kb.h	/^  KEY_1                 = '1',$/;"	e	enum:__anon2
+KEY_2	include/sys/kb.h	/^  KEY_2                 = '2',$/;"	e	enum:__anon2
+KEY_3	include/sys/kb.h	/^  KEY_3                 = '3',$/;"	e	enum:__anon2
+KEY_4	include/sys/kb.h	/^  KEY_4                 = '4',$/;"	e	enum:__anon2
+KEY_5	include/sys/kb.h	/^  KEY_5                 = '5',$/;"	e	enum:__anon2
+KEY_6	include/sys/kb.h	/^  KEY_6                 = '6',$/;"	e	enum:__anon2
+KEY_7	include/sys/kb.h	/^  KEY_7                 = '7',$/;"	e	enum:__anon2
+KEY_8	include/sys/kb.h	/^  KEY_8                 = '8',$/;"	e	enum:__anon2
+KEY_9	include/sys/kb.h	/^  KEY_9                 = '9',$/;"	e	enum:__anon2
+KEY_A	include/sys/kb.h	/^  KEY_A                 = 'a',$/;"	e	enum:__anon2
+KEY_AMPERSAND	include/sys/kb.h	/^  KEY_AMPERSAND         = '&',$/;"	e	enum:__anon2
+KEY_ASTERISK	include/sys/kb.h	/^  KEY_ASTERISK          = '*',$/;"	e	enum:__anon2
+KEY_AT	include/sys/kb.h	/^  KEY_AT                = '@',$/;"	e	enum:__anon2
+KEY_B	include/sys/kb.h	/^  KEY_B                 = 'b',$/;"	e	enum:__anon2
+KEY_BACKSLASH	include/sys/kb.h	/^  KEY_BACKSLASH         = '\\\\',$/;"	e	enum:__anon2
+KEY_BACKSPACE	include/sys/kb.h	/^  KEY_BACKSPACE         = '\\b',$/;"	e	enum:__anon2
+KEY_BAR	include/sys/kb.h	/^  KEY_BAR               = '|',$/;"	e	enum:__anon2
+KEY_C	include/sys/kb.h	/^  KEY_C                 = 'c',$/;"	e	enum:__anon2
+KEY_CAPSLOCK	include/sys/kb.h	/^  KEY_CAPSLOCK          = 0x4001,$/;"	e	enum:__anon2
+KEY_CARRET	include/sys/kb.h	/^  KEY_CARRET            = '^',$/;"	e	enum:__anon2
+KEY_COLON	include/sys/kb.h	/^  KEY_COLON             = ':',$/;"	e	enum:__anon2
+KEY_COMMA	include/sys/kb.h	/^  KEY_COMMA             = ',',$/;"	e	enum:__anon2
+KEY_D	include/sys/kb.h	/^  KEY_D                 = 'd',$/;"	e	enum:__anon2
+KEY_DELETE	include/sys/kb.h	/^  KEY_DELETE            = 0x400b,$/;"	e	enum:__anon2
+KEY_DOLLAR	include/sys/kb.h	/^  KEY_DOLLAR            = '$',$/;"	e	enum:__anon2
+KEY_DOT	include/sys/kb.h	/^  KEY_DOT               = '.',$/;"	e	enum:__anon2
+KEY_DOWN	include/sys/kb.h	/^  KEY_DOWN              = 0x1101,$/;"	e	enum:__anon2
+KEY_E	include/sys/kb.h	/^  KEY_E                 = 'e',$/;"	e	enum:__anon2
+KEY_END	include/sys/kb.h	/^  KEY_END               = 0x400d,$/;"	e	enum:__anon2
+KEY_EQUAL	include/sys/kb.h	/^  KEY_EQUAL             = '=',$/;"	e	enum:__anon2
+KEY_ESCAPE	include/sys/kb.h	/^  KEY_ESCAPE            = 0x1001,$/;"	e	enum:__anon2
+KEY_EURO	include/sys/kb.h	/^  KEY_EURO              = '$',$/;"	e	enum:__anon2
+KEY_EXCLAMATION	include/sys/kb.h	/^  KEY_EXCLAMATION       = '!',$/;"	e	enum:__anon2
+KEY_F	include/sys/kb.h	/^  KEY_F                 = 'f',$/;"	e	enum:__anon2
+KEY_F1	include/sys/kb.h	/^  KEY_F1                = 0x1201,$/;"	e	enum:__anon2
+KEY_F10	include/sys/kb.h	/^  KEY_F10               = 0x120a,$/;"	e	enum:__anon2
+KEY_F11	include/sys/kb.h	/^  KEY_F11               = 0x120b,$/;"	e	enum:__anon2
+KEY_F12	include/sys/kb.h	/^  KEY_F12               = 0x120b,$/;"	e	enum:__anon2
+KEY_F13	include/sys/kb.h	/^  KEY_F13               = 0x120c,$/;"	e	enum:__anon2
+KEY_F14	include/sys/kb.h	/^  KEY_F14               = 0x120d,$/;"	e	enum:__anon2
+KEY_F15	include/sys/kb.h	/^  KEY_F15               = 0x120e,$/;"	e	enum:__anon2
+KEY_F2	include/sys/kb.h	/^  KEY_F2                = 0x1202,$/;"	e	enum:__anon2
+KEY_F3	include/sys/kb.h	/^  KEY_F3                = 0x1203,$/;"	e	enum:__anon2
+KEY_F4	include/sys/kb.h	/^  KEY_F4                = 0x1204,$/;"	e	enum:__anon2
+KEY_F5	include/sys/kb.h	/^  KEY_F5                = 0x1205,$/;"	e	enum:__anon2
+KEY_F6	include/sys/kb.h	/^  KEY_F6                = 0x1206,$/;"	e	enum:__anon2
+KEY_F7	include/sys/kb.h	/^  KEY_F7                = 0x1207,$/;"	e	enum:__anon2
+KEY_F8	include/sys/kb.h	/^  KEY_F8                = 0x1208,$/;"	e	enum:__anon2
+KEY_F9	include/sys/kb.h	/^  KEY_F9                = 0x1209,$/;"	e	enum:__anon2
+KEY_G	include/sys/kb.h	/^  KEY_G                 = 'g',$/;"	e	enum:__anon2
+KEY_GRAVE	include/sys/kb.h	/^  KEY_GRAVE             = '`',$/;"	e	enum:__anon2
+KEY_GREATER	include/sys/kb.h	/^  KEY_GREATER           = '>',$/;"	e	enum:__anon2
+KEY_H	include/sys/kb.h	/^  KEY_H                 = 'h',$/;"	e	enum:__anon2
+KEY_HASH	include/sys/kb.h	/^  KEY_HASH              = '#',$/;"	e	enum:__anon2
+KEY_HOME	include/sys/kb.h	/^  KEY_HOME              = 0x400c,$/;"	e	enum:__anon2
+KEY_I	include/sys/kb.h	/^  KEY_I                 = 'i',$/;"	e	enum:__anon2
+KEY_INSERT	include/sys/kb.h	/^  KEY_INSERT            = 0x400a,$/;"	e	enum:__anon2
+KEY_J	include/sys/kb.h	/^  KEY_J                 = 'j',$/;"	e	enum:__anon2
+KEY_K	include/sys/kb.h	/^  KEY_K                 = 'k',$/;"	e	enum:__anon2
+KEY_KP_0	include/sys/kb.h	/^  KEY_KP_0              = '0',$/;"	e	enum:__anon2
+KEY_KP_1	include/sys/kb.h	/^  KEY_KP_1              = '1',$/;"	e	enum:__anon2
+KEY_KP_2	include/sys/kb.h	/^  KEY_KP_2              = '2',$/;"	e	enum:__anon2
+KEY_KP_3	include/sys/kb.h	/^  KEY_KP_3              = '3',$/;"	e	enum:__anon2
+KEY_KP_4	include/sys/kb.h	/^  KEY_KP_4              = '4',$/;"	e	enum:__anon2
+KEY_KP_5	include/sys/kb.h	/^  KEY_KP_5              = '5',$/;"	e	enum:__anon2
+KEY_KP_6	include/sys/kb.h	/^  KEY_KP_6              = '6',$/;"	e	enum:__anon2
+KEY_KP_7	include/sys/kb.h	/^  KEY_KP_7              = '7',$/;"	e	enum:__anon2
+KEY_KP_8	include/sys/kb.h	/^  KEY_KP_8              = '8',$/;"	e	enum:__anon2
+KEY_KP_9	include/sys/kb.h	/^  KEY_KP_9              = '9',$/;"	e	enum:__anon2
+KEY_KP_ASTERISK	include/sys/kb.h	/^  KEY_KP_ASTERISK       = '*',$/;"	e	enum:__anon2
+KEY_KP_DECIMAL	include/sys/kb.h	/^  KEY_KP_DECIMAL        = '.',$/;"	e	enum:__anon2
+KEY_KP_DIVIDE	include/sys/kb.h	/^  KEY_KP_DIVIDE         = '\/',$/;"	e	enum:__anon2
+KEY_KP_ENTER	include/sys/kb.h	/^  KEY_KP_ENTER          = 0x3010,$/;"	e	enum:__anon2
+KEY_KP_MINUS	include/sys/kb.h	/^  KEY_KP_MINUS          = '-',$/;"	e	enum:__anon2
+KEY_KP_NUMLOCK	include/sys/kb.h	/^  KEY_KP_NUMLOCK        = 0x300f,$/;"	e	enum:__anon2
+KEY_KP_PLUS	include/sys/kb.h	/^  KEY_KP_PLUS           = '+',$/;"	e	enum:__anon2
+KEY_L	include/sys/kb.h	/^  KEY_L                 = 'l',$/;"	e	enum:__anon2
+KEY_LALT	include/sys/kb.h	/^  KEY_LALT              = 0x4004,$/;"	e	enum:__anon2
+KEY_LCTRL	include/sys/kb.h	/^  KEY_LCTRL             = 0x4003,$/;"	e	enum:__anon2
+KEY_LEFT	include/sys/kb.h	/^  KEY_LEFT              = 0x1102,$/;"	e	enum:__anon2
+KEY_LEFTBRACKET	include/sys/kb.h	/^  KEY_LEFTBRACKET       = '[',$/;"	e	enum:__anon2
+KEY_LEFTCURL	include/sys/kb.h	/^  KEY_LEFTCURL          = '{',$/;"	e	enum:__anon2
+KEY_LEFTPARENTHESIS	include/sys/kb.h	/^  KEY_LEFTPARENTHESIS   = '(',$/;"	e	enum:__anon2
+KEY_LESS	include/sys/kb.h	/^  KEY_LESS              = '<',$/;"	e	enum:__anon2
+KEY_LSHIFT	include/sys/kb.h	/^  KEY_LSHIFT            = 0x4002,$/;"	e	enum:__anon2
+KEY_LWIN	include/sys/kb.h	/^  KEY_LWIN              = 0x4005,$/;"	e	enum:__anon2
+KEY_M	include/sys/kb.h	/^  KEY_M                 = 'm',$/;"	e	enum:__anon2
+KEY_MINUS	include/sys/kb.h	/^  KEY_MINUS             = '-',$/;"	e	enum:__anon2
+KEY_N	include/sys/kb.h	/^  KEY_N                 = 'n',$/;"	e	enum:__anon2
+KEY_NUMKEYCODES	include/sys/kb.h	/^  KEY_NUMKEYCODES$/;"	e	enum:__anon2
+KEY_O	include/sys/kb.h	/^  KEY_O                 = 'o',$/;"	e	enum:__anon2
+KEY_P	include/sys/kb.h	/^  KEY_P                 = 'p',$/;"	e	enum:__anon2
+KEY_PAGEDOWN	include/sys/kb.h	/^  KEY_PAGEDOWN          = 0x400f,$/;"	e	enum:__anon2
+KEY_PAGEUP	include/sys/kb.h	/^  KEY_PAGEUP            = 0x400e,$/;"	e	enum:__anon2
+KEY_PAUSE	include/sys/kb.h	/^  KEY_PAUSE             = 0x4011,$/;"	e	enum:__anon2
+KEY_PERCENT	include/sys/kb.h	/^  KEY_PERCENT           = '%',$/;"	e	enum:__anon2
+KEY_PLUS	include/sys/kb.h	/^  KEY_PLUS              = '+',$/;"	e	enum:__anon2
+KEY_POUND	include/sys/kb.h	/^  KEY_POUND             = '£',$/;"	e	enum:__anon2
+KEY_Q	include/sys/kb.h	/^  KEY_Q                 = 'q',$/;"	e	enum:__anon2
+KEY_QUESTION	include/sys/kb.h	/^  KEY_QUESTION          = '?',$/;"	e	enum:__anon2
+KEY_QUOTE	include/sys/kb.h	/^  KEY_QUOTE             = '\\'',$/;"	e	enum:__anon2
+KEY_QUOTEDOUBLE	include/sys/kb.h	/^  KEY_QUOTEDOUBLE       = '\\"',$/;"	e	enum:__anon2
+KEY_R	include/sys/kb.h	/^  KEY_R                 = 'r',$/;"	e	enum:__anon2
+KEY_RALT	include/sys/kb.h	/^  KEY_RALT              = 0x4008,$/;"	e	enum:__anon2
+KEY_RCTRL	include/sys/kb.h	/^  KEY_RCTRL             = 0x4007,$/;"	e	enum:__anon2
+KEY_RETURN	include/sys/kb.h	/^  KEY_RETURN            = '\\r',$/;"	e	enum:__anon2
+KEY_RIGHT	include/sys/kb.h	/^  KEY_RIGHT             = 0x1103,$/;"	e	enum:__anon2
+KEY_RIGHTBRACKET	include/sys/kb.h	/^  KEY_RIGHTBRACKET      = ']',$/;"	e	enum:__anon2
+KEY_RIGHTCURL	include/sys/kb.h	/^  KEY_RIGHTCURL         = '}',$/;"	e	enum:__anon2
+KEY_RIGHTPARENTHESIS	include/sys/kb.h	/^  KEY_RIGHTPARENTHESIS  = ')',$/;"	e	enum:__anon2
+KEY_RSHIFT	include/sys/kb.h	/^  KEY_RSHIFT            = 0x4006,$/;"	e	enum:__anon2
+KEY_RWIN	include/sys/kb.h	/^  KEY_RWIN              = 0x4009,$/;"	e	enum:__anon2
+KEY_S	include/sys/kb.h	/^  KEY_S                 = 's',$/;"	e	enum:__anon2
+KEY_SCROLLLOCK	include/sys/kb.h	/^  KEY_SCROLLLOCK        = 0x4010,$/;"	e	enum:__anon2
+KEY_SEMICOLON	include/sys/kb.h	/^  KEY_SEMICOLON         = ';',$/;"	e	enum:__anon2
+KEY_SLASH	include/sys/kb.h	/^  KEY_SLASH             = '\/',$/;"	e	enum:__anon2
+KEY_SPACE	include/sys/kb.h	/^  KEY_SPACE             = ' ',$/;"	e	enum:__anon2
+KEY_T	include/sys/kb.h	/^  KEY_T                 = 't',$/;"	e	enum:__anon2
+KEY_TAB	include/sys/kb.h	/^  KEY_TAB               = 0x4000,$/;"	e	enum:__anon2
+KEY_TILDE	include/sys/kb.h	/^  KEY_TILDE             = '~',$/;"	e	enum:__anon2
+KEY_U	include/sys/kb.h	/^  KEY_U                 = 'u',$/;"	e	enum:__anon2
+KEY_UNDERSCORE	include/sys/kb.h	/^  KEY_UNDERSCORE        = '_',$/;"	e	enum:__anon2
+KEY_UNKNOWN	include/sys/kb.h	/^  KEY_UNKNOWN,$/;"	e	enum:__anon2
+KEY_UP	include/sys/kb.h	/^  KEY_UP                = 0x1100,$/;"	e	enum:__anon2
+KEY_V	include/sys/kb.h	/^  KEY_V                 = 'v',$/;"	e	enum:__anon2
+KEY_W	include/sys/kb.h	/^  KEY_W                 = 'w',$/;"	e	enum:__anon2
+KEY_X	include/sys/kb.h	/^  KEY_X                 = 'x',$/;"	e	enum:__anon2
+KEY_Y	include/sys/kb.h	/^  KEY_Y                 = 'y',$/;"	e	enum:__anon2
+KEY_Z	include/sys/kb.h	/^  KEY_Z                 = 'z',$/;"	e	enum:__anon2
+KILO_BYTE	include/sys/mm/mmgr.h	5;"	d
+KYBRD_CTRL_CMD_REG	include/sys/kb.h	/^    KYBRD_CTRL_CMD_REG  = 0x64$/;"	e	enum:KYBRD_CTRL_IO
+KYBRD_CTRL_IO	include/sys/kb.h	/^enum KYBRD_CTRL_IO {$/;"	g
+KYBRD_CTRL_STATS_MASK	include/sys/kb.h	/^enum KYBRD_CTRL_STATS_MASK {$/;"	g
+KYBRD_CTRL_STATS_MASK_IN_BUF	include/sys/kb.h	/^    KYBRD_CTRL_STATS_MASK_IN_BUF  = 2,    \/\/00000010$/;"	e	enum:KYBRD_CTRL_STATS_MASK
+KYBRD_CTRL_STATS_MASK_OUT_BUF	include/sys/kb.h	/^    KYBRD_CTRL_STATS_MASK_OUT_BUF = 1,    \/\/00000001$/;"	e	enum:KYBRD_CTRL_STATS_MASK
+KYBRD_CTRL_STATS_REG	include/sys/kb.h	/^    KYBRD_CTRL_STATS_REG  = 0x64,$/;"	e	enum:KYBRD_CTRL_IO
+KYBRD_ENCODER_IO	include/sys/kb.h	/^enum KYBRD_ENCODER_IO {$/;"	g
+KYBRD_ENC_CMD_REG	include/sys/kb.h	/^    KYBRD_ENC_CMD_REG = 0x60$/;"	e	enum:KYBRD_ENCODER_IO
+KYBRD_ENC_INPUT_BUF	include/sys/kb.h	/^    KYBRD_ENC_INPUT_BUF = 0x60,$/;"	e	enum:KYBRD_ENCODER_IO
+Kernel_Thread	include/sys/kthread.h	/^struct Kernel_Thread {$/;"	s
+L	include/sys/gdt.h	24;"	d
+LD	Makefile	/^LD=ld$/;"	m
+LDLAGS	Makefile	/^LDLAGS=-nostdlib$/;"	m
+LD_SRCS	Makefile	/^LD_SRCS:=$(wildcard ld\/*.c)$/;"	m
+LIBC_SRCS	Makefile	/^LIBC_SRCS:=$(wildcard libc\/*.c libc\/*\/*.c)$/;"	m
+LIST_HEAD	include/sys/list.h	20;"	d
+LIST_HEAD_INIT	include/sys/list.h	18;"	d
+LIST_POISON1	include/sys/list.h	10;"	d
+LIST_POISON2	include/sys/list.h	11;"	d
+Launch_Thread	sys/kthread.c	/^void Launch_Thread(void)$/;"	f
+MAXARGS	include/sys/shell.h	4;"	d
+MAXLINE	sys/shell.c	6;"	d	file:
+MAX_COLUMNS	include/stdio.h	8;"	d
+MAX_GDT	sys/gdt.c	5;"	d	file:
+MAX_IDT	sys/idt.c	5;"	d	file:
+MAX_ROWS	include/stdio.h	7;"	d
+MAX_TLOCAL_KEYS	include/sys/kthread.h	76;"	d
+MEGA_BYTE	include/sys/mm/mmgr.h	6;"	d
+MM_PHY_ACPI_NVS	include/sys/mm/regions.h	/^        MM_PHY_ACPI_NVS,$/;"	e	enum:mm_phy_types
+MM_PHY_ACPI_RECLAIMABLE	include/sys/mm/regions.h	/^        MM_PHY_ACPI_RECLAIMABLE,$/;"	e	enum:mm_phy_types
+MM_PHY_BAD	include/sys/mm/regions.h	/^        MM_PHY_BAD,$/;"	e	enum:mm_phy_types
+MM_PHY_MAX	include/sys/mm/regions.h	/^        MM_PHY_MAX$/;"	e	enum:mm_phy_types
+MM_PHY_RESERVED	include/sys/mm/regions.h	/^        MM_PHY_RESERVED,$/;"	e	enum:mm_phy_types
+MM_PHY_UNKNOWN	include/sys/mm/regions.h	/^        MM_PHY_UNKNOWN=0,$/;"	e	enum:mm_phy_types
+MM_PHY_USABLE	include/sys/mm/regions.h	/^        MM_PHY_USABLE,$/;"	e	enum:mm_phy_types
+MY_KERNEL_SIZE	include/defs.h	6;"	d
+NULL	include/defs.h	4;"	d
+P	include/sys/gdt.h	23;"	d
+PAGES_PED_DIR	include/sys/mm/vm_mmgr.h	4;"	d
+PAGES_PER_DIR	include/sys/mm/vmmgr_virtual.h	12;"	d
+PAGES_PER_TABLE	include/sys/mm/vm_mmgr.h	3;"	d
+PAGES_PER_TABLE	include/sys/mm/vmmgr_virtual.h	11;"	d
+PAGE_DIRECTORY_OFFSET	include/sys/mm/vmmgr_virtual.h	16;"	d
+PAGE_PDE_FLAGS	include/sys/mm/vmmgr_pde.h	/^enum PAGE_PDE_FLAGS{$/;"	g
+PAGE_PDPE_FLAGS	include/sys/mm/vmmgr_pdpe.h	/^enum PAGE_PDPE_FLAGS{$/;"	g
+PAGE_PHYSICAL_ADDRESS	include/sys/mm/vmmgr_virtual.h	19;"	d
+PAGE_PML4E_FLAGS	include/sys/mm/vmmgr_pml4.h	/^enum PAGE_PML4E_FLAGS{$/;"	g
+PAGE_PML4_OFFSET	include/sys/mm/vmmgr_virtual.h	18;"	d
+PAGE_POINTER_OFFSET	include/sys/mm/vmmgr_virtual.h	17;"	d
+PAGE_PTE_FLAGS	include/sys/mm/vmmgr_pte.h	/^enum PAGE_PTE_FLAGS{$/;"	g
+PAGE_TABLE_OFFSET	include/sys/mm/vmmgr_virtual.h	15;"	d
+PANIC	sys/stdfns.c	/^void PANIC(const char *s, uint16_t line, const char* str){$/;"	f
+PDE_4MB	include/sys/mm/vmmgr_pde.h	/^    PDE_4MB = 0x80,$/;"	e	enum:PAGE_PDE_FLAGS
+PDE_ACCESSED	include/sys/mm/vmmgr_pde.h	/^    PDE_ACCESSED = 0x20,              \/*Whether the page or pagen translation table this entry$/;"	e	enum:PAGE_PDE_FLAGS
+PDE_AVL	include/sys/mm/vmmgr_pde.h	/^    PDE_AVL = 0x700,                  \/\/Bits 9,10 and 11$/;"	e	enum:PAGE_PDE_FLAGS
+PDE_FRAME	include/sys/mm/vmmgr_pde.h	/^    PDE_FRAME = 0x00000FFFFFFFF000    \/\/ Target physical address which is directly stored.$/;"	e	enum:PAGE_PDE_FLAGS
+PDE_NOT_CACHABLE	include/sys/mm/vmmgr_pde.h	/^    PDE_NOT_CACHABLE = 0x10,          \/*Whether the page or pagen translation table this entry$/;"	e	enum:PAGE_PDE_FLAGS
+PDE_PRESENT	include/sys/mm/vmmgr_pde.h	/^    PDE_PRESENT = 1,                  \/\/Is page present in physical memory.$/;"	e	enum:PAGE_PDE_FLAGS
+PDE_USER	include/sys/mm/vmmgr_pde.h	/^    PDE_USER = 4,                     \/*Is it a user page or kernel page. 1 means both user and$/;"	e	enum:PAGE_PDE_FLAGS
+PDE_WRITABLE	include/sys/mm/vmmgr_pde.h	/^    PDE_WRITABLE = 2,                 \/\/Is page write permitted. 1 means both read and write access$/;"	e	enum:PAGE_PDE_FLAGS
+PDE_WRITETHROUGH	include/sys/mm/vmmgr_pde.h	/^    PDE_WRITETHROUGH = 8,             \/*Write back or write through cache policy for the$/;"	e	enum:PAGE_PDE_FLAGS
+PDPE_4MB	include/sys/mm/vmmgr_pdpe.h	/^    PDPE_4MB = 0x80,$/;"	e	enum:PAGE_PDPE_FLAGS
+PDPE_ACCESSED	include/sys/mm/vmmgr_pdpe.h	/^    PDPE_ACCESSED = 0x20,              \/*Whether the page or pagen translation table this entry$/;"	e	enum:PAGE_PDPE_FLAGS
+PDPE_AVL	include/sys/mm/vmmgr_pdpe.h	/^    PDPE_AVL = 0x700,                  \/\/Bits 9,10 and 11$/;"	e	enum:PAGE_PDPE_FLAGS
+PDPE_FRAME	include/sys/mm/vmmgr_pdpe.h	/^    PDPE_FRAME = 0x00000FFFFFFFF000    \/\/ Target physical address which is directly stored.$/;"	e	enum:PAGE_PDPE_FLAGS
+PDPE_NOT_CACHABLE	include/sys/mm/vmmgr_pdpe.h	/^    PDPE_NOT_CACHABLE = 0x10,          \/*Whether the page or pagen translation table this entry$/;"	e	enum:PAGE_PDPE_FLAGS
+PDPE_PRESENT	include/sys/mm/vmmgr_pdpe.h	/^    PDPE_PRESENT = 1,                  \/\/Is page present in physical memory.$/;"	e	enum:PAGE_PDPE_FLAGS
+PDPE_USER	include/sys/mm/vmmgr_pdpe.h	/^    PDPE_USER = 4,                     \/*Is it a user page or kernel page. 1 means both user and$/;"	e	enum:PAGE_PDPE_FLAGS
+PDPE_WRITABLE	include/sys/mm/vmmgr_pdpe.h	/^    PDPE_WRITABLE = 2,                 \/\/Is page write permitted. 1 means both read and write access$/;"	e	enum:PAGE_PDPE_FLAGS
+PDPE_WRITETHROUGH	include/sys/mm/vmmgr_pdpe.h	/^    PDPE_WRITETHROUGH = 8,             \/*Write back or write through cache policy for the$/;"	e	enum:PAGE_PDPE_FLAGS
+PHY_PAGE_SIZE	include/sys/mm/mmgr.h	9;"	d
+PML4E_4MB	include/sys/mm/vmmgr_pml4.h	/^    PML4E_4MB = 0x80,$/;"	e	enum:PAGE_PML4E_FLAGS
+PML4E_ACCESSED	include/sys/mm/vmmgr_pml4.h	/^    PML4E_ACCESSED = 0x20,              \/*Whether the page or pagen translation table this entry$/;"	e	enum:PAGE_PML4E_FLAGS
+PML4E_AVL	include/sys/mm/vmmgr_pml4.h	/^    PML4E_AVL = 0x700,                  \/\/Bits 9,10 and 11$/;"	e	enum:PAGE_PML4E_FLAGS
+PML4E_FRAME	include/sys/mm/vmmgr_pml4.h	/^    PML4E_FRAME = 0x00000FFFFFFFF000    \/\/ Target physical address which is directly stored.$/;"	e	enum:PAGE_PML4E_FLAGS
+PML4E_NOT_CACHABLE	include/sys/mm/vmmgr_pml4.h	/^    PML4E_NOT_CACHABLE = 0x10,          \/*Whether the page or pagen translation table this entry$/;"	e	enum:PAGE_PML4E_FLAGS
+PML4E_PRESENT	include/sys/mm/vmmgr_pml4.h	/^    PML4E_PRESENT = 1,                  \/\/Is page present in physical memory.$/;"	e	enum:PAGE_PML4E_FLAGS
+PML4E_USER	include/sys/mm/vmmgr_pml4.h	/^    PML4E_USER = 4,                     \/*Is it a user page or kernel page. 1 means both user and$/;"	e	enum:PAGE_PML4E_FLAGS
+PML4E_WRITABLE	include/sys/mm/vmmgr_pml4.h	/^    PML4E_WRITABLE = 2,                 \/\/Is page write permitted. 1 means both read and write access$/;"	e	enum:PAGE_PML4E_FLAGS
+PML4E_WRITETHROUGH	include/sys/mm/vmmgr_pml4.h	/^    PML4E_WRITETHROUGH = 8,             \/*Write back or write through cache policy for the$/;"	e	enum:PAGE_PML4E_FLAGS
+PRIORITY_HIGH	include/sys/kthread.h	13;"	d
+PRIORITY_IDLE	include/sys/kthread.h	9;"	d
+PRIORITY_LOW	include/sys/kthread.h	11;"	d
+PRIORITY_NORMAL	include/sys/kthread.h	12;"	d
+PRIORITY_USER	include/sys/kthread.h	10;"	d
+PTE_ACCESSED	include/sys/mm/vmmgr_pte.h	/^    PTE_ACCESSED = 0x20,              \/*Whether the page or pagen translation table this entry$/;"	e	enum:PAGE_PTE_FLAGS
+PTE_AVL	include/sys/mm/vmmgr_pte.h	/^    PTE_AVL = 0x700,                  \/\/Bits 9,10 and 11$/;"	e	enum:PAGE_PTE_FLAGS
+PTE_COW	include/sys/mm/vmmgr_pte.h	/^    PTE_COW = 0x4000000000000000,$/;"	e	enum:PAGE_PTE_FLAGS
+PTE_DIRTY	include/sys/mm/vmmgr_pte.h	/^    PTE_DIRTY = 0x40,                 \/*Whether the physical page pointed to by this entry is written.$/;"	e	enum:PAGE_PTE_FLAGS
+PTE_FRAME	include/sys/mm/vmmgr_pte.h	/^    PTE_FRAME = 0x00000FFFFFFFF000    \/\/ Target physical address which is directly stored.$/;"	e	enum:PAGE_PTE_FLAGS
+PTE_GLOBAL	include/sys/mm/vmmgr_pte.h	/^    PTE_GLOBAL = 0x100,               \/*Value 1 indicates it is a global page. TLB for a global page$/;"	e	enum:PAGE_PTE_FLAGS
+PTE_NOT_CACHABLE	include/sys/mm/vmmgr_pte.h	/^    PTE_NOT_CACHABLE = 0x10,          \/*Whether the page or pagen translation table this entry$/;"	e	enum:PAGE_PTE_FLAGS
+PTE_PAT	include/sys/mm/vmmgr_pte.h	/^    PTE_PAT = 0x80, $/;"	e	enum:PAGE_PTE_FLAGS
+PTE_PRESENT	include/sys/mm/vmmgr_pte.h	/^    PTE_PRESENT = 1,                  \/\/Is page present in physical memory.$/;"	e	enum:PAGE_PTE_FLAGS
+PTE_USER	include/sys/mm/vmmgr_pte.h	/^    PTE_USER = 4,                     \/*Is it a user page or kernel page. 1 means both user and $/;"	e	enum:PAGE_PTE_FLAGS
+PTE_WRITABLE	include/sys/mm/vmmgr_pte.h	/^    PTE_WRITABLE = 2,                 \/\/Is page write permitted. 1 means both read and write access$/;"	e	enum:PAGE_PTE_FLAGS
+PTE_WRITETHROUGH	include/sys/mm/vmmgr_pte.h	/^    PTE_WRITETHROUGH = 8,             \/*Write back or write through cache policy for the $/;"	e	enum:PAGE_PTE_FLAGS
+Push	sys/kthread.c	/^void Push(kthread* k_thread, uint64_t value)$/;"	f
+PushU	sys/isr.c	/^void PushU(kthread* k_thread, uint64_t value){$/;"	f
+PushU_General_Registers	sys/exec.c	/^void PushU_General_Registers(kthread* k_thread){$/;"	f
+Push_General_Registers	sys/kthread.c	/^void Push_General_Registers(kthread* k_thread){$/;"	f
+RECURSIVE_ENTRY	sys/mm/vmmgr_virtual.c	7;"	d	file:
+RECURSIVE_PAGE_DIRECTORY_ENTRY	sys/mm/vmmgr_virtual.c	9;"	d	file:
+RECURSIVE_PAGE_POINTER_ENTRY	sys/mm/vmmgr_virtual.c	10;"	d	file:
+RECURSIVE_PAGE_TABLE_ENTRY	sys/mm/vmmgr_virtual.c	8;"	d	file:
+ROOTBIN	Makefile	/^ROOTBIN=$(ROOTFS)\/bin$/;"	m
+ROOTBOOT	Makefile	/^ROOTBOOT=$(ROOTFS)\/boot$/;"	m
+ROOTFS	Makefile	/^ROOTFS=rootfs$/;"	m
+ROOTLIB	Makefile	/^ROOTLIB=$(ROOTFS)\/lib$/;"	m
+SLOB_ALIGN	sys/mm/slob.c	8;"	d	file:
+SLOB_UNIT	sys/mm/slob.c	6;"	d	file:
+SLOB_UNITS	sys/mm/slob.c	7;"	d	file:
+START_MEMORY	include/stdio.h	4;"	d
+SUBMITTO	Makefile	/^SUBMITTO:=~mferdman\/cse506-submit\/$/;"	m
+SYSCALL_PROTO	include/syscall.h	6;"	d
+SYS_TRACE	sys/stdfns.c	/^void SYS_TRACE(const char *s, uint16_t line, const char* str){$/;"	f
+Schedule	sys/kthread.c	/^void Schedule(void)$/;"	f
+Switch_To_Thread	sys/kthread.s	/^Switch_To_Thread:$/;"	l
+TEXT_COLOR	include/defs.h	5;"	d
+TIMER_MEMORY	include/stdio.h	5;"	d
+TRUE	include/defs.h	/^  TRUE$/;"	e	enum:__anon1
+Thr_Queue	include/sys/kthread.h	/^typedef struct Thread_queue Thr_Queue;$/;"	t	typeref:struct:Thread_queue
+Thread_queue	include/sys/kthread.h	/^struct Thread_queue{$/;"	s
+USER_CS	sys/kthread.c	/^uint64_t USER_CS=0x1B;$/;"	v
+USER_DS	sys/kthread.c	/^uint64_t USER_DS=0x23;$/;"	v
+UserCode	include/sys/exec.h	1;"	d
+UserCode	sys/exec.c	11;"	d	file:
+UserData	include/sys/exec.h	2;"	d
+UserData	sys/exec.c	12;"	d	file:
+UserHeap	sys/exec.c	14;"	d	file:
+UserStack	sys/exec.c	13;"	d	file:
+VIRT_PAGE_SIZE	include/sys/mm/vmmgr_virtual.h	13;"	d
+VIRT_PAGE_SIZE	sys/mm/vmmgr_page_allocator.c	4;"	d	file:
+VmaStart	sys/exec.c	15;"	d	file:
+W	include/sys/gdt.h	26;"	d
+World	sys/kthread.c	/^void World(uint16_t arg){$/;"	f
+Yield	sys/kthread.c	/^void Yield(void){$/;"	f
+_DEFS_H	include/defs.h	2;"	d
+_ELF_H_	include/elf.h	2;"	d
+_ERROR_H	include/errors.h	2;"	d
+_GDT_H	include/sys/gdt.h	2;"	d
+_IDT_H	include/sys/idt.h	2;"	d
+_IO_H	include/io.h	2;"	d
+_IRQ_H	include/sys/irq.h	2;"	d
+_ISR_H	include/sys/isr.h	2;"	d
+_KTHREAD_H_	include/sys/kthread.h	2;"	d
+_LIST_H	include/sys/list.h	2;"	d
+_MMAP_H_	include/sys/mmap.h	2;"	d
+_MMGR_H	include/sys/mm/mmgr.h	2;"	d
+_REGIONS_H	include/sys/mm/regions.h	2;"	d
+_SHELL_H	include/sys/shell.h	2;"	d
+_STDIO_H	include/stdio.h	2;"	d
+_STDLIB_H	include/stdlib.h	2;"	d
+_SYSCALLS_H_	include/syscalls.h	2;"	d
+_SYSCALL_H	include/syscall.h	2;"	d
+_TARFS_H	include/sys/tarfs.h	2;"	d
+_TASK_H	include/sys/task.h	3;"	d
+_USTDLIB_H_	include/ustdlib.h	2;"	d
+_VMMGR_VIRTUAL_H	include/sys/mm/vmmgr_virtual.h	2;"	d
+__ALIGN_KERNEL	sys/mm/slob.c	9;"	d	file:
+__ALIGN_KERNEL_MASK	sys/mm/slob.c	10;"	d	file:
+__int32_t	include/defs.h	/^typedef int __int32_t;$/;"	t
+__list_add	include/sys/list.h	/^static inline void __list_add(struct list_head *new,$/;"	f
+__list_del	include/sys/list.h	/^static inline void __list_del(struct list_head * prev, struct list_head * next)$/;"	f
+__list_for_each	include/sys/list.h	210;"	d
+__list_splice	include/sys/list.h	/^static inline void __list_splice(struct list_head *list,$/;"	f
+__uchar8_t	include/defs.h	/^typedef unsigned char __uchar8_t;$/;"	t
+__uint16_t	include/defs.h	/^typedef unsigned short __uint16_t;$/;"	t
+__uint32_t	include/defs.h	/^typedef unsigned int __uint32_t;$/;"	t
+__uint64_t	include/defs.h	/^typedef unsigned long __uint64_t;$/;"	t
+_alt	sys/kb.c	/^bool _shift, _ctrl, _caps, _alt;$/;"	v
+_caps	sys/kb.c	/^bool _shift, _ctrl, _caps, _alt;$/;"	v
+_ctrl	sys/kb.c	/^bool _shift, _ctrl, _caps, _alt;$/;"	v
+_cur_pde_directory	sys/mm/vmmgr_virtual.c	/^pde* _cur_pde_directory=0;$/;"	v
+_cur_pde_directory	sys/mm/vmmgr_virtual.cpp	/^pde* _cur_pde_directory=0;$/;"	v
+_cur_pdpe_directory	sys/mm/vmmgr_virtual.c	/^pdpe* _cur_pdpe_directory=0;$/;"	v
+_cur_pdpe_directory	sys/mm/vmmgr_virtual.cpp	/^pdpe* _cur_pdpe_directory=0;$/;"	v
+_cur_pml4_base_pointer	sys/mm/vmmgr_virtual.c	/^pml4* _cur_pml4_base_pointer=0;$/;"	v
+_cur_pml4_base_pointer	sys/mm/vmmgr_virtual.cpp	/^uint32_t _cur_pml4_base_pointer=0;$/;"	v
+_cur_pml4_base_pointer_pg	sys/mm/vmmgr_virtual.c	/^pml4* _cur_pml4_base_pointer_pg=(pml4*)RECURSIVE_ENTRY;$/;"	v
+_cur_pml4_directory	sys/mm/vmmgr_virtual.c	/^pml4* _cur_pml4_directory=0;$/;"	v
+_cur_pml4_directory	sys/mm/vmmgr_virtual.cpp	/^pml4* _cur_pml4_directory=0;$/;"	v
+_irq0	sys/irq.s	/^_irq0:$/;"	l
+_irq1	sys/irq.s	/^_irq1:$/;"	l
+_irq10	sys/irq.s	/^_irq10:$/;"	l
+_irq11	sys/irq.s	/^_irq11:$/;"	l
+_irq12	sys/irq.s	/^_irq12:$/;"	l
+_irq13	sys/irq.s	/^_irq13:$/;"	l
+_irq14	sys/irq.s	/^_irq14:$/;"	l
+_irq15	sys/irq.s	/^_irq15:$/;"	l
+_irq2	sys/irq.s	/^_irq2:$/;"	l
+_irq3	sys/irq.s	/^_irq3:$/;"	l
+_irq4	sys/irq.s	/^_irq4:$/;"	l
+_irq5	sys/irq.s	/^_irq5:$/;"	l
+_irq6	sys/irq.s	/^_irq6:$/;"	l
+_irq7	sys/irq.s	/^_irq7:$/;"	l
+_irq8	sys/irq.s	/^_irq8:$/;"	l
+_irq9	sys/irq.s	/^_irq9:$/;"	l
+_isr0	sys/isr.s	/^_isr0:$/;"	l
+_isr1	sys/isr.s	/^_isr1:$/;"	l
+_isr13	sys/isr.s	/^_isr13:$/;"	l
+_isr14	sys/isr.s	/^_isr14:$/;"	l
+_isr80	sys/isr.s	/^_isr80:$/;"	l
+_memory_error	include/errors.h	/^enum _memory_error{$/;"	g
+_shift	sys/kb.c	/^bool _shift, _ctrl, _caps, _alt;$/;"	v
+_start	crt/crt1.c	/^void _start(void) {$/;"	f
+_task_error	include/errors.h	/^enum _task_error{$/;"	g
+_x86_64_asm_lgdt	sys/gdt.s	/^_x86_64_asm_lgdt:$/;"	l
+_x86_64_asm_lidt	sys/idt.s	/^_x86_64_asm_lidt:$/;"	l
+_x86_64_asm_ltr	sys/idt.s	/^_x86_64_asm_ltr:$/;"	l
+a	bin/shell/shell.c	/^volatile char a[] = "abcsdef\\n";$/;"	v
+a1	include/syscall.h	/^SYSCALL_PROTO(2)(uint64_t n, uint64_t a1, uint64_t a2) {$/;"	v
+a1	include/syscall.h	/^SYSCALL_PROTO(3)(uint64_t n, uint64_t a1, uint64_t a2, uint64_t a3) {$/;"	v
+a1	include/syscall.h	/^SYSCALL_PROTO(4)(uint64_t n, uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4) {$/;"	v
+a2	include/syscall.h	/^SYSCALL_PROTO(3)(uint64_t n, uint64_t a1, uint64_t a2, uint64_t a3) {$/;"	v
+a2	include/syscall.h	/^SYSCALL_PROTO(4)(uint64_t n, uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4) {$/;"	v
+a3	include/syscall.h	/^SYSCALL_PROTO(4)(uint64_t n, uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4) {$/;"	v
+add_to_joinQueue	sys/kthread.c	/^void add_to_joinQueue(kthread* currentThread, kthread* k_thread){$/;"	f
+add_to_ptable	sys/kthread.c	/^void add_to_ptable(kthread* k_thread){$/;"	f
+addr	include/sys/idt.h	/^    uint64_t addr;$/;"	m	struct:idtr_t
+addr	sys/gdt.c	/^	uint64_t addr;$/;"	m	struct:gdtr_t	file:
+align	libc/malloc.c	15;"	d	file:
+align	sys/mm/myalloc.c	27;"	d	file:
+alive	include/sys/kthread.h	/^    bool alive;$/;"	m	struct:Kernel_Thread
+allThreadList	sys/kthread.c	/^global_thread_list allThreadList;$/;"	v
+alllist_kthread	sys/kthread.c	/^void alllist_kthread(kthread* k_thread){$/;"	f
+alloc_pid	sys/kthread.c	/^int alloc_pid(){$/;"	f
+append_global_list_queue	sys/kthread.c	/^void append_global_list_queue(global_thread_list *listPtr, kthread *nodePtr) {                                           $/;"	f
+append_join_queue	sys/kthread.c	/^void append_join_queue(kthread *nodePtr, kthread *cthread) {$/;"	f
+append_run_queue	sys/kthread.c	/^void append_run_queue(Thr_Queue *listPtr, kthread *nodePtr) {       $/;"	f
+arena	sys/mm/slob.c	/^static slob_t arena = { .next = &arena, .units = 1};$/;"	v	file:
+argc	include/sys/shell.h	/^    int argc;               \/* Number of arguments *\/$/;"	m	struct:cmdline_tokens
+argv	include/sys/shell.h	/^    char *argv[MAXARGS];    \/* The arguments list *\/$/;"	m	struct:cmdline_tokens
+b	bin/hello/hello.c	/^int b=199;$/;"	v
+base	include/sys/mm/mmgr.h	/^      uint64_t base, length;$/;"	m	struct:smap_t
+base	libc/malloc.c	/^void *base = NULL;  \/\/Base pointer$/;"	v
+base	sys/mm/myalloc.c	/^t_block base = NULL;  \/\/Base pointer$/;"	v
+baseHigh	include/sys/idt.h	/^      uint32_t   baseHigh;$/;"	m	struct:idtEntry
+baseLow	include/sys/idt.h	/^      uint16_t   baseLow;$/;"	m	struct:idtEntry
+baseMid	include/sys/idt.h	/^      uint16_t   baseMid;$/;"	m	struct:idtEntry
+beg	libc/malloc.c	/^char beg;  \/\/ begining address of the block$/;"	m	struct:metadata_block	file:
+bigblock	sys/mm/slob.c	/^struct bigblock{$/;"	s	file:
+bigblock_t	sys/mm/slob.c	/^typedef struct bigblock bigblock_t;$/;"	t	typeref:struct:bigblock	file:
+bool	include/defs.h	/^} bool;$/;"	t	typeref:enum:__anon1
+boot	sys/main.c	/^void boot(void)$/;"	f
+brk	include/sys/kthread.h	/^    int brk;$/;"	m	struct:Kernel_Thread
+builtins	include/sys/shell.h	/^        BUILTIN_FG} builtins;$/;"	m	struct:cmdline_tokens	typeref:enum:cmdline_tokens::builtins_t
+builtins_t	include/sys/shell.h	/^    enum builtins_t {       \/* Indicates if argv[0] is a builtin command *\/$/;"	g	struct:cmdline_tokens
+bump_addr	sys/mm/vmmgr_virtual.c	/^uint64_t bump_addr = 0;$/;"	v
+bump_start	sys/mm/vmmgr_virtual.c	/^uint64_t bump_start = 0;$/;"	v
+checksum	include/sys/tarfs.h	/^	char checksum[8];$/;"	m	struct:posix_header_ustar
+chid_malloc	libc/malloc.c	/^void* chid_malloc(int size){$/;"	f
+child	include/sys/kthread.h	/^  kthread* child;$/;"	m	struct:join_Queue
+clear_page_tables	sys/mm/vmmgr_virtual.c	/^void clear_page_tables(uint64_t parent_pml4){$/;"	f
+clear_vmas	sys/exec.c	/^void clear_vmas(kthread* k_thread){$/;"	f
+cli	sys/task_switch.s	/^cli$/;"	l
+clone_pgdir	sys/mm/vmmgr_virtual.c	/^void clone_pgdir(uint64_t parent_pml4, uint64_t child_pml4){$/;"	f
+cls	libc/cls.c	/^void cls(){$/;"	f
+cls	sys/stdfns.c	/^void cls(){$/;"	f
+cmdline_tokens	include/sys/shell.h	/^struct cmdline_tokens {$/;"	s
+convert	sys/stdfns.c	/^char *convert(uint64_t num, int base)$/;"	f
+convert_u	libc/stdlib.c	/^char *convert_u(uint64_t num, uint16_t base)$/;"	f
+copy_page_table	sys/mm/vmmgr_virtual.c	/^void copy_page_table(uint64_t parent_pml4, uint64_t child_pml4, bool is_user){$/;"	f
+cr3	include/sys/kthread.h	/^    uint64_t cr3;$/;"	m	struct:Kernel_Thread
+create_kthread	sys/kthread.c	/^static kthread* create_kthread(const char* name, int prio, bool detached){$/;"	f	file:
+create_kthread_user	sys/exec.c	/^kthread* create_kthread_user(const char* name, int prio, bool detached){$/;"	f
+create_new_task	sys/exec.c	/^void create_new_task(kthread* k_thread, void* startFunc, const char* name, uint16_t arg, uint16_t priority, bool detached){$/;"	f
+cs	include/sys/idt.h	/^    uint64_t rip, cs, rflags, rsp, ss;$/;"	m	struct:registers
+currentThread	sys/kthread.c	/^kthread* currentThread;$/;"	v
+cwd	sys/elf.c	/^char cwd[] = "rootfs\/";$/;"	v
+debug	sys/kthread.c	/^int debug;$/;"	v
+devmajor	include/sys/tarfs.h	/^	char devmajor[8];$/;"	m	struct:posix_header_ustar
+devminor	include/sys/tarfs.h	/^	char devminor[8];$/;"	m	struct:posix_header_ustar
+disable_interrupts	sys/kthread.c	/^void disable_interrupts(void){$/;"	f
+do_cls	sys/isr.c	/^void do_cls(){$/;"	f
+do_exec	sys/exec.c	/^uint32_t do_exec(char *name){$/;"	f
+do_exec1	sys/exec.c	/^void do_exec1(char* name){$/;"	f
+do_execve	sys/isr.c	/^int do_execve(char* name){$/;"	f
+do_ls	sys/isr.c	/^void do_ls(){$/;"	f
+doread	sys/isr.c	/^signed int doread(char* buf){$/;"	f
+e_ehsize	include/elf.h	/^Elf64_Half e_ehsize; \/* ELF header size *\/$/;"	m	struct:__anon3
+e_entry	include/elf.h	/^Elf64_Addr e_entry; \/* Entry point address *\/$/;"	m	struct:__anon3
+e_flags	include/elf.h	/^Elf64_Word e_flags; \/* Processor-specific flags *\/$/;"	m	struct:__anon3
+e_ident	include/elf.h	/^unsigned char e_ident[16]; \/* ELF identification *\/$/;"	m	struct:__anon3
+e_machine	include/elf.h	/^Elf64_Half e_machine; \/* Machine type *\/$/;"	m	struct:__anon3
+e_phentsize	include/elf.h	/^Elf64_Half e_phentsize; \/* Size of program header entry *\/$/;"	m	struct:__anon3
+e_phnum	include/elf.h	/^Elf64_Half e_phnum; \/* Number of program header entries *\/$/;"	m	struct:__anon3
+e_phoff	include/elf.h	/^Elf64_Off e_phoff; \/* Program header offset *\/$/;"	m	struct:__anon3
+e_shentsize	include/elf.h	/^Elf64_Half e_shentsize; \/* Size of section header entry *\/$/;"	m	struct:__anon3
+e_shnum	include/elf.h	/^Elf64_Half e_shnum; \/* Number of section header entries *\/$/;"	m	struct:__anon3
+e_shoff	include/elf.h	/^Elf64_Off e_shoff; \/* Section header offset *\/$/;"	m	struct:__anon3
+e_shstrndx	include/elf.h	/^Elf64_Half e_shstrndx; \/* Section name string table index *\/$/;"	m	struct:__anon3
+e_type	include/elf.h	/^Elf64_Half e_type; \/* Object file type *\/$/;"	m	struct:__anon3
+e_version	include/elf.h	/^Elf64_Word e_version; \/* Object file version *\/$/;"	m	struct:__anon3
+enable_interrupts	sys/kthread.c	/^void enable_interrupts(void){$/;"	f
+entry	include/sys/mm/vmmgr_virtual.h	/^  pd_entry entry[PAGES_PER_DIR];$/;"	m	struct:page_directory_table
+entry	include/sys/mm/vmmgr_virtual.h	/^  pdpe_entry entry[PAGES_PER_DIR];$/;"	m	struct:page_directory_pointer_table
+entry	include/sys/mm/vmmgr_virtual.h	/^  pml4e_entry entry[PAGES_PER_DIR];$/;"	m	struct:page_map_level_4
+entry	include/sys/mm/vmmgr_virtual.h	/^  pt_entry entry[PAGES_PER_TABLE];$/;"	m	struct:page_table
+errCode	include/sys/idt.h	/^    uint64_t intNo, errCode;$/;"	m	struct:registers
+eval	bin/shell/shell.c	/^int eval(char *cmdline) $/;"	f
+eval	sys/shell.c	/^void eval(char *cmdline) $/;"	f
+exec	bin/shell/shell.c	/^int exec(char* name){$/;"	f
+exec	include/elf.h	/^struct exec{$/;"	s
+exec	sys/shell.c	/^void exec(char* name){$/;"	f
+execve	libc/exec.c	/^int execve(const char* buf){$/;"	f
+exit	crt/crt1.c	/^void exit(res){$/;"	f
+exitCode	include/sys/kthread.h	/^    int exitCode;$/;"	m	struct:Kernel_Thread
+extend_heap	libc/malloc.c	/^t_block extend_heap(t_block last, int size){$/;"	f
+extend_heap	sys/mm/myalloc.c	/^t_block extend_heap(t_block last, uint16_t size){$/;"	f
+fault_handler	sys/idt.c	/^int fault_handler(regs *r)$/;"	f
+find_block	libc/malloc.c	/^t_block find_block(t_block *last, int size){$/;"	f
+find_block	sys/mm/myalloc.c	/^t_block find_block(t_block *last, uint16_t size){$/;"	f
+flags	include/sys/idt.h	/^      unsigned char   flags;$/;"	m	struct:idtEntry
+fork	libc/fork.c	/^int fork(){$/;"	f
+fork	sys/isr.c	/^int fork(regs *r){$/;"	f
+fork_int	sys/isr.c	/^void fork_int(kthread* k_thread, regs* r){$/;"	f
+free	libc/malloc.c	/^int free;  \/\/ Indictaes if this block is free or not$/;"	m	struct:metadata_block	file:
+free	sys/mm/myalloc.c	/^uint16_t free;  \/\/ Indictaes if this block is free or not$/;"	m	struct:metadata_block	file:
+free_pid	sys/kthread.c	/^void free_pid(){$/;"	f
+gdt	sys/gdt.c	/^uint64_t gdt[MAX_GDT] = {$/;"	v
+gdtr	sys/gdt.c	/^static struct gdtr_t gdtr = {$/;"	v	typeref:struct:gdtr_t	file:
+gdtr_t	sys/gdt.c	/^struct gdtr_t {$/;"	s	file:
+general_protection_fault_handler	sys/isr.c	/^void general_protection_fault_handler(uint64_t err_code){$/;"	f
+get_cr0_register	sys/mm/paging.c	/^uint64_t get_cr0_register(){$/;"	f
+get_cr3_register	sys/mm/paging.c	/^uint64_t get_cr3_register(){$/;"	f
+get_cr4_register	sys/mm/paging.c	/^uint64_t get_cr4_register(){$/;"	f
+get_flag_register	sys/kthread.s	/^get_flag_register:$/;"	l
+get_paging_status	sys/mm/paging.c	/^bool get_paging_status() {$/;"	f
+get_pde_offset_recurse	sys/mm/vmmgr_virtual.c	/^pd_entry* get_pde_offset_recurse(virtual_addr virt){$/;"	f
+get_pdpe_offset_recurse	sys/mm/vmmgr_virtual.c	/^pdpe_entry* get_pdpe_offset_recurse(virtual_addr virt){$/;"	f
+get_pml4e_offset_recurse	sys/mm/vmmgr_virtual.c	/^pml4e_entry* get_pml4e_offset_recurse(virtual_addr virt){$/;"	f
+get_pte_recurse	sys/mm/vmmgr_virtual.c	/^pt_entry* get_pte_recurse(virtual_addr virt){$/;"	f
+get_total_blocks	sys/mm/mmgr.c	/^uint64_t get_total_blocks(){$/;"	f
+get_total_usable_blocks	sys/mm/mmgr.c	/^uint64_t get_total_usable_blocks(){$/;"	f
+get_total_usable_memory	sys/mm/mmgr.c	/^uint64_t get_total_usable_memory(){$/;"	f
+get_used_blocks	sys/mm/mmgr.c	/^uint64_t get_used_blocks(){$/;"	f
+getpid	libc/getpid.c	/^int getpid(){$/;"	f
+gid	include/sys/tarfs.h	/^	char gid[8];$/;"	m	struct:posix_header_ustar
+global_thread_list	include/sys/kthread.h	/^typedef struct All_threads global_thread_list;$/;"	t	typeref:struct:All_threads
+gname	include/sys/tarfs.h	/^	char gname[32];$/;"	m	struct:posix_header_ustar
+head	include/sys/kthread.h	/^    joinQ head;$/;"	m	struct:Kernel_Thread
+head	include/sys/kthread.h	/^    kthread *head, *tail;$/;"	m	struct:Thread_queue
+head	include/sys/kthread.h	/^  kthread *head, *tail;$/;"	m	struct:All_threads
+hello_in_user_mode	sys/main.c	/^void hello_in_user_mode(){$/;"	f
+hours	sys/timer.c	/^uint16_t hours=0;$/;"	v
+hours_tens	sys/timer.c	/^uint16_t hours_tens=0;$/;"	v
+hours_units	sys/timer.c	/^uint16_t hours_units=0;$/;"	v
+idt	sys/idt.c	/^idtE idt[MAX_IDT];$/;"	v
+idtE	include/sys/idt.h	/^} __attribute__((packed)) idtE;$/;"	t	typeref:struct:idtEntry
+idtEntry	include/sys/idt.h	/^typedef struct idtEntry {$/;"	s
+idt_set_gate	sys/idt.c	/^void idt_set_gate(unsigned char number, uint64_t base, uint16_t selector, unsigned char flags) {$/;"	f
+idtr	sys/idt.c	/^static struct idtr_t idtr = {$/;"	v	typeref:struct:idtr_t	file:
+idtr_t	include/sys/idt.h	/^struct idtr_t {$/;"	s
+inb	include/io.h	/^unsigned char inb( unsigned short port )$/;"	f
+init_bump_addr	sys/mm/vmmgr_virtual.c	/^void init_bump_addr(){$/;"	f
+init_thread_queue	sys/kthread.c	/^void init_thread_queue(Thr_Queue *node){$/;"	f
+insert_global_list_queue	sys/kthread.c	/^void insert_global_list_queue(global_thread_list *listPtr, kthread *nodePtr) {  $/;"	f
+insert_run_queue	sys/kthread.c	/^void insert_run_queue(Thr_Queue *listPtr, kthread *nodePtr) {  $/;"	f
+insert_vma	sys/mmap.c	/^void insert_vma(vm_area_struct *vma, kthread* k_thread){$/;"	f
+int32_t	include/defs.h	/^typedef __int32_t int32_t;$/;"	t
+intNo	include/sys/idt.h	/^    uint64_t intNo, errCode;$/;"	m	struct:registers
+io_buff	sys/isr.c	/^char* io_buff;$/;"	v
+iobuff	sys/isr.c	/^char iobuff[1024];$/;"	v
+iretq	sys/task_switch.s	/^iretq $/;"	l
+irq_common_stub	sys/irq.s	/^irq_common_stub:$/;"	l
+irq_handler	sys/irq.c	/^void irq_handler(regs *r)$/;"	f
+irq_install	sys/irq.c	/^void irq_install()$/;"	f
+irq_install_handler	sys/irq.c	/^void irq_install_handler(int irq, void (*handler)(regs *r)){$/;"	f
+irq_remap	sys/irq.c	/^void irq_remap(){$/;"	f
+irq_routines	sys/irq.c	/^void *irq_routines[16] =$/;"	v
+irq_uninstall_handler	sys/irq.c	/^void irq_uninstall_handler(int irq){$/;"	f
+is_interrupt_on	sys/kthread.c	/^bool is_interrupt_on(void){$/;"	f
+is_scheduler_on	sys/main.c	/^bool is_scheduler_on = 0;$/;"	v
+isr_common_stub	sys/isr.s	/^isr_common_stub:$/;"	l
+joinQ	include/sys/kthread.h	/^typedef struct join_Queue joinQ;$/;"	t	typeref:struct:join_Queue
+joinQueue	include/sys/kthread.h	/^    struct Thread_queue joinQueue;$/;"	m	struct:Kernel_Thread	typeref:struct:Kernel_Thread::Thread_queue
+join_Queue	include/sys/kthread.h	/^struct join_Queue{$/;"	s
+kernel_pgd	sys/mm/vmmgr_virtual.c	/^uint64_t kernel_pgd = 0;$/;"	v
+kernel_thread	include/sys/kthread.h	/^    uint64_t kernel_thread;$/;"	m	struct:Kernel_Thread
+keyboard_handler	sys/kb.c	/^void keyboard_handler(regs *r){$/;"	f
+keyboard_install	sys/kb.c	/^void keyboard_install(){$/;"	f
+keyboard_memory	sys/stdfns.c	/^char* keyboard_memory = (char*)KEYBOARD_WARMUP_MEMORY;$/;"	v
+keybrd_enc_read_buf	sys/kb.c	/^uint8_t keybrd_enc_read_buf() {$/;"	f
+keycode_to_ascii	sys/kb.c	/^char keycode_to_ascii(uint8_t code){$/;"	f
+kphysfree	sys/main.c	/^void* kphysfree = 0;$/;"	v
+krsp	include/sys/kthread.h	/^    uint64_t krsp;$/;"	m	struct:Kernel_Thread
+kstack	include/sys/kthread.h	/^    void* kstack;$/;"	m	struct:Kernel_Thread
+kthread	include/sys/kthread.h	/^typedef struct Kernel_Thread kthread;$/;"	t	typeref:struct:Kernel_Thread
+kybrd_ctrl_read_status	sys/kb.c	/^uint8_t kybrd_ctrl_read_status() { $/;"	f
+kybrd_ctrl_send_cmd	sys/kb.c	/^void kybrd_ctrl_send_cmd(uint8_t cmd) {$/;"	f
+kybrd_enc_send_cmd	sys/kb.c	/^void kybrd_enc_send_cmd (uint8_t cmd) {$/;"	f
+last	sys/mm/myalloc.c	/^t_block last = NULL;  \/\/Last pointer$/;"	v
+leaq	sys/task_switch.s	/^leaq (tss), %rax$/;"	l
+leaq	sys/task_switch.s	/^leaq 0x4(%rax), %rax$/;"	l
+leaq	sys/task_switch.s	/^leaq 0x8(%rax), %rax$/;"	l
+length	include/sys/mm/mmgr.h	/^      uint64_t base, length;$/;"	m	struct:smap_t
+linkname	include/sys/tarfs.h	/^	char linkname[100];$/;"	m	struct:posix_header_ustar
+list_add	include/sys/list.h	/^static inline void list_add(struct list_head *new, struct list_head *head)$/;"	f
+list_add_tail	include/sys/list.h	/^static inline void list_add_tail(struct list_head *new, struct list_head *head)$/;"	f
+list_del	include/sys/list.h	/^static inline void list_del(struct list_head *entry)$/;"	f
+list_del_init	include/sys/list.h	/^static inline void list_del_init(struct list_head *entry)$/;"	f
+list_empty	include/sys/list.h	/^static inline int list_empty(const struct list_head *head)$/;"	f
+list_empty_careful	include/sys/list.h	/^static inline int list_empty_careful(const struct list_head *head)$/;"	f
+list_head	include/sys/list.h	/^struct list_head {$/;"	s
+list_move	include/sys/list.h	/^static inline void list_move(struct list_head *list, struct list_head *head)$/;"	f
+list_move_tail	include/sys/list.h	/^static inline void list_move_tail(struct list_head *list,$/;"	f
+list_splice	include/sys/list.h	/^static inline void list_splice(struct list_head *list, struct list_head *head)$/;"	f
+list_splice_init	include/sys/list.h	/^static inline void list_splice_init(struct list_head *list,$/;"	f
+loader_stack	sys/main.c	/^uint32_t* loader_stack;$/;"	v
+ls	libc/ls.c	/^uint16_t ls(){$/;"	f
+m_entires	include/sys/mm/vm_mmgr.h	/^  pt_entry m_entires[PAGES_PER_TABLE];$/;"	m	struct:page_table
+m_entries	include/sys/mm/vm_mmgr.h	/^  pd_entry m_entries[PAGES_PED_DIR];$/;"	m	struct:page_directory_table
+m_entries	include/sys/mm/vm_mmgr.h	/^  pdpe_entry m_entries[PAGES_PED_DIR];$/;"	m	struct:page_directory_pointer_table
+m_entries	include/sys/mm/vm_mmgr.h	/^  pml4e_entry m_entries[PAGES_PER_DIR];$/;"	m	struct:page_map_level_4
+magic	include/sys/tarfs.h	/^	char magic[6];$/;"	m	struct:posix_header_ustar
+main	bin/hello/hello.c	/^int main(int argc, char* argv[]) {$/;"	f
+main	bin/ls/ls.c	/^int main(){$/;"	f
+main	bin/ps/ps.c	/^int main(){$/;"	f
+main	bin/shell/shell.c	/^int main(int argc, char* argv[], char* envp[]) $/;"	f
+main	bin/stackoverflow/stackoverflow.c	/^int main(){$/;"	f
+main	bin/testsigsegv/segv.c	/^int main(){$/;"	f
+main	bin/world/world.c	/^int main(int argc, char *argv[]){$/;"	f
+main	libc/malloc.c	/^int main()$/;"	f
+main_execve	sys/exec.c	/^void main_execve(char* name){$/;"	f
+mem_error_t	include/errors.h	/^typedef enum _memory_error mem_error_t;$/;"	t	typeref:enum:_memory_error
+memcpy	sys/stdfns.c	/^char *memcpy(char *dest, const char *src, uint32_t n)$/;"	f
+memset	libc/stdlib.c	/^void memset(void *s, uint8_t c, uint32_t n)$/;"	f
+memset	sys/stdfns.c	/^void *memset(void *s, uint8_t c, uint32_t n)$/;"	f
+metadata_block	libc/malloc.c	/^struct metadata_block{$/;"	s	file:
+metadata_block	sys/mm/myalloc.c	/^struct metadata_block{$/;"	s	file:
+mins	sys/timer.c	/^uint16_t mins=0;$/;"	v
+minutes_tens	sys/timer.c	/^uint16_t minutes_tens=0;$/;"	v
+minutes_units	sys/timer.c	/^uint16_t minutes_units=0;$/;"	v
+mm_phy_init	sys/mm/mmgr.c	/^void mm_phy_init(uint32_t* modulep){$/;"	f
+mm_phy_types	include/sys/mm/regions.h	/^enum mm_phy_types {$/;"	g
+mmap	include/sys/kthread.h	/^    vm_area_struct *mmap;$/;"	m	struct:Kernel_Thread
+mmap	sys/mmap.c	/^void mmap(void *addr, uint32_t length, int prot, int flags, int fd, uint64_t offset, kthread* k_thread){$/;"	f
+mmap_cache	include/sys/kthread.h	/^    vm_area_struct *mmap_cache;$/;"	m	struct:Kernel_Thread
+mmgr_alloc_block	sys/mm/mmgr.c	/^void* mmgr_alloc_block(){$/;"	f
+mmgr_alloc_size_blocks	sys/mm/mmgr.c	/^void* mmgr_alloc_size_blocks(int size){$/;"	f
+mmgr_free_block	sys/mm/mmgr.c	/^void mmgr_free_block(void *p){$/;"	f
+mmgr_free_size_blocks	sys/mm/mmgr.c	/^void mmgr_free_size_blocks(void *p, int size){$/;"	f
+mmgr_get_block_count	sys/mm/mmgr.c	/^inline uint16_t mmgr_get_block_count(){$/;"	f
+mmgr_get_first_free	sys/mm/mmgr.c	/^int mmgr_get_first_free(){$/;"	f
+mmgr_get_first_range_free	sys/mm/mmgr.c	/^int mmgr_get_first_range_free(int size){$/;"	f
+mmgr_is_block_free	sys/mm/mmgr.c	/^inline bool mmgr_is_block_free (int bit) {$/;"	f
+mmgr_max_blocks	sys/mm/mmgr.c	/^static  uint64_t  mmgr_max_blocks=0;$/;"	v	file:
+mmgr_memory_map	sys/mm/mmgr.c	/^static  uint64_t mmgr_memory_map[1200];$/;"	v	file:
+mmgr_phy_deinit_regions	sys/mm/mmgr.c	/^void mmgr_phy_deinit_regions(uint64_t base, uint64_t length){$/;"	f
+mmgr_phy_init_regions	sys/mm/mmgr.c	/^void mmgr_phy_init_regions(uint64_t base, uint64_t length){$/;"	f
+mmgr_print_memory_status	sys/mm/mmgr.c	/^void mmgr_print_memory_status(){$/;"	f
+mmgr_set_block	sys/mm/mmgr.c	/^inline void mmgr_set_block (int bit) {$/;"	f
+mmgr_syncwith_kernel	sys/mm/mmgr.c	/^void mmgr_syncwith_kernel(){$/;"	f
+mmgr_unset_block	sys/mm/mmgr.c	/^inline void mmgr_unset_block (int bit) {$/;"	f
+mmgr_usable_memory_size	sys/mm/mmgr.c	/^static  uint64_t  mmgr_usable_memory_size=0;$/;"	v	file:
+mmgr_used_blocks	sys/mm/mmgr.c	/^static  uint64_t  mmgr_used_blocks=0;$/;"	v	file:
+mode	include/sys/tarfs.h	/^	char mode[8];$/;"	m	struct:posix_header_ustar
+movq	sys/task_switch.s	/^movq $0x23, %rax # USER DS = 0x20 | 0x3 ( DPL ) = 0x23$/;"	l
+movq	sys/task_switch.s	/^movq %rax, %ds$/;"	l
+movq	sys/task_switch.s	/^movq %rax, %es$/;"	l
+movq	sys/task_switch.s	/^movq %rax, %fs$/;"	l
+movq	sys/task_switch.s	/^movq %rax, %gs$/;"	l
+movq	sys/task_switch.s	/^movq %rsp, (%rax)$/;"	l
+movq	sys/task_switch.s	/^movq (%rax), %rax$/;"	l
+movq	sys/task_switch.s	/^movq (currentThread), %rax$/;"	l
+mtime	include/sys/tarfs.h	/^	char mtime[12];$/;"	m	struct:posix_header_ustar
+my_atoi	sys/stdfns.c	/^uint32_t my_atoi(char *str){$/;"	f
+my_atool	sys/stdfns.c	/^uint32_t my_atool(char *str){$/;"	f
+n	include/syscall.h	/^SYSCALL_PROTO(1)(uint64_t n, uint64_t a1) {$/;"	v
+n	include/syscall.h	/^SYSCALL_PROTO(2)(uint64_t n, uint64_t a1, uint64_t a2) {$/;"	v
+n	include/syscall.h	/^SYSCALL_PROTO(3)(uint64_t n, uint64_t a1, uint64_t a2, uint64_t a3) {$/;"	v
+n	include/syscall.h	/^SYSCALL_PROTO(4)(uint64_t n, uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4) {$/;"	v
+name	include/sys/kthread.h	/^    const char* name;$/;"	m	struct:Kernel_Thread
+name	include/sys/tarfs.h	/^	char name[100];$/;"	m	struct:posix_header_ustar
+name	include/sys/task.h	/^  char* name;$/;"	m	struct:vmas
+next	include/sys/kthread.h	/^  struct join_Queue* next;$/;"	m	struct:join_Queue	typeref:struct:join_Queue::join_Queue
+next	include/sys/list.h	/^        struct list_head *next, *prev;$/;"	m	struct:list_head	typeref:struct:list_head::list_head
+next	libc/malloc.c	/^t_block next; \/\/ Pointer to the next block$/;"	m	struct:metadata_block	file:
+next	sys/mm/myalloc.c	/^t_block next; \/\/ Pointer to the next block$/;"	m	struct:metadata_block	file:
+next	sys/mm/slob.c	/^    struct bigblock *next;$/;"	m	struct:bigblock	typeref:struct:bigblock::bigblock	file:
+next	sys/mm/slob.c	/^    struct slob_block *next;$/;"	m	struct:slob_block	typeref:struct:slob_block::slob_block	file:
+nextFreePid	sys/kthread.c	/^int nextFreePid = 0;$/;"	v
+next_in_ThreadList	include/sys/kthread.h	/^    struct Kernel_Thread *prev_in_ThreadList, *next_in_ThreadList;$/;"	m	struct:Kernel_Thread	typeref:struct:Kernel_Thread::
+next_in_ThreadQ	include/sys/kthread.h	/^    struct Kernel_Thread *prev_in_ThreadQ, *next_in_ThreadQ;$/;"	m	struct:Kernel_Thread	typeref:struct:Kernel_Thread::
+next_runnable_kthread	sys/kthread.c	/^kthread* next_runnable_kthread(){$/;"	f
+no_stack_pages	include/sys/kthread.h	/^    int no_stack_pages;$/;"	m	struct:Kernel_Thread
+order	sys/mm/slob.c	/^    int order;$/;"	m	struct:bigblock	file:
+orq	sys/task_switch.s	/^orq $0x200, %rax$/;"	l
+outb	include/io.h	/^outb (unsigned short int port, unsigned char value)$/;"	f
+owner	include/sys/kthread.h	/^    struct Kernel_Thread* owner;$/;"	m	struct:Kernel_Thread	typeref:struct:Kernel_Thread::Kernel_Thread
+p_align	include/elf.h	/^Elf64_Xword p_align; \/* Alignment of segment *\/$/;"	m	struct:__anon5
+p_filesz	include/elf.h	/^Elf64_Xword p_filesz; \/* Size of segment in file *\/$/;"	m	struct:__anon5
+p_flags	include/elf.h	/^Elf64_Word p_flags; \/* Segment attributes *\/$/;"	m	struct:__anon5
+p_memsz	include/elf.h	/^Elf64_Xword p_memsz; \/* Size of segment in memory *\/$/;"	m	struct:__anon5
+p_offset	include/elf.h	/^Elf64_Off p_offset; \/* Offset in file *\/$/;"	m	struct:__anon5
+p_paddr	include/elf.h	/^Elf64_Addr p_paddr; \/* Reserved *\/$/;"	m	struct:__anon5
+p_type	include/elf.h	/^Elf64_Word p_type; \/* Type of segment *\/$/;"	m	struct:__anon5
+p_vaddr	include/elf.h	/^Elf64_Addr p_vaddr; \/* Virtual address in memory *\/$/;"	m	struct:__anon5
+pad	include/sys/tarfs.h	/^	char pad[12];$/;"	m	struct:posix_header_ustar
+page_directory_pointer_table	include/sys/mm/vm_mmgr.h	/^struct page_directory_pointer_table{$/;"	s
+page_directory_pointer_table	include/sys/mm/vmmgr_virtual.h	/^struct page_directory_pointer_table{$/;"	s
+page_directory_table	include/sys/mm/vm_mmgr.h	/^struct page_directory_table{$/;"	s
+page_directory_table	include/sys/mm/vmmgr_virtual.h	/^struct page_directory_table{$/;"	s
+page_fault_handler	sys/isr.c	/^void page_fault_handler(uint64_t err_code, void* err_ins){$/;"	f
+page_map_level_4	include/sys/mm/vm_mmgr.h	/^struct page_map_level_4{$/;"	s
+page_map_level_4	include/sys/mm/vmmgr_virtual.h	/^struct page_map_level_4{$/;"	s
+page_table	include/sys/mm/vm_mmgr.h	/^struct page_table{$/;"	s
+page_table	include/sys/mm/vmmgr_virtual.h	/^struct page_table{$/;"	s
+pages	sys/mm/slob.c	/^    void *pages;$/;"	m	struct:bigblock	file:
+parent	include/sys/kthread.h	/^    struct Kernel_Thread* parent;$/;"	m	struct:Kernel_Thread	typeref:struct:Kernel_Thread::Kernel_Thread
+parseline	bin/shell/shell.c	/^int parseline(const char *cmdline, struct cmdline_tokens *tok) $/;"	f
+parseline	sys/shell.c	/^int parseline(const char *cmdline, struct cmdline_tokens *tok) $/;"	f
+pcr3	include/sys/kthread.h	/^    uint64_t pcr3;$/;"	m	struct:Kernel_Thread
+pd_entry	include/sys/mm/vmmgr_pde.h	/^typedef uint64_t pd_entry;$/;"	t
+pd_entry_add_attrib	sys/mm/vmmgr_pde.c	/^inline void pd_entry_add_attrib(pd_entry *e, uint64_t attrib){$/;"	f
+pd_entry_del_attrib	sys/mm/vmmgr_pde.c	/^inline void pd_entry_del_attrib(pd_entry *e, uint64_t attrib){$/;"	f
+pd_entry_is_4mb	sys/mm/vmmgr_pde.c	/^inline bool pd_entry_is_4mb (pd_entry e) {$/;"	f
+pd_entry_is_present	sys/mm/vmmgr_pde.c	/^inline bool pd_entry_is_present(pd_entry e){$/;"	f
+pd_entry_is_user	sys/mm/vmmgr_pde.c	/^inline bool pd_entry_is_user (pd_entry e) {$/;"	f
+pd_entry_is_writable	sys/mm/vmmgr_pde.c	/^inline bool pd_entry_is_writable(pd_entry e){$/;"	f
+pd_entry_pfn	sys/mm/vmmgr_pde.c	/^inline uint32_t pd_entry_pfn(pd_entry e){$/;"	f
+pd_entry_set_frame	sys/mm/vmmgr_pde.c	/^inline void pd_entry_set_frame(pd_entry *e, uint64_t addr){$/;"	f
+pde	include/sys/mm/vm_mmgr.h	/^typedef page_directory_table pde;$/;"	t
+pde	include/sys/mm/vmmgr_virtual.h	/^typedef struct page_directory_table pde;$/;"	t	typeref:struct:page_directory_table
+pdpe	include/sys/mm/vm_mmgr.h	/^typedef page_directory_pointer_table pdpe;$/;"	t
+pdpe	include/sys/mm/vmmgr_virtual.h	/^typedef struct page_directory_pointer_table pdpe;$/;"	t	typeref:struct:page_directory_pointer_table
+pdpe_entry	include/sys/mm/vmmgr_pdpe.h	/^typedef uint64_t pdpe_entry;$/;"	t
+pdpe_entry_add_attrib	sys/mm/vmmgr_pdpe.c	/^inline void pdpe_entry_add_attrib(pdpe_entry *e, uint64_t attrib){$/;"	f
+pdpe_entry_del_attrib	sys/mm/vmmgr_pdpe.c	/^inline void pdpe_entry_del_attrib(pdpe_entry *e, uint64_t attrib){$/;"	f
+pdpe_entry_is_4mb	sys/mm/vmmgr_pdpe.c	/^inline bool pdpe_entry_is_4mb (pdpe_entry e) {$/;"	f
+pdpe_entry_is_present	sys/mm/vmmgr_pdpe.c	/^inline bool pdpe_entry_is_present(pdpe_entry e){$/;"	f
+pdpe_entry_is_user	sys/mm/vmmgr_pdpe.c	/^inline bool pdpe_entry_is_user (pdpe_entry e) {$/;"	f
+pdpe_entry_is_writable	sys/mm/vmmgr_pdpe.c	/^inline bool pdpe_entry_is_writable(pdpe_entry e){$/;"	f
+pdpe_entry_pfn	sys/mm/vmmgr_pdpe.c	/^inline uint32_t pdpe_entry_pfn(pdpe_entry e){$/;"	f
+pdpe_entry_set_frame	sys/mm/vmmgr_pdpe.c	/^inline void pdpe_entry_set_frame(pdpe_entry *e, uint64_t addr){$/;"	f
+pid	include/sys/kthread.h	/^    int pid;$/;"	m	struct:Kernel_Thread
+pml4	include/sys/mm/vm_mmgr.h	/^typedef page_map_level_4 pml4;$/;"	t
+pml4	include/sys/mm/vmmgr_virtual.h	/^typedef struct page_map_level_4 pml4;$/;"	t	typeref:struct:page_map_level_4
+pml4e_entry	include/sys/mm/vmmgr_pml4.h	/^typedef uint64_t pml4e_entry;$/;"	t
+pml4e_entry_add_attrib	sys/mm/vmmgr_pml4.c	/^inline void pml4e_entry_add_attrib(pml4e_entry *e, uint64_t attrib){$/;"	f
+pml4e_entry_del_attrib	sys/mm/vmmgr_pml4.c	/^inline void pml4e_entry_del_attrib(pml4e_entry *e, uint64_t attrib){$/;"	f
+pml4e_entry_is_4mb	sys/mm/vmmgr_pml4.c	/^inline bool pml4e_entry_is_4mb (pml4e_entry e) {$/;"	f
+pml4e_entry_is_present	sys/mm/vmmgr_pml4.c	/^inline bool pml4e_entry_is_present(pml4e_entry e){$/;"	f
+pml4e_entry_is_user	sys/mm/vmmgr_pml4.c	/^inline bool pml4e_entry_is_user (pml4e_entry e) {$/;"	f
+pml4e_entry_is_writable	sys/mm/vmmgr_pml4.c	/^inline bool pml4e_entry_is_writable(pml4e_entry e){$/;"	f
+pml4e_entry_pfn	sys/mm/vmmgr_pml4.c	/^inline uint32_t pml4e_entry_pfn(pml4e_entry e){$/;"	f
+pml4e_entry_set_frame	sys/mm/vmmgr_pml4.c	/^inline void pml4e_entry_set_frame(pml4e_entry *e, uint64_t addr){$/;"	f
+pmmngr_load_PDBR	sys/mm/paging.c	/^void pmmngr_load_PDBR (uint64_t* addr) {$/;"	f
+popq	sys/task_switch.s	/^popq %rax$/;"	l
+posix_header_ustar	include/sys/tarfs.h	/^struct posix_header_ustar {$/;"	s
+prefix	include/sys/tarfs.h	/^	char prefix[155];$/;"	m	struct:posix_header_ustar
+prev	include/sys/list.h	/^        struct list_head *next, *prev;$/;"	m	struct:list_head	typeref:struct:list_head::
+prev_in_ThreadList	include/sys/kthread.h	/^    struct Kernel_Thread *prev_in_ThreadList, *next_in_ThreadList;$/;"	m	struct:Kernel_Thread	typeref:struct:Kernel_Thread::Kernel_Thread
+prev_in_ThreadQ	include/sys/kthread.h	/^    struct Kernel_Thread *prev_in_ThreadQ, *next_in_ThreadQ;$/;"	m	struct:Kernel_Thread	typeref:struct:Kernel_Thread::Kernel_Thread
+prev_no_pages	sys/mm/vmmgr_virtual.c	/^uint16_t prev_no_pages = 0;$/;"	v
+printElfHdr	sys/elf.c	/^void printElfHdr(void *bin_start, Elf64_Ehdr* bin_elf_start){$/;"	f
+printPgmHdr	sys/elf.c	/^void printPgmHdr(void *bin_start, Elf64_Ehdr* bin_elf_start, uint16_t idx){$/;"	f
+printSectHrds	sys/elf.c	/^void printSectHrds(void* bin_start, Elf64_Ehdr* bin_elf_start, uint16_t idx){$/;"	f
+print_ls	sys/elf.c	/^void print_ls(){$/;"	f
+print_process	sys/isr.c	/^void print_process(){$/;"	f
+print_total_system_memory	sys/mm/mmgr.c	/^void print_total_system_memory(){$/;"	f
+print_usable_system_memory	sys/mm/mmgr.c	/^void print_usable_system_memory(){$/;"	f
+printf	libc/printf.c	/^int printf(const char *fmt, ...) {$/;"	f
+printf	sys/stdfns.c	/^int printf(const char *fmt,...){$/;"	f
+priority	include/sys/kthread.h	/^    int priority;$/;"	m	struct:Kernel_Thread
+prompt	bin/shell/shell.c	/^char prompt[] = "\\nSBUINX> ";$/;"	v
+ps	libc/ps.c	/^uint16_t ps(){$/;"	f
+pt_entry	include/sys/mm/vmmgr_pte.h	/^typedef uint64_t pt_entry;$/;"	t
+pt_entry_add_attrib	sys/mm/vmmgr_pte.c	/^inline void pt_entry_add_attrib(pt_entry *e, uint64_t attrib){$/;"	f
+pt_entry_del_attrib	sys/mm/vmmgr_pte.c	/^inline void pt_entry_del_attrib(pt_entry *e, uint64_t attrib){$/;"	f
+pt_entry_is_accessed	sys/mm/vmmgr_pte.c	/^inline bool pt_entry_is_accessed(pt_entry e){$/;"	f
+pt_entry_is_dirty	sys/mm/vmmgr_pte.c	/^inline bool pt_entry_is_dirty(pt_entry e){$/;"	f
+pt_entry_is_present	sys/mm/vmmgr_pte.c	/^inline bool pt_entry_is_present(pt_entry e){$/;"	f
+pt_entry_is_user	sys/mm/vmmgr_pte.c	/^inline bool pt_entry_is_user(pt_entry e){$/;"	f
+pt_entry_is_writable	sys/mm/vmmgr_pte.c	/^inline bool pt_entry_is_writable(pt_entry e){$/;"	f
+pt_entry_pfn	sys/mm/vmmgr_pte.c	/^inline uint32_t pt_entry_pfn(pt_entry e){$/;"	f
+pt_entry_set_frame	sys/mm/vmmgr_pte.c	/^inline void pt_entry_set_frame(pt_entry *e, uint64_t addr){$/;"	f
+ptable	sys/kthread.c	/^kthread* ptable[100];$/;"	v
+pte	include/sys/mm/vm_mmgr.h	/^typedef struct page_table pte;$/;"	t	typeref:struct:page_table
+pte	include/sys/mm/vmmgr_virtual.h	/^typedef struct page_table pte;$/;"	t	typeref:struct:page_table
+pushfq	sys/task_switch.s	/^pushfq$/;"	l
+pushq	sys/task_switch.s	/^pushq $0x1B # User CS = 0x18 | 0x3 ( DPL ) = 0x1B$/;"	l
+pushq	sys/task_switch.s	/^pushq $0x23$/;"	l
+pushq	sys/task_switch.s	/^pushq %rax$/;"	l
+pushq	sys/task_switch.s	/^pushq (%rax)$/;"	l
+r10	include/sys/idt.h	/^    uint64_t r15, r14, r13, r12, r11, r10, r9, r8, rsi, rdi, rbp, rdx, rcx, rbx, rax;$/;"	m	struct:registers
+r11	include/sys/idt.h	/^    uint64_t r15, r14, r13, r12, r11, r10, r9, r8, rsi, rdi, rbp, rdx, rcx, rbx, rax;$/;"	m	struct:registers
+r12	include/sys/idt.h	/^    uint64_t r15, r14, r13, r12, r11, r10, r9, r8, rsi, rdi, rbp, rdx, rcx, rbx, rax;$/;"	m	struct:registers
+r13	include/sys/idt.h	/^    uint64_t r15, r14, r13, r12, r11, r10, r9, r8, rsi, rdi, rbp, rdx, rcx, rbx, rax;$/;"	m	struct:registers
+r14	include/sys/idt.h	/^    uint64_t r15, r14, r13, r12, r11, r10, r9, r8, rsi, rdi, rbp, rdx, rcx, rbx, rax;$/;"	m	struct:registers
+r15	include/sys/idt.h	/^    uint64_t r15, r14, r13, r12, r11, r10, r9, r8, rsi, rdi, rbp, rdx, rcx, rbx, rax;$/;"	m	struct:registers
+r8	include/sys/idt.h	/^    uint64_t r15, r14, r13, r12, r11, r10, r9, r8, rsi, rdi, rbp, rdx, rcx, rbx, rax;$/;"	m	struct:registers
+r9	include/sys/idt.h	/^    uint64_t r15, r14, r13, r12, r11, r10, r9, r8, rsi, rdi, rbp, rdx, rcx, rbx, rax;$/;"	m	struct:registers
+rax	include/sys/idt.h	/^    uint64_t r15, r14, r13, r12, r11, r10, r9, r8, rsi, rdi, rbp, rdx, rcx, rbx, rax;$/;"	m	struct:registers
+rbp	include/sys/idt.h	/^    uint64_t r15, r14, r13, r12, r11, r10, r9, r8, rsi, rdi, rbp, rdx, rcx, rbx, rax;$/;"	m	struct:registers
+rbx	include/sys/idt.h	/^    uint64_t r15, r14, r13, r12, r11, r10, r9, r8, rsi, rdi, rbp, rdx, rcx, rbx, rax;$/;"	m	struct:registers
+rcx	include/sys/idt.h	/^    uint64_t r15, r14, r13, r12, r11, r10, r9, r8, rsi, rdi, rbp, rdx, rcx, rbx, rax;$/;"	m	struct:registers
+rdi	include/sys/idt.h	/^    uint64_t r15, r14, r13, r12, r11, r10, r9, r8, rsi, rdi, rbp, rdx, rcx, rbx, rax;$/;"	m	struct:registers
+rdx	include/sys/idt.h	/^    uint64_t r15, r14, r13, r12, r11, r10, r9, r8, rsi, rdi, rbp, rdx, rcx, rbx, rax;$/;"	m	struct:registers
+read	libc/read.c	/^int read(char* buf){$/;"	f
+readelf	sys/elf.c	/^uint16_t readelf(char *name, struct exec *executable, uint16_t *pgm_entries, uint64_t *entry_point){$/;"	f
+reading	sys/isr.c	/^volatile int reading = 0;$/;"	v
+reading_finished	sys/isr.c	/^volatile int reading_finished = 1;$/;"	v
+refCount	include/sys/kthread.h	/^    int refCount;$/;"	m	struct:Kernel_Thread
+registers	include/sys/idt.h	/^typedef struct registers{$/;"	s
+regs	include/sys/idt.h	/^    } regs;$/;"	t	typeref:struct:registers
+reload_cr3	sys/isr.c	/^void reload_cr3(uint64_t pcr3){$/;"	f
+reload_gdt	sys/gdt.c	/^void reload_gdt() {$/;"	f
+reload_idt	sys/idt.c	/^void reload_idt() {$/;"	f
+remove_alllist_kthread	sys/kthread.c	/^void remove_alllist_kthread(global_thread_list* all_queue, kthread* runnable){$/;"	f
+remove_child	sys/kthread.c	/^void remove_child(kthread* parent, kthread* child_node){$/;"	f
+remove_runnable_kthread	sys/kthread.c	/^void remove_runnable_kthread(Thr_Queue* run_queue, kthread* runnable){$/;"	f
+reserved	include/sys/gdt.h	/^	uint32_t reserved;$/;"	m	struct:tss_t
+reserved	include/sys/idt.h	/^      uint32_t   reserved;$/;"	m	struct:idtEntry
+reservedIst	include/sys/idt.h	/^      unsigned char   reservedIst;$/;"	m	struct:idtEntry
+rflags	include/sys/idt.h	/^    uint64_t rip, cs, rflags, rsp, ss;$/;"	m	struct:registers
+rip	include/sys/idt.h	/^    uint64_t rip, cs, rflags, rsp, ss;$/;"	m	struct:registers
+round	sys/elf.c	/^int round(int no){$/;"	f
+rsi	include/sys/idt.h	/^    uint64_t r15, r14, r13, r12, r11, r10, r9, r8, rsi, rdi, rbp, rdx, rcx, rbx, rax;$/;"	m	struct:registers
+rsp	include/sys/idt.h	/^    uint64_t rip, cs, rflags, rsp, ss;$/;"	m	struct:registers
+rsp	include/sys/kthread.h	/^    uint64_t rsp;                         \/* offset 0 *\/$/;"	m	struct:Kernel_Thread
+rsp0	include/sys/gdt.h	/^	uint64_t rsp0;$/;"	m	struct:tss_t
+runQueue	sys/kthread.c	/^Thr_Queue runQueue;$/;"	v
+runnable_kthread	sys/kthread.c	/^void runnable_kthread(kthread* k_thread){$/;"	f
+sbrk	libc/sbrk.c	/^int sbrk(int size){$/;"	f
+sbrk	sys/isr.c	/^int sbrk(int pr){$/;"	f
+scan_code	sys/kb.c	/^static int scan_code[] = {$/;"	v	file:
+scheduler_init	sys/kthread.c	/^void scheduler_init(){$/;"	f
+sd_dpl	sys/gdt.c	/^	uint64_t sd_dpl:2;     \/* segment descriptor priority level *\/$/;"	m	struct:sys_segment_descriptor	file:
+sd_gran	sys/gdt.c	/^	uint64_t sd_gran:1;    \/* limit granularity (byte\/page) *\/$/;"	m	struct:sys_segment_descriptor	file:
+sd_hibase	sys/gdt.c	/^	uint64_t sd_hibase:40; \/* segment base address (msb) *\/$/;"	m	struct:sys_segment_descriptor	file:
+sd_hilimit	sys/gdt.c	/^	uint64_t sd_hilimit:4; \/* segment extent (msb) *\/$/;"	m	struct:sys_segment_descriptor	file:
+sd_lobase	sys/gdt.c	/^	uint64_t sd_lobase:24; \/* segment base address (lsb) *\/$/;"	m	struct:sys_segment_descriptor	file:
+sd_lolimit	sys/gdt.c	/^	uint64_t sd_lolimit:16;\/* segment extent (lsb) *\/$/;"	m	struct:sys_segment_descriptor	file:
+sd_p	sys/gdt.c	/^	uint64_t sd_p:1;       \/* segment descriptor present *\/$/;"	m	struct:sys_segment_descriptor	file:
+sd_type	sys/gdt.c	/^	uint64_t sd_type:5;    \/* segment type *\/$/;"	m	struct:sys_segment_descriptor	file:
+sd_xx1	sys/gdt.c	/^	uint64_t sd_xx1:3;     \/* avl, long and def32 (not used) *\/$/;"	m	struct:sys_segment_descriptor	file:
+sd_xx2	sys/gdt.c	/^	uint64_t sd_xx2:8;     \/* reserved *\/$/;"	m	struct:sys_segment_descriptor	file:
+sd_xx3	sys/gdt.c	/^	uint64_t sd_xx3:19;    \/* reserved *\/$/;"	m	struct:sys_segment_descriptor	file:
+sd_zero	sys/gdt.c	/^	uint64_t sd_zero:5;    \/* must be zero *\/$/;"	m	struct:sys_segment_descriptor	file:
+seconds_tens	sys/timer.c	/^uint16_t seconds_tens=0;$/;"	v
+seconds_units	sys/timer.c	/^uint16_t seconds_units=0;$/;"	v
+seg_actual_start	include/elf.h	/^uint64_t seg_actual_start;$/;"	m	struct:exec
+seg_length	include/elf.h	/^uint32_t seg_length;$/;"	m	struct:exec
+seg_mem	include/elf.h	/^void* seg_mem;$/;"	m	struct:exec
+seg_page_start	include/elf.h	/^uint64_t seg_page_start;$/;"	m	struct:exec
+selector	include/sys/idt.h	/^      uint16_t   selector;$/;"	m	struct:idtEntry
+set_kernel_stack	sys/main.c	/^void set_kernel_stack(uint64_t stack) \/\/this will update the ESP0 stack used when an interrupt occurs$/;"	f
+set_page_entry	sys/mm/vmmgr_virtual.c	/^void set_page_entry(pt_entry* e, uint64_t phys, bool is_user){$/;"	f
+set_pde_entry	sys/mm/vmmgr_virtual.c	/^void set_pde_entry(pd_entry* e2, pte* pte_dir, bool is_user){$/;"	f
+set_pdpe_entry	sys/mm/vmmgr_virtual.c	/^void set_pdpe_entry(pdpe_entry* e1, pde* pde_dir, bool is_user){$/;"	f
+set_phys_virt_recurse	sys/mm/vmmgr_virtual.c	/^void set_phys_virt_recurse(uint64_t phys, virtual_addr virt, bool is_user){$/;"	f
+set_pml4_entry	sys/mm/vmmgr_virtual.c	/^void set_pml4_entry(pml4e_entry* e, pdpe* pdpe_dir, bool is_user){$/;"	f
+set_pml4_entry_recurs	sys/mm/vmmgr_virtual.c	/^void set_pml4_entry_recurs(pml4e_entry* e, pml4* pml4_dir, bool is_user){$/;"	f
+setup_kthread	sys/kthread.c	/^void setup_kthread(kthread* k_thread, thread_func startFunc, uint16_t arg){$/;"	f
+setup_kthread_user	sys/exec.c	/^void setup_kthread_user(kthread* k_thread, void* startFunc, uint16_t arg){$/;"	f
+setup_tss	sys/gdt.c	/^void setup_tss() {$/;"	f
+sh_addr	include/elf.h	/^Elf64_Addr sh_addr; \/* Virtual address in memory *\/$/;"	m	struct:__anon4
+sh_addralign	include/elf.h	/^Elf64_Xword sh_addralign; \/* Address alignment boundary *\/$/;"	m	struct:__anon4
+sh_entsize	include/elf.h	/^Elf64_Xword sh_entsize; \/* Size of entries, if section has table *\/$/;"	m	struct:__anon4
+sh_flags	include/elf.h	/^Elf64_Xword sh_flags; \/* Section attributes *\/$/;"	m	struct:__anon4
+sh_info	include/elf.h	/^Elf64_Word sh_info; \/* Miscellaneous information *\/$/;"	m	struct:__anon4
+sh_link	include/elf.h	/^Elf64_Word sh_link; \/* Link to other section *\/$/;"	m	struct:__anon4
+sh_name	include/elf.h	/^Elf64_Word sh_name; \/* Section name *\/$/;"	m	struct:__anon4
+sh_offset	include/elf.h	/^Elf64_Off sh_offset; \/* Offset in file *\/$/;"	m	struct:__anon4
+sh_size	include/elf.h	/^Elf64_Xword sh_size; \/* Size of section *\/$/;"	m	struct:__anon4
+sh_type	include/elf.h	/^Elf64_Word sh_type; \/* Section type *\/$/;"	m	struct:__anon4
+shell_main	sys/shell.c	/^void shell_main() $/;"	f
+size	include/sys/idt.h	/^    uint16_t size;$/;"	m	struct:idtr_t
+size	include/sys/tarfs.h	/^	char size[12];$/;"	m	struct:posix_header_ustar
+size	libc/malloc.c	/^int size; \/\/ Size of the current chunk$/;"	m	struct:metadata_block	file:
+size	sys/gdt.c	/^	uint16_t size;$/;"	m	struct:gdtr_t	file:
+size	sys/mm/myalloc.c	/^uint16_t size; \/\/ Size of the current chunk$/;"	m	struct:metadata_block	file:
+sleep	libc/sleep.c	/^void sleep(uint64_t time){$/;"	f
+sleep	sys/isr.c	/^void sleep(uint64_t time){$/;"	f
+sleeping	include/sys/kthread.h	/^    signed int sleeping;           \/* offset 4 *\/$/;"	m	struct:Kernel_Thread
+slob_alloc	sys/mm/slob.c	/^void *slob_alloc(int size, int align){$/;"	f
+slob_block	sys/mm/slob.c	/^struct slob_block{$/;"	s	file:
+slob_free	sys/mm/slob.c	/^void slob_free(void *block, int size){$/;"	f
+slob_t	sys/mm/slob.c	/^typedef struct slob_block slob_t;$/;"	t	typeref:struct:slob_block	file:
+slobfree	sys/mm/slob.c	/^static slob_t *slobfree = &arena;$/;"	v	file:
+smap_t	include/sys/mm/mmgr.h	/^struct smap_t {$/;"	s
+split_block	libc/malloc.c	/^void split_block(t_block b,int size){$/;"	f
+split_block	sys/mm/myalloc.c	/^void split_block(t_block b,uint16_t size){$/;"	f
+ss	include/sys/idt.h	/^    uint64_t rip, cs, rflags, rsp, ss;$/;"	m	struct:registers
+stack	sys/main.c	/^char stack[INITIAL_STACK_SIZE];$/;"	v
+stackPage	include/sys/kthread.h	/^    void* stackPage;$/;"	m	struct:Kernel_Thread
+start	sys/main.c	/^void start(uint16_t arg)$/;"	f
+start_kthread	sys/kthread.c	/^kthread* start_kthread(thread_func startFunc, const char* name, uint16_t arg, uint16_t priority, bool detached){$/;"	f
+strchr	libc/stdlib.c	/^char *strchr(const char *s, int c)$/;"	f
+strchr	sys/stdfns.c	/^char *strchr(const char *s, int c)$/;"	f
+strcmp	libc/stdlib.c	/^int strcmp(char *a, char* b){$/;"	f
+strcmp	sys/stdfns.c	/^int strcmp(char *a, char* b){$/;"	f
+strcpsn	libc/stdlib.c	/^int strcpsn(const char *s1, const char *s2)$/;"	f
+strcpsn	sys/stdfns.c	/^int strcpsn(const char *s1, const char *s2)$/;"	f
+strlen	libc/stdlib.c	/^int strlen(const char *s){$/;"	f
+strlen	sys/stdfns.c	/^int strlen(const char *s){$/;"	f
+strncpy	libc/stdlib.c	/^void strncpy(char* dest, const char* src, uint32_t size){$/;"	f
+strncpy	sys/stdfns.c	/^void strncpy(char* dest, const char* src, uint32_t size){$/;"	f
+sub_free	sys/mm/myalloc.c	/^void sub_free(void* p){$/;"	f
+sub_malloc	sys/mm/myalloc.c	/^void* sub_malloc(uint16_t size, bool align){$/;"	f
+sum	bin/hello/hello.c	/^void sum(int a, int b){$/;"	f
+sum	bin/stackoverflow/stackoverflow.c	/^void sum(int a, int b){$/;"	f
+switch_to_user	sys/task_switch.s	/^switch_to_user:$/;"	l
+sys_exit	sys/isr.c	/^void sys_exit(){$/;"	f
+sys_getpid	sys/isr.c	/^int sys_getpid(){$/;"	f
+sys_segment_descriptor	sys/gdt.c	/^struct sys_segment_descriptor {$/;"	s	file:
+sys_total_memory	sys/mm/mmgr.c	/^struct smap_t sys_total_memory[10];$/;"	v	typeref:struct:smap_t
+sys_usable_memory	sys/mm/mmgr.c	/^struct smap_t sys_usable_memory[10];$/;"	v	typeref:struct:smap_t
+t_block	libc/malloc.c	/^typedef struct metadata_block *t_block;$/;"	t	typeref:struct:metadata_block	file:
+t_block	sys/mm/myalloc.c	/^typedef struct metadata_block *t_block;$/;"	t	typeref:struct:metadata_block	file:
+tail	include/sys/kthread.h	/^    kthread *head, *tail;$/;"	m	struct:Thread_queue
+tail	include/sys/kthread.h	/^  kthread *head, *tail;$/;"	m	struct:All_threads
+tarfs_read	sys/elf.c	/^void* tarfs_read(char* name){$/;"	f
+task_error_t	include/errors.h	/^typedef enum _task_error task_error_t;$/;"	t	typeref:enum:_task_error
+temp	sys/isr.c	/^void temp(){$/;"	f
+thread_cleanup	sys/kthread.c	/^void thread_cleanup(kthread* k_thread){$/;"	f
+thread_exit	sys/kthread.c	/^static void thread_exit(void)$/;"	f	file:
+thread_func	include/sys/kthread.h	/^typedef void (*thread_func)(uint16_t arg);$/;"	t
+timer_handler	sys/timer.c	/^void timer_handler(regs *r){$/;"	f
+timer_install	sys/timer.c	/^void timer_install(){$/;"	f
+timer_memory	sys/stdfns.c	/^char* timer_memory = (char *)TIMER_MEMORY;$/;"	v
+timer_setup	sys/timer.c	/^void timer_setup(int hz)$/;"	f
+tlocalData	include/sys/kthread.h	/^    const void* tlocalData[MAX_TLOCAL_KEYS];$/;"	m	struct:Kernel_Thread
+total_mem_counter	sys/mm/mmgr.c	/^uint64_t total_mem_counter = 0;$/;"	v
+total_ticks	sys/timer.c	/^uint16_t total_ticks = 0; \/\/ Variable to keep track of total ticks thus far$/;"	v
+total_ticks_secs	sys/timer.c	/^uint16_t total_ticks_secs=0;$/;"	v
+tss	sys/main.c	/^struct tss_t tss;$/;"	v	typeref:struct:tss_t
+tss_t	include/sys/gdt.h	/^struct tss_t {$/;"	s
+type	include/sys/mm/mmgr.h	/^      uint32_t type;$/;"	m	struct:smap_t
+typeflag	include/sys/tarfs.h	/^	char typeflag[1];$/;"	m	struct:posix_header_ustar
+uid	include/sys/tarfs.h	/^	char uid[8];$/;"	m	struct:posix_header_ustar
+uint16_t	include/defs.h	/^typedef __uint16_t uint16_t;$/;"	t
+uint32_t	include/defs.h	/^typedef __uint32_t uint32_t;$/;"	t
+uint64_t	include/defs.h	/^typedef __uint64_t uint64_t;$/;"	t
+uint8_t	include/defs.h	/^typedef __uchar8_t uint8_t;$/;"	t
+uname	include/sys/tarfs.h	/^	char uname[32];$/;"	m	struct:posix_header_ustar
+units	sys/mm/slob.c	/^    int units;$/;"	m	struct:slob_block	file:
+unused	include/sys/gdt.h	/^	uint32_t unused[11];$/;"	m	struct:tss_t
+update_cursor	sys/stdfns.c	/^void update_cursor()$/;"	f
+usable_mem_counter	sys/mm/mmgr.c	/^uint64_t usable_mem_counter = 0;$/;"	v
+usage	bin/shell/shell.c	/^void usage(){$/;"	f
+usage	sys/shell.c	/^void usage(){$/;"	f
+va_arg	include/stdarg.h	2;"	d
+va_copy	include/stdarg.h	4;"	d
+va_end	include/stdarg.h	3;"	d
+va_list	include/stdarg.h	/^typedef __builtin_va_list va_list;$/;"	t
+va_start	include/stdarg.h	1;"	d
+version	include/sys/tarfs.h	/^	char version[2];$/;"	m	struct:posix_header_ustar
+video_memory	sys/stdfns.c	/^char* video_memory = (char *)START_MEMORY;$/;"	v
+virt_base	sys/mm/vmmgr_virtual.c	/^uint64_t virt_base = 0xFFFFFFFF80000000;$/;"	v
+virtual_addr	include/sys/mm/vm_mmgr.h	/^typedef uint64_t virtual_addr;$/;"	t
+virtual_addr	include/sys/mm/vmmgr_virtual.h	/^typedef uint64_t virtual_addr;$/;"	t
+vm_area_struct	include/sys/task.h	/^typedef struct vmas vm_area_struct;$/;"	t	typeref:struct:vmas
+vm_end	include/sys/task.h	/^  void *vm_start, *vm_end; \/\/ Start and end of the region$/;"	m	struct:vmas
+vm_flags	include/sys/task.h	/^  uint16_t vm_flags;$/;"	m	struct:vmas
+vm_next	include/sys/task.h	/^  struct vmas *vm_next;$/;"	m	struct:vmas	typeref:struct:vmas::vmas
+vm_start	include/sys/task.h	/^  void *vm_start, *vm_end; \/\/ Start and end of the region$/;"	m	struct:vmas
+vmas	include/sys/task.h	/^struct vmas {$/;"	s
+vmmgr_alloc_block	sys/mm/vmmgr_page_allocator.c	/^void* vmmgr_alloc_block(){$/;"	f
+vmmgr_alloc_page	sys/mm/vmmgr_virtual.c	/^inline void* vmmgr_alloc_page(uint16_t page){$/;"	f
+vmmgr_free_block	sys/mm/vmmgr_page_allocator.c	/^void vmmgr_free_block(void *p){$/;"	f
+vmmgr_free_page	sys/mm/vmmgr_virtual.c	/^inline void vmmgr_free_page(){$/;"	f
+vmmgr_get_current_pml4_directory	sys/mm/vmmgr_virtual.c	/^pml4* vmmgr_get_current_pml4_directory(){$/;"	f
+vmmgr_get_first_free	sys/mm/vmmgr_page_allocator.c	/^int vmmgr_get_first_free(){$/;"	f
+vmmgr_get_total_blocks	sys/mm/vmmgr_page_allocator.c	/^uint64_t vmmgr_get_total_blocks(){$/;"	f
+vmmgr_get_total_usable_blocks	sys/mm/vmmgr_page_allocator.c	/^uint64_t vmmgr_get_total_usable_blocks(){$/;"	f
+vmmgr_get_total_usable_memory	sys/mm/vmmgr_page_allocator.c	/^uint64_t vmmgr_get_total_usable_memory(){$/;"	f
+vmmgr_get_used_blocks	sys/mm/vmmgr_page_allocator.c	/^uint64_t vmmgr_get_used_blocks(){$/;"	f
+vmmgr_init	sys/mm/vmmgr_virtual.c	/^void vmmgr_init(){$/;"	f
+vmmgr_is_block_free	sys/mm/vmmgr_page_allocator.c	/^inline bool vmmgr_is_block_free (int bit) {$/;"	f
+vmmgr_load_pml4	sys/mm/paging.s	/^vmmgr_load_pml4:$/;"	l
+vmmgr_map_page	sys/mm/vmmgr_virtual.c	/^void vmmgr_map_page(uint64_t phys, uint64_t virt){$/;"	f
+vmmgr_map_page_after_paging	sys/mm/vmmgr_virtual.c	/^void vmmgr_map_page_after_paging(uint64_t phys, uint64_t virt, bool is_user){$/;"	f
+vmmgr_max_blocks	sys/mm/vmmgr_page_allocator.c	/^uint64_t vmmgr_max_blocks=0;$/;"	v
+vmmgr_memory_map	sys/mm/vmmgr_page_allocator.c	/^static uint64_t vmmgr_memory_map[ (MY_KERNEL_SIZE*1024*1024)\/(4096*64*10) ];$/;"	v	file:
+vmmgr_page_alloc	sys/mm/vmmgr_page_allocator.c	/^void* vmmgr_page_alloc(){$/;"	f
+vmmgr_page_allocator_init	sys/mm/vmmgr_page_allocator.c	/^void vmmgr_page_allocator_init(){$/;"	f
+vmmgr_page_directory_lookup_entry	sys/mm/vmmgr_virtual.c	/^pd_entry* vmmgr_page_directory_lookup_entry(pde* p, virtual_addr addr){$/;"	f
+vmmgr_page_directory_lookup_entry	sys/mm/vmmgr_virtual.cpp	/^inline pd_entry* vmmgr_page_directory_lookup_entry(pde* p, virtual_addr){$/;"	f
+vmmgr_page_pointer_directory_lookup_entry	sys/mm/vmmgr_virtual.c	/^pdpe_entry* vmmgr_page_pointer_directory_lookup_entry(pdpe* p, virtual_addr addr){$/;"	f
+vmmgr_pml4_directory_lookup_entry	sys/mm/vmmgr_virtual.c	/^pml4e_entry* vmmgr_pml4_directory_lookup_entry(pml4* p, virtual_addr addr){$/;"	f
+vmmgr_print_stats	sys/mm/vmmgr_page_allocator.c	/^void vmmgr_print_stats(){$/;"	f
+vmmgr_ptable_lookup_entry	sys/mm/vmmgr_virtual.c	/^pt_entry* vmmgr_ptable_lookup_entry(pte* p, virtual_addr addr){$/;"	f
+vmmgr_ptable_lookup_entry	sys/mm/vmmgr_virtual.cpp	/^inline pt_entry* vmmgr_ptable_lookup_entry(pte* p, virtual_addr addr){$/;"	f
+vmmgr_set_block	sys/mm/vmmgr_page_allocator.c	/^inline void vmmgr_set_block (int bit) {$/;"	f
+vmmgr_switch_pml4_directory	sys/mm/vmmgr_virtual.c	/^inline void vmmgr_switch_pml4_directory(pml4* p){$/;"	f
+vmmgr_unset_block	sys/mm/vmmgr_page_allocator.c	/^inline void vmmgr_unset_block (int bit) {$/;"	f
+vmmgr_usable_memory_size	sys/mm/vmmgr_page_allocator.c	/^uint64_t vmmgr_usable_memory_size;$/;"	v
+vmmgr_used_blocks	sys/mm/vmmgr_page_allocator.c	/^uint64_t vmmgr_used_blocks=0;$/;"	v
+wait	libc/wait.c	/^int wait(){$/;"	f
+wait	sys/isr.c	/^void wait(){$/;"	f
+write	libc/printf.c	/^uint16_t write(const char* buf){$/;"	f
+write	libc/syscalls.s	/^write:$/;"	l
+write	sys/isr.c	/^void write(const char* str){$/;"	f
+write_char	sys/stdfns.c	/^void write_char(int color, char c)$/;"	f
+write_io_buff	sys/stdfns.c	/^void write_io_buff(char c)$/;"	f
+write_key	sys/stdfns.c	/^void write_key(int color, char c){$/;"	f
+write_string	sys/stdfns.c	/^void write_string( int color, const char *string )$/;"	f
+write_time	sys/stdfns.c	/^void write_time(uint16_t su, uint16_t st, uint16_t mu, uint16_t mt, uint16_t hu, uint16_t ht)$/;"	f
+x86_64_asm_ltr	sys/idt.c	/^void x86_64_asm_ltr(){$/;"	f

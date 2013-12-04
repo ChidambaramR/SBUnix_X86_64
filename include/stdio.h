@@ -6,6 +6,9 @@
 #define KEYBOARD_WARMUP_MEMORY 0xB8F8A // Starting position as mentioned in the handout
 #define MAX_ROWS 25
 #define MAX_COLUMNS 80
+#define STDIN 0
+#define STDOUT 1
+#define STDERR 2
 
 #include <defs.h>
 //#include <unistd.h>

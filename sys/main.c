@@ -23,6 +23,8 @@ bool is_scheduler_on = 0;
 void* kphysfree = 0;
 extern void switch_to_user();
 extern void do_exec(char*);
+extern void tarfs_dir();
+extern void init_tarfs();
 
 void hello_in_user_mode(){
 }
@@ -34,6 +36,7 @@ void set_kernel_stack(uint64_t stack) //this will update the ESP0 stack used whe
 
 void start(uint16_t arg)
 {
+          init_tarfs();
     //    uint64_t *test,*test2,*test3,*test4,*test5,*test6;
      //   int *a,*b,*c;
 //        printf("Screen has been cleared. In function \"%s\", its address = 0x%p \n\n",__FUNCTION__,(uint64_t)start);
@@ -65,6 +68,7 @@ void start(uint16_t arg)
 //        printf("code buf = %s, data buf = %s, code length = %d, data_length = %d",a1,b1,ca,cb);
         // kernel starts here 
         //switch_to_user();
+        tarfs_dir();
         do_exec("bin/shell");
         //shell_main();
 //        uint16_t i = 0;

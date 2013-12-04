@@ -52,6 +52,7 @@ struct Kernel_Thread {
     int priority;
     struct Kernel_Thread *prev_in_ThreadQ, *next_in_ThreadQ;
     void* stackPage;
+    int brk;
     int no_stack_pages;
 //    struct User_Context* userContext;
     struct Kernel_Thread* owner;
@@ -114,4 +115,5 @@ void add_to_joinQueue(kthread*, kthread*);
 void remove_runnable_kthread(Thr_Queue*, kthread*);
 void* tarfs_read(char*);
 void main_execve(char*);
+ void remove_alllist_kthread(global_thread_list*, kthread*);
 #endif

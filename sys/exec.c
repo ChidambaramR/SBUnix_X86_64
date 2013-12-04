@@ -11,6 +11,7 @@
 #define UserCode  0x0000000000400000
 #define UserData  0x0000000000600000
 #define UserStack 0x0000000000bff000
+#define UserHeap  0x000000000080000
 #define VmaStart  0x0000000000400000
 
 extern uint64_t USER_CS;
@@ -122,7 +123,6 @@ static void Init_Thread_user(kthread* k_thread,const char* name, void* stackPage
     k_thread->pcr3 = get_cr3_register();
     k_thread->cr3 = (uint64_t)currentThread->cr3;
     if(k_thread != currentThread){
-       printf("Alloc'ng new pid\n");
        k_thread->pid = alloc_pid();
     }
 }
@@ -162,13 +162,13 @@ void create_new_task(kthread* k_thread, void* startFunc, const char* name, uint1
 
 uint32_t do_exec(char *name){
     struct exec executable[20];
-    uint64_t currentStack_page;
+    uint64_t currentStack_page, currentHeap_page;
     uint16_t pgm_entries;
     kthread* k_thread;
   
     uint16_t i;
     uint64_t entry_point;
-    printf("in exec\n");
+   //` printf("in exec\n");
     if( readelf(name, executable, &pgm_entries, &entry_point) ){
         k_thread = create_kthread_user(name, 10, 1);
         if(!k_thread)
@@ -182,7 +182,9 @@ uint32_t do_exec(char *name){
 
         currentStack_page = UserStack;
         mmap((void*)currentStack_page, VIRT_PAGE_SIZE, 0, 0, 0, 0, k_thread);
-
+        currentHeap_page = UserHeap;
+        mmap((void*)currentHeap_page, VIRT_PAGE_SIZE, 0, 0, 0, 0, k_thread);
+        k_thread->brk = (int)currentHeap_page;
         // Create the actual task structure
         create_new_task(k_thread, (void*)entry_point, "first", 0, 10, 1);
         add_to_ptable(k_thread);
@@ -197,13 +199,13 @@ uint32_t do_exec(char *name){
 
 void do_exec1(char* name){
     struct exec executable[20];
-    uint64_t currentStack_page;
+    uint64_t currentStack_page, currentHeap_page;
     uint16_t pgm_entries;
     uint16_t i;
     uint64_t entry_point;
+    //printf("in exec1");
     Init_Thread_user(currentThread, name, (void*)UserStack, 10, 1);
     append_global_list_queue(&allThreadList, currentThread);
-    printf("in exec1");
     if( readelf(name, executable, &pgm_entries, &entry_point) ){
         for(i=0; i < pgm_entries; i++){
             mmap((void*)executable[i].seg_page_start, executable[i].seg_length, 0, 0, 0, 0, currentThread);
@@ -213,6 +215,9 @@ void do_exec1(char* name){
 
         currentStack_page = UserStack;
         mmap((void*)currentStack_page, VIRT_PAGE_SIZE, 0, 0, 0, 0, currentThread);
+        currentHeap_page = UserHeap;
+        mmap((void*)currentHeap_page, VIRT_PAGE_SIZE, 0, 0, 0, 0, currentThread);
+        currentThread->brk = (int)currentHeap_page;
 
         // Create the actual task structure
         create_new_task(currentThread, (void*)entry_point, name, 0, 10, 1);
@@ -241,4 +246,5 @@ void main_execve(char* name){
     clear_page_tables(currentThread->cr3);
     reload_cr3(currentThread->pcr3);
     do_exec1(temp);
+    //printf("finisheed\n");
 }

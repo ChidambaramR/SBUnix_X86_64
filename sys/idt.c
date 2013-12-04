@@ -82,22 +82,37 @@ int fault_handler(regs *r)
                                   break;
                           case 5: // Read
                                   val = -1;
-                                  val = doread((char*)r->rdi);
+                                  val = doread((char*)r->rdi, (int)r->rsi);
                                   //printf("returning %d to %d",val,currentThread->pid);
                                   break;
                           case 6: wait();
                                   break;
-                          case 7: //printf("exec file %s\n",(char*)r->rdi);
+                          case 7: printf("exec file %s\n",(char*)r->rdi);
                                   val = -1;
                                   val = do_execve((char*)r->rdi);
-                                  //printf("val = %d\n",val);
+                                 // printf("val = %d\n",val);
                                   break;
                           case 8: print_process();
                                   break;
                           case 9: do_cls();
                                   break;
+                          case 10: do_ls();
+                                   break;
+                          case 11: val = (int)do_sbrk((int)r->rdi);  
+                                   break;
+                          case 12: val = 0;
+                                   val = do_open((char*)r->rdi);
+                                  // printf("returning val = %d\n",val);
+                                   break;
+                          case 13: do_close((int)r->rdi);
+                                   break;
                           case 20:// GetPID 
                                   val = sys_getpid();
+                                  break;
+                          case 21: val = changed((char*)r->rdi);
+                                  break;
+                          case 22: 
+                                  do_pwd();
                                   break;
                         } 
                         break;

@@ -15,9 +15,33 @@ volatile int reading_finished = 1;
 char iobuff[1024];
 char* io_buff;
 extern Thr_Queue runQueue;
+extern global_thread_list allThreadList;
+extern void print_ls();
+extern void print_ll();
+extern void print_pwd();
+extern int nextFreePid;
+extern int tarfs_open(char*);
+extern char files[][100];
+extern int file_used[];
+extern int do_cd(char*);
 
 void reload_cr3(uint64_t pcr3){
     __asm__ __volatile__("movq %rdi, %cr3");
+}
+
+void sys_exit(){
+  int pid;
+  kthread* k_thread;
+  /*
+  Important: While coming to this function, the kernel actually executes in the context
+  of the process. Thus we can easily get the PID of the process which currently issued the system call. 
+  */
+  pid = currentThread->pid;
+  k_thread = ptable[pid];
+  thread_cleanup(k_thread);
+  ptable[pid] = NULL;
+  free_pid();
+  return;
 }
 
 void page_fault_handler(uint64_t err_code, void* err_ins){
@@ -38,10 +62,12 @@ void page_fault_handler(uint64_t err_code, void* err_ins){
               mmap((void*)((uint64_t)currentThread->mmap_cache->vm_start - 0x1000), VIRT_PAGE_SIZE, 0, 0, 0, 0, currentThread);
               }
               else{
-              printf("Stack Overflow! Killing the process %d\n",currentThread->pid);
+              printf("Stack Overflow! Killing the process %d",currentThread->pid);
               currentThread->alive = 0;
 //              while(1);
               remove_runnable_kthread(&runQueue, currentThread);
+              remove_alllist_kthread(&allThreadList, currentThread);
+              sys_exit();
               }
               return;   
           }               
@@ -63,6 +89,14 @@ void page_fault_handler(uint64_t err_code, void* err_ins){
          memcpy((char*)fault_page, (const char*)buf, 4096);
 //        printf("ha ha hai\n");
 //        while(1);
+        return;
+    }
+    else{
+        printf("Segmentation fault. Killing the process %d",currentThread->pid);
+        currentThread->alive = 0;
+        remove_runnable_kthread(&runQueue, currentThread);
+        remove_alllist_kthread(&allThreadList, currentThread);
+        sys_exit();
         return;
     }
 //   while(1);
@@ -102,21 +136,6 @@ int sys_getpid(){
   return currentThread->pid;
 }
 
-void sys_exit(){
-  int pid;
-  kthread* k_thread;
-  /*
-  Important: While coming to this function, the kernel actually executes in the context
-  of the process. Thus we can easily get the PID of the process which currently issued the system call. 
-  */
-  printf("exiting %d\n",currentThread->pid);
-  pid = currentThread->pid;
-  k_thread = ptable[pid];
-  thread_cleanup(k_thread);
-  ptable[pid] = NULL;
-  free_pid();
-  return;
-}
 
 void PushU(kthread* k_thread, uint64_t value){
   k_thread->krsp -= 0x8;
@@ -151,7 +170,7 @@ void fork_int(kthread* k_thread, regs* r){
 }
 
 int fork(regs *r){
-  kthread* k_thread = (kthread*)sub_malloc(sizeof(kthread),0);
+  kthread* k_thread = (kthread*)sub_malloc(0,1);
   memcpy((char *)k_thread, (const char*)currentThread, sizeof(kthread));
   k_thread->pid = alloc_pid();
   ptable[k_thread->pid] = k_thread;
@@ -178,7 +197,8 @@ void sleep(uint64_t time){
   currentThread->sleeping = time;
 }
 
-signed int doread(char* buf){
+signed int doread(char* buf,int fd){
+  if(fd == STDIN){
   __asm__ __volatile__("sti");
   //printf("querying for read_busy by %d val = %d\n",currentThread->pid, reading);
   if(reading == 1 || reading_finished == 0){
@@ -197,6 +217,19 @@ signed int doread(char* buf){
   reading_finished = 1;
   //printf("%d has finieshed reading\n",currentThread->pid);
   return(strlen(buf));
+  }
+  else{
+  // File code
+  if(file_used[fd] == 1){
+    void *src = tarfs_read(files[fd]);
+    memcpy(buf, (char*)src, 100);
+    return 0;
+  }
+  else{
+    printf("File is already open by another process\n");
+    return -1;
+  }
+  }
 }
 
 void temp(){
@@ -219,13 +252,19 @@ void wait(){
 
 int do_execve(char* name){
 void* start = tarfs_read(name);
-//printf("in do_execve\n");
+printf("in do_execve\n");
 if( !start ){
   //  printf("hmmm\n");
     return -1;
 }
 main_execve(name);
+printf("iffn do_execve\n");
+disable_interrupts();
+runnable_kthread(currentThread);
+enable_interrupts();
+printf("iffggn do_execve\n");
 Schedule();
+printf("returning hereee\n");
 //while(1);
 return 0;
 }
@@ -234,19 +273,59 @@ void print_process(){
     kthread* k_thread;
     uint16_t i;
     char* mode;
-    printf("Name      PID      Mode\n");
-    for(i=2; ptable[i] != 0; i++){
+    printf("Name PID Mode\n");
+    for(i=2; i < nextFreePid ; i++){
+    //for(i=2; i<3; i++){
 //      printf("%p\n",ptable[i]);
       k_thread = ptable[i];
       if(k_thread->kernel_thread == 1)
           mode = "Kernel";
-      else if(k_thread->kernel_thread == 0)
+      else
           mode = "User";
-        printf("%s     %d        %s\n",k_thread->name, k_thread->pid, mode);
+        printf("%s %d %s %d\n",k_thread->name, k_thread->pid, mode, nextFreePid);
     }
 }
 
 void do_cls(){
-  //cls();
+  cls();
+  return;
+}
+
+void do_ls(){
+  print_ls();
+  return;
+}
+
+void do_ll(){
+  print_ll();
+  return;
+}
+
+int do_sbrk(int pr){
+  if(pr != 0){
+      currentThread->brk = currentThread->brk + pr;
+  }
+  return currentThread->brk;
+}
+
+int do_open(char* name){
+  int fd;
+  fd = tarfs_open(name);
+  return fd;
+}
+
+void do_close(int fd){
+  file_used[fd]=0;
+  return;
+}
+
+int changed(char* name){
+  int ret;
+  ret = do_cd(name);
+  return ret;
+}
+
+void do_pwd(){
+  print_pwd();
   return;
 }
