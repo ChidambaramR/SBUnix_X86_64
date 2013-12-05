@@ -165,9 +165,16 @@ void* tarfs_read(char* name){
 }
 
 int do_cd(char* name){
+  printf("received cd %s",name);
+  if(strcmp(name, "home") == 0){
+    pwd = &rootfs;
+    return 0;
+  }
+  printf("searching in trafs\n");
   void* addr = tarfs_read(name);
   if(!addr)
     return -1;
+  
   pwd = get_pwd(name);
   //printf("pwd %s\n",pwd->name);
   return 0;
@@ -190,6 +197,7 @@ void print_ls_rec(struct fs_tree *crawl){
 
 void print_ls(){
   print_ls_rec(pwd);
+  printf("\n");
   return;
 }
 

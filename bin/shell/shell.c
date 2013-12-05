@@ -24,21 +24,11 @@ int parseline(const char *cmdline, struct cmdline_tokens *tok)
     endbuf = buf + strlen(buf);
 
     tok->argc = 0;
-//    printf("buf = %s\n",buf);
-//    printf("cmdline = %s\n",cmdline);
     while (buf < endbuf) {
         if (buf >= endbuf) break;
         next_str_ind = strcpsn(buf, delims);
         tok->argv[tok->argc++] = buf;
-            /* Detect quoted tokens */
 
-        if (!strcmp(tok->argv[0], "quit")) {                 /* quit command */
-            tok->builtins = BUILTIN_QUIT;
-        } else if (!strcmp(tok->argv[0], "jobs")) {          /* jobs command */
-            tok->builtins = BUILTIN_JOBS;
-        } else {
-            tok->builtins = BUILTIN_NONE;
-        }
         buf = buf + 1 + next_str_ind;
     }
     return 0;
@@ -46,9 +36,13 @@ int parseline(const char *cmdline, struct cmdline_tokens *tok)
 
 void usage(){
     printf("1. cls - Clear Screen\n");
-    printf("2. exec filename - Execute a process\n");
+    printf("2. exec filename - Execute a process ( path shud be absolute eg: bin/hello )\n");
     printf("3. ps - print the current running process\n");
     printf("4. ls - List the contents of current working directory\n");
+    printf("5. ll - List the all the contents in the file system\n");
+    printf("6. cd ~ - Go to root directory\n");
+    printf("6. cd dirname - Go to that particular directory\n");
+    printf("7. pwd - Print working directory\n");
 }
 
 int exec(char* name){
@@ -65,6 +59,7 @@ int eval(char *cmdline)
     int j,ret=0;
     char cmd[100], tmp[100];
     /* Parse command line */
+     memset((char*)&tok, 0, sizeof(struct cmdline_tokens));
      parseline(cmdline, &tok);
 //     printf("argc = %d\n",tok.argc);
 //    for(i=0; i< tok.argc; i++){
@@ -73,6 +68,7 @@ int eval(char *cmdline)
 //      printf("argv %s\n",tok.argv[i]);
       strncpy(tmp, tok.argv[0], strlen(tok.argv[0]));
 //      printf("tmp %s len = %d\n",tmp,strlen(tmp));
+      //while(1);
       for(j=0; (tmp[j] != ' ' && tmp[j] != '\r' && j < strlen(tmp)); j++)
         cmd[j] = tmp[j];
       if(strcmp(cmd, "cls") == 0)
@@ -83,12 +79,15 @@ int eval(char *cmdline)
           usage();
       else if(strcmp(cmd, "exec") == 0){
 //          printf("calling exec\n");
-          ret = exec(tok.argv[1]);
+              ret = exec(tok.argv[1]);
      //     break;
       }
       else if(strcmp(cmd, "cd") == 0){
 //          printf("calling exec\n");
-          ret = cd(tok.argv[1]);
+          //if(strcmp(tok.argv[1], "~") == 0)
+              //ret = cd("~");
+          //else 
+              ret = cd(tok.argv[1]);
      //     break;
       }
       else if(strcmp(cmd, "ps") == 0)

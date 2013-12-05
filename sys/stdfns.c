@@ -9,6 +9,8 @@ char* timer_memory = (char *)TIMER_MEMORY;
 char* keyboard_memory = (char*)KEYBOARD_WARMUP_MEMORY;
 extern char* io_buff;
 extern int reading;
+extern char iobuff[];
+int first_char = 0;
 /*
 FUnction to convert a number to any base and it returns as a character pointer,
 */
@@ -105,13 +107,15 @@ void write_io_buff(char c)
 {
 //       printf("received %d\n",c);
        if(c == '\n' || (int)c == 13){
-            *io_buff++ = c;
-            //printf("setting reading = 0\n");
-            reading = 0;
+            if(first_char){
+              *io_buff++ = c;
+              reading = 0;
+            }
        }
        else{
             *io_buff++ = c;
        }
+       first_char = 1;
 }
 
 void strncpy(char* dest, const char* src, uint32_t size){

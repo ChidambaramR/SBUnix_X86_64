@@ -165,14 +165,6 @@ Switch_To_Thread:
   # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   # Going back to where we left off
   # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    pushq %rax
-    movq 0x20(%rsp), %rax
-    cmpq $0x40013b, (%rax)
-    jne .ord1
-    test %rbx, %rbx
-    .ord1:
-    popq %rax
-
   iretq
 
 get_flag_register:

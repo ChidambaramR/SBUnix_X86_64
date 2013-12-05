@@ -109,8 +109,13 @@ static void Init_Thread_user(kthread* k_thread,const char* name, void* stackPage
     */
     //k_thread->kstack = (void*)sub_malloc(0,1);
     k_thread->rsp = ((uint64_t) k_thread->stackPage) + VIRT_PAGE_SIZE - 0x8;
-    k_thread->krsp = ((uint64_t) k_thread->kstack) + 2*VIRT_PAGE_SIZE - 0x8;
-    k_thread->kstack = (void*)(((uint64_t)k_thread->kstack) + 2*VIRT_PAGE_SIZE - 0x8);
+    if(k_thread != currentThread){
+      k_thread->krsp = ((uint64_t) k_thread->kstack) + 2*VIRT_PAGE_SIZE - 0x8;
+      k_thread->kstack = (void*)(((uint64_t)k_thread->kstack) + 2*VIRT_PAGE_SIZE - 0x8);
+    }
+    else{
+      k_thread->krsp = (uint64_t)((uint64_t)k_thread->kstack - 0x8);
+    }
     k_thread->priority = prio;
     //k_thread->userContext = 0;
     k_thread->owner = owner;
@@ -130,7 +135,7 @@ static void Init_Thread_user(kthread* k_thread,const char* name, void* stackPage
 kthread* create_kthread_user(const char* name, int prio, bool detached){
     kthread* k_thread;
     void* stackPage = 0;
-    k_thread = (kthread*)sub_malloc(sizeof(kthread),0);
+    k_thread = (kthread*)sub_malloc(0,1);
     if( !k_thread )
         return NULL;
     stackPage = (void*)UserStack; 
@@ -221,9 +226,7 @@ void do_exec1(char* name){
 
         // Create the actual task structure
         create_new_task(currentThread, (void*)entry_point, name, 0, 10, 1);
-        disable_interrupts();
         runnable_kthread(currentThread);
-        enable_interrupts();
     }
 
 }

@@ -4,7 +4,7 @@
 .extern runnable_kthread
 .extern next_runnable_kthread
 .extern do_execve
-
+.extern Yield
 .align 8
 
 .macro PUSHAQ 
@@ -94,10 +94,12 @@ _isr14:
 #  80: Software Interrupt
 _isr80:
   cli
-       # cmpq $0x7, %rax
-       # jne .exit_t
-       # callq do_execve
-       # callq Schedule
+        #cmpq $0x7, %rax
+        #jne .exit_t
+        #callq do_execve
+        #callq sys_exit
+        #callq Schedule
+#        callq Yield
 
         .exit_t:
         cmpq $0x1, %rax

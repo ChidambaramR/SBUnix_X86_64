@@ -282,6 +282,9 @@ char keycode_to_ascii(uint8_t code){
                 case KEY_BACKSLASH:
                       key = KEY_BAR;
                       break;
+                case KEY_GRAVE:
+                      key = KEY_TILDE;
+                      break;
                 default:
                       break;  
             }

@@ -87,8 +87,9 @@ int fault_handler(regs *r)
                                   break;
                           case 6: wait();
                                   break;
-                          case 7: printf("exec file %s\n",(char*)r->rdi);
+                          case 7: 
                                   val = -1;
+                                  printf("\n exec");
                                   val = do_execve((char*)r->rdi);
                                  // printf("val = %d\n",val);
                                   break;
