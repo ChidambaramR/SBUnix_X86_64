@@ -49,7 +49,7 @@ t_block extend_heap(t_block last, uint16_t size){
         b->next = NULL;
         if(last)  // If the block is last , then point it to first and make the free pointer as 0
                 last->next = b;
-        b->free = 0;
+        b->free = 1;
         return (b);
 }
 
@@ -67,9 +67,8 @@ void split_block(t_block b,uint16_t size){
         new->size = b->size - tot_size;
         new->free = 1;
         b->size = size;
-        b->next = new;
-
-}
+        b->next = new;  
+        }
 
 //Real malloc
 void* sub_malloc(uint16_t size, bool align){
@@ -92,7 +91,9 @@ void* sub_malloc(uint16_t size, bool align){
                 }
                 else{
                 // No fitting block, so extend heap
+                (last)->free = 0;
                 b = extend_heap(last,s);
+                split_block(b,s);
                 if(!b)
                         return NULL; // No space available
                 }

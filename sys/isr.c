@@ -57,13 +57,13 @@ void page_fault_handler(uint64_t err_code, void* err_ins){
         crawl = currentThread->mmap;
         while(crawl){
           if(((uint64_t)crawl->vm_start - faulting_address) <= 100){
-              printf("isr");
+//              printf("isr");
               if(currentThread->no_stack_pages <= 4){
               currentThread->no_stack_pages++;
               mmap((void*)((uint64_t)currentThread->mmap_cache->vm_start - 0x1000), VIRT_PAGE_SIZE, 0, 0, 0, 0, currentThread);
               }
               else{
-              printf("Stack Overflow! Killing the process %d",currentThread->pid);
+              printf("Stack Overflow! Killing the process %d\n",currentThread->pid);
               currentThread->alive = 0;
 //              while(1);
               remove_runnable_kthread(&runQueue, currentThread);

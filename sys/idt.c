@@ -89,7 +89,7 @@ int fault_handler(regs *r)
                                   break;
                           case 7: 
                                   val = -1;
-                                  printf("\n exec");
+                                  //printf("\n exec");
                                   val = do_execve((char*)r->rdi);
                                  // printf("val = %d\n",val);
                                   break;

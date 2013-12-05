@@ -64,7 +64,6 @@ void* malloc(int size){
           base = NULL;
           start++;
         }
-        printf("size = %d\n",s);
 	if(base){
 		last = base;
 		b = find_block(&last,s); // Find the available block
@@ -76,7 +75,9 @@ void* malloc(int size){
 		}
 		else{
 		// No fitting block, so extend heap
+                last->free = 0;
 		b = extend_heap(last,s);
+                split_block(b, s);
 		if(!b)
 			return NULL; // No space available
 		}

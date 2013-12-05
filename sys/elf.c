@@ -165,12 +165,10 @@ void* tarfs_read(char* name){
 }
 
 int do_cd(char* name){
-  printf("received cd %s",name);
   if(strcmp(name, "home") == 0){
     pwd = &rootfs;
     return 0;
   }
-  printf("searching in trafs\n");
   void* addr = tarfs_read(name);
   if(!addr)
     return -1;

@@ -40,7 +40,7 @@ void usage(){
     printf("3. ps - print the current running process\n");
     printf("4. ls - List the contents of current working directory\n");
     printf("5. ll - List the all the contents in the file system\n");
-    printf("6. cd ~ - Go to root directory\n");
+    printf("6. cd home - Go to root directory\n");
     printf("6. cd dirname - Go to that particular directory\n");
     printf("7. pwd - Print working directory\n");
 }
@@ -66,8 +66,9 @@ int eval(char *cmdline)
       memset(cmd, 0, sizeof(cmd));
       memset(tmp, 0, sizeof(tmp));
 //      printf("argv %s\n",tok.argv[i]);
+//      if( tok.argv[0] == '\r')
+//        return 0;
       strncpy(tmp, tok.argv[0], strlen(tok.argv[0]));
-//      printf("tmp %s len = %d\n",tmp,strlen(tmp));
       //while(1);
       for(j=0; (tmp[j] != ' ' && tmp[j] != '\r' && j < strlen(tmp)); j++)
         cmd[j] = tmp[j];
